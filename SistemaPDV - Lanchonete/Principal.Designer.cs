@@ -46,7 +46,6 @@ namespace SistemaPDV___Lanchonete
             this.produtosToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.vendasToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.panelPrincipal = new System.Windows.Forms.Panel();
-            this.materiasPrimasToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -68,7 +67,6 @@ namespace SistemaPDV___Lanchonete
             this.cadastrosToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.clientesToolStripMenuItem,
             this.produtosToolStripMenuItem,
-            this.materiasPrimasToolStripMenuItem,
             this.estoqueToolStripMenuItem,
             this.menuUsuario});
             this.cadastrosToolStripMenuItem.Name = "cadastrosToolStripMenuItem";
@@ -188,12 +186,6 @@ namespace SistemaPDV___Lanchonete
             this.panelPrincipal.Size = new System.Drawing.Size(999, 460);
             this.panelPrincipal.TabIndex = 1;
             // 
-            // materiasPrimasToolStripMenuItem
-            // 
-            this.materiasPrimasToolStripMenuItem.Name = "materiasPrimasToolStripMenuItem";
-            this.materiasPrimasToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-            this.materiasPrimasToolStripMenuItem.Text = "Materias Primas";
-            // 
             // Principal
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -231,7 +223,6 @@ namespace SistemaPDV___Lanchonete
         private System.Windows.Forms.Panel panelPrincipal;
         private System.Windows.Forms.ToolStripMenuItem clientesToolStripMenuItem;
         public System.Windows.Forms.ToolStripMenuItem menuUsuario;
-        private System.Windows.Forms.ToolStripMenuItem materiasPrimasToolStripMenuItem;
     }
 }
 

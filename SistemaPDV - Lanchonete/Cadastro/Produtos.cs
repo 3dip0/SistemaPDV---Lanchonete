@@ -552,6 +552,7 @@ namespace SistemaPDV___Lanchonete
             txtDescricao.Text = dgvProdutos.SelectedCells[1].Value.ToString();
             txtQtd.Text = dgvProdutos.SelectedCells[2].Value.ToString();
             txtValorTotal.Text = dgvProdutos.SelectedCells[3].Value.ToString();
+            CarregarDadosIngredientes();
 
             btnSalv.Visible = true;
             btnCancel.Visible = true;

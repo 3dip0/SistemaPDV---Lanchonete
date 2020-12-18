@@ -38,8 +38,8 @@ namespace SistemaPDV___Lanchonete
                 SQLiteCommand cmd = new SQLiteCommand(sql, conn);
                 cmd.Parameters.AddWithValue("descricao", txtDescricao.Text);
                 cmd.Parameters.AddWithValue("quantidade", txtQtd.Text);
-                cmd.Parameters.AddWithValue("valorUnitario", txtValorUnitario.Text);
-                cmd.Parameters.AddWithValue("valorTotal", txtValorTotal.Text);
+                cmd.Parameters.AddWithValue("valorUnitario", txtValorUnitario.Text.Replace(',', '.'));
+                cmd.Parameters.AddWithValue("valorTotal", txtValorTotal.Text.Replace(',', '.'));
                 
 
 
@@ -79,8 +79,8 @@ namespace SistemaPDV___Lanchonete
                 SQLiteCommand cmd = new SQLiteCommand(sql, conn);
                 cmd.Parameters.AddWithValue("descricao", txtDescricao.Text);
                 cmd.Parameters.AddWithValue("quantidade", txtQtd.Text);
-                cmd.Parameters.AddWithValue("valorUnitario", txtValorUnitario.Text);
-                cmd.Parameters.AddWithValue("valorTotal", txtValorTotal.Text);
+                cmd.Parameters.AddWithValue("valorUnitario", txtValorUnitario.Text.Replace(',', '.'));
+                cmd.Parameters.AddWithValue("valorTotal", txtValorTotal.Text.Replace(',', '.'));
                 cmd.Parameters.AddWithValue("id", txtId.Text);
 
                 cmd.ExecuteNonQuery();

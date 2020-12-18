@@ -12,7 +12,7 @@ namespace SistemaPDV___Lanchonete
 {
     public partial class Contas_a_Pagar : Form
     {
-        SQL instanciaMySql = new SQL();
+        MySQL instanciaMySql = new MySQL();
         string sql;
 
         public Contas_a_Pagar()

@@ -12,7 +12,7 @@ namespace SistemaPDV___Lanchonete.Relatorios
 {
     public partial class Relatorio_Vendas : Form
     {
-        SQL instanciaMySql = new SQL();
+        MySQL instanciaMySql = new MySQL();
         string sql;
 
         public Relatorio_Vendas()

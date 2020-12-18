@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MySql.Data.MySqlClient;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -13,7 +14,7 @@ namespace SistemaPDV___Lanchonete
 {
     public partial class Produtos : Form
     {
-        SQL instanciaMySql = new SQL();
+        MySQL instanciaMySql = new MySQL();
         string sql;
 
         public Produtos()
@@ -25,7 +26,7 @@ namespace SistemaPDV___Lanchonete
 
         private void InserirDados()
         {
-            SQLiteConnection conn = instanciaMySql.GetConnection();
+            MySqlConnection conn = instanciaMySql.GetConnection();
 
             try
             {
@@ -33,9 +34,9 @@ namespace SistemaPDV___Lanchonete
                     conn.Open();
 
                 sql = "INSERT INTO Produto VALUES " +
-                      "(null,?,?,?);";
+                      "(default,?,?,?);";
 
-                SQLiteCommand cmd = new SQLiteCommand(sql, conn);
+                MySqlCommand cmd = new MySqlCommand(sql, conn);
                 cmd.Parameters.AddWithValue("descricao", txtDescricao.Text);
                 cmd.Parameters.AddWithValue("quantidade", txtQtd.Text);
                 cmd.Parameters.AddWithValue("valor", txtValorTotal.Text.Replace(',', '.'));
@@ -62,7 +63,7 @@ namespace SistemaPDV___Lanchonete
 
         private void AlterarDados()
         {
-            SQLiteConnection conn = instanciaMySql.GetConnection();
+            MySqlConnection conn = instanciaMySql.GetConnection();
 
             try
             {
@@ -77,7 +78,7 @@ namespace SistemaPDV___Lanchonete
 
 
 
-                SQLiteCommand cmd = new SQLiteCommand(sql, conn);
+                MySqlCommand cmd = new MySqlCommand(sql, conn);
                 cmd.Parameters.AddWithValue("descricao", txtDescricao.Text);
                 cmd.Parameters.AddWithValue("quantidade", txtQtd.Text);
                 cmd.Parameters.AddWithValue("valor", txtValorTotal.Text.Replace(',', '.'));
@@ -100,7 +101,7 @@ namespace SistemaPDV___Lanchonete
 
         private void CarregarDados()
         {
-            SQLiteConnection conn = instanciaMySql.GetConnection();
+            MySqlConnection conn = instanciaMySql.GetConnection();
             try
             {
                 if (conn.State == ConnectionState.Closed)
@@ -111,8 +112,8 @@ namespace SistemaPDV___Lanchonete
                     " quantidade AS \"Quantidade\"," +
                     " valor AS \"Valor Venda\" " +
                     " FROM Produto";
-                SQLiteCommand cmd = new SQLiteCommand(sql, conn);
-                SQLiteDataAdapter da = new SQLiteDataAdapter(cmd);
+                MySqlCommand cmd = new MySqlCommand(sql, conn);
+                MySqlDataAdapter da = new MySqlDataAdapter(cmd);
                 DataTable ds = new DataTable();
                 da.Fill(ds);
                 dgvProdutos.DataSource = ds;
@@ -134,7 +135,7 @@ namespace SistemaPDV___Lanchonete
 
         private void InserirDadosIngredientes()
         {
-            SQLiteConnection conn = instanciaMySql.GetConnection();
+            MySqlConnection conn = instanciaMySql.GetConnection();
 
             try
             {
@@ -144,7 +145,7 @@ namespace SistemaPDV___Lanchonete
                 sql = "INSERT INTO detalheProduto (id, id_produto, id_materiaPrima, descricao, quantidade, valor) VALUES " +
                       "(null,?,?,?,?,?);";
 
-                SQLiteCommand cmd = new SQLiteCommand(sql, conn);
+                MySqlCommand cmd = new MySqlCommand(sql, conn);
                 cmd.Parameters.AddWithValue("id_produto", txtId.Text);
                 cmd.Parameters.AddWithValue("id_materiaPrima", txtIDIngredientes.Text);
                 cmd.Parameters.AddWithValue("descricao", cbIngredientes.Text);
@@ -171,7 +172,7 @@ namespace SistemaPDV___Lanchonete
 
         private void AlterarDadosIngredientes()
         {
-            SQLiteConnection conn = instanciaMySql.GetConnection();
+            MySqlConnection conn = instanciaMySql.GetConnection();
 
             try
             {
@@ -186,7 +187,7 @@ namespace SistemaPDV___Lanchonete
 
 
 
-                SQLiteCommand cmd = new SQLiteCommand(sql, conn);
+                MySqlCommand cmd = new MySqlCommand(sql, conn);
                 cmd.Parameters.AddWithValue("descricao", cbIngredientes.Text);
                 cmd.Parameters.AddWithValue("quantidade", txtIngQtd.Text);
                 cmd.Parameters.AddWithValue("valor", txtIngTotal.Text.Replace(',', '.'));
@@ -208,7 +209,7 @@ namespace SistemaPDV___Lanchonete
 
         private void CarregarDadosIngredientes()
         {
-            SQLiteConnection conn = instanciaMySql.GetConnection();
+            MySqlConnection conn = instanciaMySql.GetConnection();
             try
             {
                 if (conn.State == ConnectionState.Closed)
@@ -221,8 +222,8 @@ namespace SistemaPDV___Lanchonete
                     "from detalheProduto as dp " +
                     "inner join Produto as p " +
                     $"on dp.id_produto = p.id where dp.id_produto = {txtId.Text}";
-                SQLiteCommand cmd = new SQLiteCommand(sql, conn);
-                SQLiteDataAdapter da = new SQLiteDataAdapter(cmd);
+                MySqlCommand cmd = new MySqlCommand(sql, conn);
+                MySqlDataAdapter da = new MySqlDataAdapter(cmd);
                 DataTable ds = new DataTable();
                 da.Fill(ds);
                 dgvIngredientes.DataSource = ds;
@@ -252,7 +253,7 @@ namespace SistemaPDV___Lanchonete
 
         private void PreencherComboBoxIngredientes()
         {
-            SQLiteConnection conn = instanciaMySql.GetConnection();
+            MySqlConnection conn = instanciaMySql.GetConnection();
             try
             {
                 if (conn.State == ConnectionState.Closed)
@@ -260,9 +261,9 @@ namespace SistemaPDV___Lanchonete
 
                 sql = "SELECT id, descricao FROM Estoque";
 
-               
-                SQLiteCommand cmd = new SQLiteCommand(sql, conn);
-                SQLiteDataAdapter da = new SQLiteDataAdapter(cmd);
+
+                MySqlCommand cmd = new MySqlCommand(sql, conn);
+                MySqlDataAdapter da = new MySqlDataAdapter(cmd);
                
                 DataTable ds = new DataTable();
                 da.Fill(ds);
@@ -289,7 +290,7 @@ namespace SistemaPDV___Lanchonete
 
         private void PreencherComboBoxIngredientesEdit()
         {
-            SQLiteConnection conn = instanciaMySql.GetConnection();
+            MySqlConnection conn = instanciaMySql.GetConnection();
             try
             {
                 if (conn.State == ConnectionState.Closed)
@@ -298,8 +299,8 @@ namespace SistemaPDV___Lanchonete
                 sql = $"SELECT id_materiaPrima, descricao, quantidade, valor FROM detalheProduto where id_materiaPrima LIKE '{dgvIngredientes.SelectedCells[0].Value}%'";
 
 
-                SQLiteCommand cmd = new SQLiteCommand(sql, conn);
-                SQLiteDataAdapter da = new SQLiteDataAdapter(cmd);
+                MySqlCommand cmd = new MySqlCommand(sql, conn);
+                MySqlDataAdapter da = new MySqlDataAdapter(cmd);
 
                 DataTable ds = new DataTable();
                 da.Fill(ds);
@@ -326,7 +327,7 @@ namespace SistemaPDV___Lanchonete
 
         private void preencheTxtIDIngredientes()
         {
-            SQLiteConnection conn = instanciaMySql.GetConnection();
+            MySqlConnection conn = instanciaMySql.GetConnection();
             try
             {
                 if (conn.State == ConnectionState.Closed)
@@ -335,8 +336,8 @@ namespace SistemaPDV___Lanchonete
                 sql = $"SELECT id FROM Estoque where descricao LIKE '{cbIngredientes.Text}%'";
 
 
-                SQLiteCommand cmd = new SQLiteCommand(sql, conn);
-                SQLiteDataReader leitor = cmd.ExecuteReader();
+                MySqlCommand cmd = new MySqlCommand(sql, conn);
+                MySqlDataReader leitor = cmd.ExecuteReader();
                 if (leitor.HasRows)
                 {
                     leitor.Read();
@@ -366,7 +367,7 @@ namespace SistemaPDV___Lanchonete
 
         private void mostraIDProduto()
         {
-            SQLiteConnection conn = instanciaMySql.GetConnection();
+            MySqlConnection conn = instanciaMySql.GetConnection();
             try
             {
                 if (conn.State == ConnectionState.Closed)
@@ -375,8 +376,8 @@ namespace SistemaPDV___Lanchonete
                 sql = $"SELECT id FROM Produto where descricao LIKE '{txtDescricao.Text}%'";
 
 
-                SQLiteCommand cmd = new SQLiteCommand(sql, conn);
-                SQLiteDataReader leitor = cmd.ExecuteReader();
+                MySqlCommand cmd = new MySqlCommand(sql, conn);
+                MySqlDataReader leitor = cmd.ExecuteReader();
                 if (leitor.HasRows)
                 {
                     leitor.Read();
@@ -403,7 +404,7 @@ namespace SistemaPDV___Lanchonete
         {
             if (!string.IsNullOrEmpty(cbIngredientes.Text))
             {
-                SQLiteConnection conn = instanciaMySql.GetConnection();
+                MySqlConnection conn = instanciaMySql.GetConnection();
                 try
                 {
                     if (conn.State == ConnectionState.Closed)
@@ -412,8 +413,8 @@ namespace SistemaPDV___Lanchonete
                     sql = $"SELECT valorUnitario FROM Estoque where id LIKE '{txtIDIngredientes.Text}%'";
 
 
-                    SQLiteCommand cmd = new SQLiteCommand(sql, conn);
-                    SQLiteDataReader leitor = cmd.ExecuteReader();
+                    MySqlCommand cmd = new MySqlCommand(sql, conn);
+                    MySqlDataReader leitor = cmd.ExecuteReader();
                     if (leitor.HasRows)
                     {
                         leitor.Read();
@@ -441,9 +442,9 @@ namespace SistemaPDV___Lanchonete
 
         private void preencheEditor()
         {
-            
-           
-                SQLiteConnection conn = instanciaMySql.GetConnection();
+
+
+            MySqlConnection conn = instanciaMySql.GetConnection();
                 try
                 {
                     if (conn.State == ConnectionState.Closed)
@@ -452,9 +453,9 @@ namespace SistemaPDV___Lanchonete
                     sql = $"SELECT id_materiaPrima, descricao, quantidade, valor FROM detalheProduto where id_materiaPrima LIKE '{dgvIngredientes.SelectedCells[0].Value}%'";
 
 
-                    SQLiteCommand cmd = new SQLiteCommand(sql, conn);
-                    SQLiteDataReader leitor = cmd.ExecuteReader();
-                    if (leitor.HasRows)
+                MySqlCommand cmd = new MySqlCommand(sql, conn);
+                MySqlDataReader leitor = cmd.ExecuteReader();
+                if (leitor.HasRows)
                     {
                         leitor.Read();
                         txtIDIngredientes.Text = leitor["id_materiaPrima"].ToString();
@@ -483,7 +484,7 @@ namespace SistemaPDV___Lanchonete
 
         private void ExcluirDados(int id)
         {
-            SQLiteConnection conn = instanciaMySql.GetConnection();
+            MySqlConnection conn = instanciaMySql.GetConnection();
 
             try
             {
@@ -491,7 +492,7 @@ namespace SistemaPDV___Lanchonete
                     conn.Open();
 
                 sql = "DELETE FROM Produto WHERE id=@id;";
-                SQLiteCommand cmd = new SQLiteCommand(sql, conn);
+                MySqlCommand cmd = new MySqlCommand(sql, conn);
                 cmd.Parameters.AddWithValue("id", id);
                 cmd.ExecuteNonQuery();
                 MessageBox.Show("Produto excluído com sucesso.", "Atenção", MessageBoxButtons.OK, MessageBoxIcon.Information);
@@ -509,7 +510,7 @@ namespace SistemaPDV___Lanchonete
 
         private void ExcluirDadosIngredientes(int id)
         {
-            SQLiteConnection conn = instanciaMySql.GetConnection();
+            MySqlConnection conn = instanciaMySql.GetConnection();
 
             try
             {
@@ -517,7 +518,7 @@ namespace SistemaPDV___Lanchonete
                     conn.Open();
 
                 sql = "DELETE FROM detalheProduto WHERE id_materiaPrima=@id;";
-                SQLiteCommand cmd = new SQLiteCommand(sql, conn);
+                MySqlCommand cmd = new MySqlCommand(sql, conn);
                 cmd.Parameters.AddWithValue("id", id);
                 cmd.ExecuteNonQuery();
                 MessageBox.Show("Ingrediente excluído com sucesso.", "Atenção", MessageBoxButtons.OK, MessageBoxIcon.Information);
@@ -608,6 +609,7 @@ namespace SistemaPDV___Lanchonete
         private void btnSalv_Click(object sender, EventArgs e)
         {
             salvar();
+            dgvIngredientes.DataSource="";
         }
 
         private void btnCancel_Click(object sender, EventArgs e)
@@ -683,13 +685,19 @@ namespace SistemaPDV___Lanchonete
 
             if (string.IsNullOrEmpty(txtId.Text))
                 {
-                    if (txtDescricao.Text == "")
-                    {
-                        MessageBox.Show("Verifique os dados!");
+                if (txtDescricao.Text == "")
+                {
+                    MessageBox.Show("Verifique os dados!");
 
-                    }
-                    else
-                    {
+                }
+                else if (dgvProdutos.RowCount == 0)
+                {
+                    InserirDados();
+                    CarregarDados();
+                    
+                }
+                else
+                {
                     foreach (DataGridViewRow row in dgvProdutos.Rows)
                     {
                         if (!row.Cells["ID"].Value.ToString().ToLower().Equals(txtId.Text))
@@ -699,8 +707,8 @@ namespace SistemaPDV___Lanchonete
                             break;
                         }
                     }
-                    
-                    }
+
+                }
                 }
                 
                 mostraIDProduto();

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MySql.Data.MySqlClient;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -13,7 +14,7 @@ namespace SistemaPDV___Lanchonete
 {
     public partial class Estoque : Form
     {
-        SQL instanciaMySql = new SQL();
+        MySQL instanciaMySql = new MySQL();
         string sql;
         public Estoque()
         {
@@ -25,7 +26,7 @@ namespace SistemaPDV___Lanchonete
 
         private void InserirDados()
         {
-            SQLiteConnection conn = instanciaMySql.GetConnection();
+            MySqlConnection conn = instanciaMySql.GetConnection();
 
             try
             {
@@ -35,7 +36,7 @@ namespace SistemaPDV___Lanchonete
                 sql = "INSERT INTO Estoque VALUES " +
                       "(null,?,?,?,?);";
 
-                SQLiteCommand cmd = new SQLiteCommand(sql, conn);
+                MySqlCommand cmd = new MySqlCommand(sql, conn);
                 cmd.Parameters.AddWithValue("descricao", txtDescricao.Text);
                 cmd.Parameters.AddWithValue("quantidade", txtQtd.Text);
                 cmd.Parameters.AddWithValue("valorUnitario", txtValorUnitario.Text.Replace(',', '.'));
@@ -60,7 +61,7 @@ namespace SistemaPDV___Lanchonete
 
         private void AlterarDados()
         {
-            SQLiteConnection conn = instanciaMySql.GetConnection();
+            MySqlConnection conn = instanciaMySql.GetConnection();
 
             try
             {
@@ -76,7 +77,7 @@ namespace SistemaPDV___Lanchonete
 
 
 
-                SQLiteCommand cmd = new SQLiteCommand(sql, conn);
+                MySqlCommand cmd = new MySqlCommand(sql, conn);
                 cmd.Parameters.AddWithValue("descricao", txtDescricao.Text);
                 cmd.Parameters.AddWithValue("quantidade", txtQtd.Text);
                 cmd.Parameters.AddWithValue("valorUnitario", txtValorUnitario.Text.Replace(',', '.'));
@@ -100,7 +101,7 @@ namespace SistemaPDV___Lanchonete
 
         private void CarregarDados()
         {
-            SQLiteConnection conn = instanciaMySql.GetConnection();
+            MySqlConnection conn = instanciaMySql.GetConnection();
             try
             {
                 if (conn.State == ConnectionState.Closed)
@@ -112,8 +113,8 @@ namespace SistemaPDV___Lanchonete
                     " valorUnitario AS \"Valor Unitario\"," +
                     " valorTotal AS \"Valor Total\" " +
                     " FROM Estoque";
-                SQLiteCommand cmd = new SQLiteCommand(sql, conn);
-                SQLiteDataAdapter da = new SQLiteDataAdapter(cmd);
+                MySqlCommand cmd = new MySqlCommand(sql, conn);
+                MySqlDataAdapter da = new MySqlDataAdapter(cmd);
                 DataTable ds = new DataTable();
                 da.Fill(ds);
                 dgvClientes.DataSource = ds;
@@ -143,7 +144,7 @@ namespace SistemaPDV___Lanchonete
 
         private void ExcluirDados(int id)
         {
-            SQLiteConnection conn = instanciaMySql.GetConnection();
+            MySqlConnection conn = instanciaMySql.GetConnection();
 
             try
             {
@@ -151,7 +152,7 @@ namespace SistemaPDV___Lanchonete
                     conn.Open();
 
                 sql = "DELETE FROM Estoque WHERE id=@id;";
-                SQLiteCommand cmd = new SQLiteCommand(sql, conn);
+                MySqlCommand cmd = new MySqlCommand(sql, conn);
                 cmd.Parameters.AddWithValue("id", id);
                 cmd.ExecuteNonQuery();
                 MessageBox.Show("Produto excluído com sucesso.", "Atenção", MessageBoxButtons.OK, MessageBoxIcon.Information);

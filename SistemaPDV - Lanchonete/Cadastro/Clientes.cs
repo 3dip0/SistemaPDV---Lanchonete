@@ -16,7 +16,7 @@ namespace SistemaPDV___Lanchonete.Cadastro
     public partial class Clientes : Form
     {
 
-        SQL instanciaMySql = new SQL();
+        MySQL instanciaMySql = new MySQL();
         string sql;
         public Clientes()
         {
@@ -28,7 +28,7 @@ namespace SistemaPDV___Lanchonete.Cadastro
 
         private void InserirDados()
         {
-            SQLiteConnection conn = instanciaMySql.GetConnection();
+            MySqlConnection conn = instanciaMySql.GetConnection();
 
             try
             {
@@ -36,9 +36,9 @@ namespace SistemaPDV___Lanchonete.Cadastro
                     conn.Open();
 
               sql = "INSERT INTO Cliente VALUES " +
-                    "(null,?,?,?,?,?,?,?,?);";
+                    "(default,?,?,?,?,?,?,?,?);";
 
-                SQLiteCommand cmd = new SQLiteCommand(sql, conn);
+                MySqlCommand cmd = new MySqlCommand(sql, conn);
                 cmd.Parameters.AddWithValue("nome", txtNome.Text);
                 cmd.Parameters.AddWithValue("telefone", txtFone.Text);
                 cmd.Parameters.AddWithValue("cep", txtCEP.Text);
@@ -65,7 +65,7 @@ namespace SistemaPDV___Lanchonete.Cadastro
 
         private void AlterarDados()
         {
-            SQLiteConnection conn = instanciaMySql.GetConnection();
+            MySqlConnection conn = instanciaMySql.GetConnection();
 
             try
             {
@@ -85,7 +85,7 @@ namespace SistemaPDV___Lanchonete.Cadastro
 
 
 
-                SQLiteCommand cmd = new SQLiteCommand(sql, conn);
+                MySqlCommand cmd = new MySqlCommand(sql, conn);
                 cmd.Parameters.AddWithValue("nome", txtNome.Text);
                 cmd.Parameters.AddWithValue("telefone", txtFone.Text);
                 cmd.Parameters.AddWithValue("cep", txtCEP.Text);
@@ -94,7 +94,6 @@ namespace SistemaPDV___Lanchonete.Cadastro
                 cmd.Parameters.AddWithValue("bairro", txtBairro.Text);
                 cmd.Parameters.AddWithValue("cidade", txtCidade.Text);
                 cmd.Parameters.AddWithValue("estado", txtUf.Text);
-                cmd.Parameters.AddWithValue("id", txtId.Text);
 
                 cmd.ExecuteNonQuery();
                 MessageBox.Show("Cadastro alterado com sucesso.", "Atenção", MessageBoxButtons.OK, MessageBoxIcon.Information);
@@ -113,7 +112,7 @@ namespace SistemaPDV___Lanchonete.Cadastro
 
         private void CarregarDados()
         {
-            SQLiteConnection conn = instanciaMySql.GetConnection();
+            MySqlConnection conn = instanciaMySql.GetConnection();
             try
                 {
                     if (conn.State == ConnectionState.Closed)
@@ -129,8 +128,8 @@ namespace SistemaPDV___Lanchonete.Cadastro
                         " cidade AS \"Cidade\"," +
                         " estado AS \"UF\" " +
                         " FROM Cliente";
-                    SQLiteCommand cmd = new SQLiteCommand(sql, conn);
-                    SQLiteDataAdapter da = new SQLiteDataAdapter(cmd);
+                MySqlCommand cmd = new MySqlCommand(sql, conn);
+                    MySqlDataAdapter da = new MySqlDataAdapter(cmd);
                     DataTable ds = new DataTable();
                     da.Fill(ds);
                     dgvClientes.DataSource = ds;
@@ -158,7 +157,7 @@ namespace SistemaPDV___Lanchonete.Cadastro
 
         private void ExcluirDados(int id)
         {
-            SQLiteConnection conn = instanciaMySql.GetConnection();
+            MySqlConnection conn = instanciaMySql.GetConnection();
 
             try
             {
@@ -166,7 +165,8 @@ namespace SistemaPDV___Lanchonete.Cadastro
                     conn.Open();
 
                 sql = "DELETE FROM Cliente WHERE id=@id;";
-                SQLiteCommand cmd = new SQLiteCommand(sql, conn);
+                MySqlCommand cmd = new MySqlCommand(sql, conn);
+
                 cmd.Parameters.AddWithValue("id", id);
                 cmd.ExecuteNonQuery();
                 MessageBox.Show("Cliente excluído com sucesso.", "Atenção", MessageBoxButtons.OK, MessageBoxIcon.Information);

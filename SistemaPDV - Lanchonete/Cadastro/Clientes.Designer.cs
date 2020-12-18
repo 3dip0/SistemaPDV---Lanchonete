@@ -44,6 +44,10 @@ namespace SistemaPDV___Lanchonete.Cadastro
             this.cbPesquisar = new System.Windows.Forms.ComboBox();
             this.txtPesquisar = new System.Windows.Forms.TextBox();
             this.panelAdd = new System.Windows.Forms.Panel();
+            this.txtCEP = new System.Windows.Forms.MaskedTextBox();
+            this.txtFone = new System.Windows.Forms.MaskedTextBox();
+            this.label1 = new System.Windows.Forms.Label();
+            this.txtBairro = new System.Windows.Forms.TextBox();
             this.lblEstado = new System.Windows.Forms.Label();
             this.txtUf = new System.Windows.Forms.TextBox();
             this.lblFone = new System.Windows.Forms.Label();
@@ -58,10 +62,6 @@ namespace SistemaPDV___Lanchonete.Cadastro
             this.lblCEP = new System.Windows.Forms.Label();
             this.lbl_Nome = new System.Windows.Forms.Label();
             this.txtNome = new System.Windows.Forms.TextBox();
-            this.label1 = new System.Windows.Forms.Label();
-            this.txtBairro = new System.Windows.Forms.TextBox();
-            this.txtFone = new System.Windows.Forms.MaskedTextBox();
-            this.txtCEP = new System.Windows.Forms.MaskedTextBox();
             this.panel1.SuspendLayout();
             this.panel4.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvClientes)).BeginInit();
@@ -256,6 +256,41 @@ namespace SistemaPDV___Lanchonete.Cadastro
             this.panelAdd.Size = new System.Drawing.Size(996, 100);
             this.panelAdd.TabIndex = 24;
             // 
+            // txtCEP
+            // 
+            this.txtCEP.Location = new System.Drawing.Point(8, 65);
+            this.txtCEP.Mask = "00000-999";
+            this.txtCEP.Name = "txtCEP";
+            this.txtCEP.Size = new System.Drawing.Size(100, 20);
+            this.txtCEP.TabIndex = 4;
+            // 
+            // txtFone
+            // 
+            this.txtFone.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.txtFone.Location = new System.Drawing.Point(843, 26);
+            this.txtFone.Mask = "(99) 00000-0000";
+            this.txtFone.Name = "txtFone";
+            this.txtFone.Size = new System.Drawing.Size(147, 20);
+            this.txtFone.TabIndex = 3;
+            // 
+            // label1
+            // 
+            this.label1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(566, 49);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(34, 13);
+            this.label1.TabIndex = 121;
+            this.label1.Text = "Bairro";
+            // 
+            // txtBairro
+            // 
+            this.txtBairro.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.txtBairro.Location = new System.Drawing.Point(569, 65);
+            this.txtBairro.Name = "txtBairro";
+            this.txtBairro.Size = new System.Drawing.Size(172, 20);
+            this.txtBairro.TabIndex = 7;
+            // 
             // lblEstado
             // 
             this.lblEstado.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
@@ -386,41 +421,6 @@ namespace SistemaPDV___Lanchonete.Cadastro
             this.txtNome.Name = "txtNome";
             this.txtNome.Size = new System.Drawing.Size(723, 20);
             this.txtNome.TabIndex = 2;
-            // 
-            // label1
-            // 
-            this.label1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(566, 49);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(34, 13);
-            this.label1.TabIndex = 121;
-            this.label1.Text = "Bairro";
-            // 
-            // txtBairro
-            // 
-            this.txtBairro.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtBairro.Location = new System.Drawing.Point(569, 65);
-            this.txtBairro.Name = "txtBairro";
-            this.txtBairro.Size = new System.Drawing.Size(172, 20);
-            this.txtBairro.TabIndex = 7;
-            // 
-            // txtFone
-            // 
-            this.txtFone.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtFone.Location = new System.Drawing.Point(843, 26);
-            this.txtFone.Mask = "(99) 00000-0000";
-            this.txtFone.Name = "txtFone";
-            this.txtFone.Size = new System.Drawing.Size(147, 20);
-            this.txtFone.TabIndex = 122;
-            // 
-            // txtCEP
-            // 
-            this.txtCEP.Location = new System.Drawing.Point(8, 65);
-            this.txtCEP.Mask = "00000-999";
-            this.txtCEP.Name = "txtCEP";
-            this.txtCEP.Size = new System.Drawing.Size(100, 20);
-            this.txtCEP.TabIndex = 15;
             // 
             // Clientes
             // 

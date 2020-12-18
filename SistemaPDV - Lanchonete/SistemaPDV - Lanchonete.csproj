@@ -144,13 +144,14 @@
     <Compile Include="Financeiro\Contas_a_Receber.Designer.cs">
       <DependentUpon>Contas_a_Receber.cs</DependentUpon>
     </Compile>
+    <Compile Include="IniFile.cs" />
     <Compile Include="Login.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Login.Designer.cs">
       <DependentUpon>Login.cs</DependentUpon>
     </Compile>
-    <Compile Include="SQL.cs" />
+    <Compile Include="MySQL.cs" />
     <Compile Include="Principal.cs">
       <SubType>Form</SubType>
     </Compile>

@@ -1,4 +1,5 @@
-﻿using SistemaPDV___Lanchonete.Classes;
+﻿using MySql.Data.MySqlClient;
+using SistemaPDV___Lanchonete.Classes;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -14,7 +15,7 @@ namespace SistemaPDV___Lanchonete
 {
     public partial class Usuarios : Form
     {
-        SQL instanciaMySql = new SQL();
+        MySQL instanciaMySql = new MySQL();
         string sql;
         int nivel;
         public Usuarios()
@@ -25,8 +26,8 @@ namespace SistemaPDV___Lanchonete
 
         private void CarregarDados()
         {
-          
-            SQLiteConnection conn = instanciaMySql.GetConnection();
+
+            MySqlConnection conn = instanciaMySql.GetConnection();
             try
             {
                 if (conn.State == ConnectionState.Closed)
@@ -38,8 +39,8 @@ namespace SistemaPDV___Lanchonete
                     " FROM Usuario";
                 
 
-                SQLiteCommand cmd = new SQLiteCommand(sql, conn);
-                SQLiteDataAdapter da = new SQLiteDataAdapter(cmd);
+                MySqlCommand cmd = new MySqlCommand(sql, conn);
+                MySqlDataAdapter da = new MySqlDataAdapter(cmd);
                 DataTable ds = new DataTable();
                 da.Fill(ds);
                 dgvUsuarios.DataSource = ds;
@@ -63,7 +64,7 @@ namespace SistemaPDV___Lanchonete
             {
 
                 string nomeUsuario;
-                using (var connection = new SQLiteConnection("Data Source=lanche"))
+                using (var connection = new MySqlConnection("Data Source=lanche"))
                 {
 
                     foreach (DataGridViewRow row in dgvUsuarios.Rows)
@@ -80,8 +81,7 @@ namespace SistemaPDV___Lanchonete
                                 nomeUsuario = Convert.ToString(row.Cells[1].Value);
 
 
-                                SQLiteDataAdapter adapter;
-                                SQLiteDataAdapter adapter2;
+                                MySqlDataAdapter adapter;
 
                                 string delete = "";
                                 string select;
@@ -98,7 +98,7 @@ namespace SistemaPDV___Lanchonete
 
                                     if (nomeUsuario != UsuarioLogado.NomeUsuario)
                                     {
-                                        adapter = new SQLiteDataAdapter($"{delete} where Usuario = '{nomeUsuario}'", connection);
+                                        adapter = new MySqlDataAdapter($"{delete} where Usuario = '{nomeUsuario}'", connection);
                                         
 
                                         dt = new System.Data.DataTable("lanche");
@@ -131,7 +131,7 @@ namespace SistemaPDV___Lanchonete
 
         private void btnSalvar_Click(object sender, EventArgs e)
         {
-            using (var connection = new SQLiteConnection("Data Source=lanche"))
+            using (var connection = new MySqlConnection("Data Source=lanche"))
             {
                 var command = connection.CreateCommand();
 
@@ -142,7 +142,7 @@ namespace SistemaPDV___Lanchonete
                     if (usuario.Text != UsuarioLogado.NomeUsuario)
                     {
                         System.Data.DataTable dt = new System.Data.DataTable();
-                        SQLiteDataAdapter adapter = new SQLiteDataAdapter($"INSERT INTO Usuario values (null, '{usuario.Text}', '{senha.Text}', '{tipo.Text}')", connection);
+                        MySqlDataAdapter adapter = new MySqlDataAdapter($"INSERT INTO Usuario values (null, '{usuario.Text}', '{senha.Text}', '{tipo.Text}')", connection);
                         dt = new System.Data.DataTable("lanche");
                         //Preenche a DataTable com os dados do adaptar     
                         try

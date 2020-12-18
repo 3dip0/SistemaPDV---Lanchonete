@@ -12,7 +12,7 @@ namespace SistemaPDV___Lanchonete
 {
     public partial class Caixa : Form
     {
-        SQL instanciaMySql = new SQL();
+        MySQL instanciaMySql = new MySQL();
         string sql;
 
         public Caixa()

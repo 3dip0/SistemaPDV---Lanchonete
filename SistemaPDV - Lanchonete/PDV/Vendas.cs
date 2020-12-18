@@ -29,12 +29,12 @@ namespace SistemaPDV___Lanchonete
             if (cbFormaEntrega.Text == "Entrega")
             {
                 gbEntrega.Height = 169;
-                gbPagamento.Location = new Point(12, 420);
+                gbPagamento.Location = new Point(12, 460);
             }
             if (cbFormaEntrega.Text == "Retirada no Local")
             {
                 gbEntrega.Height = 70;
-                gbPagamento.Location = new Point(12, 320);
+                gbPagamento.Location = new Point(12, 360);
             }
         }
 
@@ -66,7 +66,8 @@ namespace SistemaPDV___Lanchonete
                 if (conn.State == ConnectionState.Closed)
                     conn.Open();
 
-                sql = "SELECT nome AS \"Nome\"," +
+                sql = "SELECT id AS \"ID\"," +
+                    " nome AS \"Nome\"," +
                     " telefone AS \"Telefone\", " +
                     " cep AS \"CEP\", " +
                     " endereco AS \"Endereco\", " +
@@ -80,6 +81,7 @@ namespace SistemaPDV___Lanchonete
                 DataTable ds = new DataTable();
                 da.Fill(ds);
                 dgvClientes.DataSource = ds;
+                dgvClientes.Columns["ID"].Visible = false;
                 dgvClientes.Columns["Nome"].Width = 130;
                 dgvClientes.Columns["Telefone"].Width = 100;
                 dgvClientes.Columns["Endereco"].Width = 130;
@@ -174,7 +176,8 @@ namespace SistemaPDV___Lanchonete
                 if (conn.State == ConnectionState.Closed)
                     conn.Open();
 
-                sql = "SELECT descricao AS \"Descricao\"," +
+                sql = "SELECT id as \"ID\", " +
+                    " descricao AS \"Descricao\"," +
                     " valor AS \"Valor\" " +
                     " FROM Produto";
                 MySqlCommand cmd = new MySqlCommand(sql, conn);
@@ -196,6 +199,40 @@ namespace SistemaPDV___Lanchonete
 
         }
 
+        private void CarregarDadosCarrinho()
+        {
+            MySqlConnection conn = instanciaMySql.GetConnection();
+            try
+            {
+                if (conn.State == ConnectionState.Closed)
+                    conn.Open();
+
+                sql = "SELECT carrinho.id_Produto as \"ID Produto\", " +
+                   "p.descricao as \"Descricao\", " +
+                   "carrinho.quantidade as \"Quantidade\", " +
+                   "p.valor as \"Valor Unitario\", " +
+                   "carrinho.valor_total as \"Valor Total\" " +
+                   "from Carrinho as carrinho " +
+                   "inner join Produto as p " +
+                   $"on carrinho.id_produto = p.id where carrinho.id_cliente = '{dgvClientes.SelectedCells[0].Value}%'";
+                MySqlCommand cmd = new MySqlCommand(sql, conn);
+                MySqlDataAdapter da = new MySqlDataAdapter(cmd);
+                DataTable ds = new DataTable();
+                da.Fill(ds);
+                dgvCarrinho.DataSource = ds;
+
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Erro: " + ex.Message, "Atenção", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            finally
+            {
+                if (conn.State == ConnectionState.Open)
+                    conn.Close();
+            }
+
+        }
         private void PreencherComboBoxPesquisa()
         {
             foreach (DataGridViewColumn coluna in dgvClientes.Columns)
@@ -205,6 +242,90 @@ namespace SistemaPDV___Lanchonete
             foreach (DataGridViewColumn coluna in dgvProdutos.Columns)
             {
                 cbProduto.Items.Add(coluna.HeaderText);
+            }
+        }
+
+
+        private void InserirDadosCliente()
+        {
+            MySqlConnection conn = instanciaMySql.GetConnection();
+
+            try
+            {
+                if (conn.State == ConnectionState.Closed)
+                    conn.Open();
+
+                sql = "INSERT INTO Cliente VALUES " +
+                      "(default,?,?,?,?,?,?,?,?);";
+
+                MySqlCommand cmd = new MySqlCommand(sql, conn);
+                cmd.Parameters.AddWithValue("nome", txtNome.Text);
+                cmd.Parameters.AddWithValue("telefone", txtTelefone.Text);
+                cmd.Parameters.AddWithValue("cep", txtCEP.Text);
+                cmd.Parameters.AddWithValue("endereco", txtEnd.Text);
+                cmd.Parameters.AddWithValue("numero", txtNumero.Text);
+                cmd.Parameters.AddWithValue("bairro", txtBairro.Text);
+                cmd.Parameters.AddWithValue("cidade", txtCidade.Text);
+                cmd.Parameters.AddWithValue("estado", txtUf.Text);
+
+                cmd.ExecuteNonQuery();
+                MessageBox.Show("Cadastro realizado com sucesso.", "Atenção", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Erro: " + ex.Message, "Atenção", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            finally
+            {
+                if (conn.State == ConnectionState.Open)
+                    conn.Close();
+            }
+        }
+
+
+        private void AlterarDados()
+        {
+            MySqlConnection conn = instanciaMySql.GetConnection();
+
+            try
+            {
+                if (conn.State == ConnectionState.Closed)
+                    conn.Open();
+
+                sql = "UPDATE Cliente " +
+                    " SET nome=@nome," +
+                    " telefone=@telefone," +
+                    " cep=@cep," +
+                    " endereco=@endereco," +
+                    " numero=@numero," +
+                    " bairro=@bairro," +
+                    " cidade=@cidade," +
+                    " estado=@estado " +
+                    " WHERE id=@id";
+
+
+
+                MySqlCommand cmd = new MySqlCommand(sql, conn);
+                cmd.Parameters.AddWithValue("nome", txtNome.Text);
+                cmd.Parameters.AddWithValue("telefone", txtTelefone.Text);
+                cmd.Parameters.AddWithValue("cep", txtCEP.Text);
+                cmd.Parameters.AddWithValue("endereco", txtEnd.Text);
+                cmd.Parameters.AddWithValue("numero", txtNumero.Text);
+                cmd.Parameters.AddWithValue("bairro", txtBairro.Text);
+                cmd.Parameters.AddWithValue("cidade", txtCidade.Text);
+                cmd.Parameters.AddWithValue("estado", txtUf.Text);
+
+                cmd.ExecuteNonQuery();
+                MessageBox.Show("Cadastro alterado com sucesso.", "Atenção", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Erro: " + ex.Message, "Atenção", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            finally
+            {
+                if (conn.State == ConnectionState.Open)
+                    conn.Close();
             }
         }
 
@@ -218,14 +339,15 @@ namespace SistemaPDV___Lanchonete
 
         private void dgvClientes_DoubleClick(object sender, EventArgs e)
         {
-            txtNome.Text = dgvClientes.SelectedCells[0].Value.ToString();
-            txtTelefone.Text = dgvClientes.SelectedCells[1].Value.ToString();
-            txtCEP.Text = dgvClientes.SelectedCells[2].Value.ToString();
-            txtEnd.Text = dgvClientes.SelectedCells[3].Value.ToString();
-            txtNumero.Text = dgvClientes.SelectedCells[4].Value.ToString();
-            txtBairro.Text = dgvClientes.SelectedCells[5].Value.ToString();
-            txtCidade.Text = dgvClientes.SelectedCells[6].Value.ToString();
-            txtUf.Text = dgvClientes.SelectedCells[7].Value.ToString();
+            txtId.Text = dgvClientes.SelectedCells[0].Value.ToString();
+            txtNome.Text = dgvClientes.SelectedCells[1].Value.ToString();
+            txtTelefone.Text = dgvClientes.SelectedCells[2].Value.ToString();
+            txtCEP.Text = dgvClientes.SelectedCells[3].Value.ToString();
+            txtEnd.Text = dgvClientes.SelectedCells[4].Value.ToString();
+            txtNumero.Text = dgvClientes.SelectedCells[5].Value.ToString();
+            txtBairro.Text = dgvClientes.SelectedCells[6].Value.ToString();
+            txtCidade.Text = dgvClientes.SelectedCells[7].Value.ToString();
+            txtUf.Text = dgvClientes.SelectedCells[8].Value.ToString();
 
         }
 
@@ -249,14 +371,33 @@ namespace SistemaPDV___Lanchonete
         }
         private void btnAddProduto_Click(object sender, EventArgs e)
         {
-            t = new List<Carrinho>();
+            if (string.IsNullOrEmpty(txtId.Text))
+            {
+                if (txtNome.Text == "")
+                {
+                    MessageBox.Show("Verifique os dados!");
 
-            t.Add(new Carrinho() { Produto = dgvProdutos.SelectedCells[0].Value.ToString(), 
-                Quantidade = txtQuantidade.Text, 
-                Valor_Unitario = Convert.ToDecimal(dgvProdutos.SelectedCells[1].Value.ToString()), 
-                Valor_Total = Convert.ToDecimal(dgvProdutos.SelectedCells[1].Value.ToString()) * Convert.ToInt32(txtQuantidade.Text) });
-            dgvCarrinho.DataSource = t;
-            dgvCarrinho.Refresh();
+                }
+                else
+                {
+                    InserirDadosCliente();
+                    CarregarDados();
+                    InserirDadosCarrinho();
+                    CarregarDadosCarrinho();
+                }
+            }
+            else
+            {
+                AlterarDados();
+                InserirDadosCarrinho();
+                CarregarDadosCarrinho();
+
+
+
+                CarregarDados();
+            }
+
+            
         }
 
         private void dgvClientes_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
@@ -271,13 +412,105 @@ namespace SistemaPDV___Lanchonete
 
         private void dgvCarrinho_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
         {
-            dgvCarrinho.Columns["Valor_Unitario"].DefaultCellStyle.Format = "C2";
-            dgvCarrinho.Columns["Valor_Total"].DefaultCellStyle.Format = "C2";
+            dgvCarrinho.Columns["Valor Unitario"].DefaultCellStyle.Format = "C2";
+            dgvCarrinho.Columns["Valor Total"].DefaultCellStyle.Format = "C2";
         }
 
         private void cbTaxa_SelectedIndexChanged(object sender, EventArgs e)
         {
             CarregarValorTaxa();
+        }
+
+        private void InserirDadosCarrinho()
+        {
+            MySqlConnection conn = instanciaMySql.GetConnection();
+
+            try
+            {
+                if (conn.State == ConnectionState.Closed)
+                    conn.Open();
+
+                sql = "INSERT INTO Carrinho VALUES " +
+                      "(default,?,?,null,?,?);";
+
+                MySqlCommand cmd = new MySqlCommand(sql, conn);
+                cmd.Parameters.AddWithValue("id_cliente", dgvClientes.SelectedCells[0].Value.ToString());
+                cmd.Parameters.AddWithValue("id_produto", dgvProdutos.SelectedCells[0].Value.ToString());
+                cmd.Parameters.AddWithValue("quantidade", txtQuantidade.Text);
+                cmd.Parameters.AddWithValue("valor_total", Convert.ToDecimal(dgvProdutos.SelectedCells[2].Value.ToString()) * Convert.ToInt32(txtQuantidade.Text));
+                cmd.ExecuteNonQuery();
+
+                MessageBox.Show("Cadastro realizado com sucesso.", "Atenção", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Erro: " + ex.Message, "Atenção", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            finally
+            {
+                if (conn.State == ConnectionState.Open)
+                    conn.Close();
+            }
+        }
+
+        //private void CarregarDadosVendas()
+        //{
+        //    MySqlConnection conn = instanciaMySql.GetConnection();
+        //    try
+        //    {
+        //        if (conn.State == ConnectionState.Closed)
+        //            conn.Open();
+
+        //        sql = "SELECT dp.id_materiaPrima as \"ID Estoque\", " +
+        //            "dp.descricao as \"Descricao\", " +
+        //            "dp.quantidade as \"Quantidade\", " +
+        //            "dp.valor as \"Valor Total\" " +
+        //            "from detalheProduto as dp " +
+        //            "inner join Produto as p " +
+        //            $"on dp.id_produto = p.id where dp.id_produto = {txtId.Text}";
+        //        MySqlCommand cmd = new MySqlCommand(sql, conn);
+        //        MySqlDataAdapter da = new MySqlDataAdapter(cmd);
+        //        DataTable ds = new DataTable();
+        //        da.Fill(ds);
+        //        dgvIngredientes.DataSource = ds;
+
+
+
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        MessageBox.Show("Erro: " + ex.Message, "Atenção", MessageBoxButtons.OK, MessageBoxIcon.Error);
+        //    }
+        //    finally
+        //    {
+        //        if (conn.State == ConnectionState.Open)
+        //            conn.Close();
+        //    }
+
+        //}
+        private void btnFinalizar_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void btnCancelar_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void btnLimpar_Click(object sender, EventArgs e)
+        {
+            txtId.Text = "";
+            txtNome.Text = "";
+            txtTelefone.Text = "";
+            txtCEP.Text = "";
+            txtEnd.Text = "";
+            txtNumero.Text = "";
+            txtBairro.Text = "";
+            txtCidade.Text = "";
+            txtUf.Text = "";
         }
     }
 }

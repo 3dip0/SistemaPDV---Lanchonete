@@ -37,8 +37,8 @@ namespace SistemaPDV___Lanchonete
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle12 = new System.Windows.Forms.DataGridViewCellStyle();
             this.panel1 = new System.Windows.Forms.Panel();
             this.panel3 = new System.Windows.Forms.Panel();
-            this.button1 = new System.Windows.Forms.Button();
-            this.button2 = new System.Windows.Forms.Button();
+            this.btnFinalizar = new System.Windows.Forms.Button();
+            this.btnCancelar = new System.Windows.Forms.Button();
             this.groupBox6 = new System.Windows.Forms.GroupBox();
             this.label11 = new System.Windows.Forms.Label();
             this.txtValorTaxa = new System.Windows.Forms.TextBox();
@@ -85,6 +85,9 @@ namespace SistemaPDV___Lanchonete
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.txtNome = new System.Windows.Forms.TextBox();
+            this.label40 = new System.Windows.Forms.Label();
+            this.txtId = new System.Windows.Forms.TextBox();
+            this.btnLimpar = new System.Windows.Forms.Button();
             this.panel1.SuspendLayout();
             this.panel3.SuspendLayout();
             this.groupBox6.SuspendLayout();
@@ -117,8 +120,8 @@ namespace SistemaPDV___Lanchonete
             // 
             this.panel3.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.panel3.Controls.Add(this.button1);
-            this.panel3.Controls.Add(this.button2);
+            this.panel3.Controls.Add(this.btnFinalizar);
+            this.panel3.Controls.Add(this.btnCancelar);
             this.panel3.Controls.Add(this.groupBox6);
             this.panel3.Controls.Add(this.groupBox5);
             this.panel3.Controls.Add(this.groupBox3);
@@ -127,29 +130,31 @@ namespace SistemaPDV___Lanchonete
             this.panel3.Size = new System.Drawing.Size(606, 623);
             this.panel3.TabIndex = 1;
             // 
-            // button1
+            // btnFinalizar
             // 
-            this.button1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.button1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button1.Font = new System.Drawing.Font("Segoe UI", 9.75F);
-            this.button1.Location = new System.Drawing.Point(369, 591);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(108, 29);
-            this.button1.TabIndex = 152;
-            this.button1.Text = "Finalizar Venda";
-            this.button1.UseVisualStyleBackColor = true;
+            this.btnFinalizar.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnFinalizar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnFinalizar.Font = new System.Drawing.Font("Segoe UI", 9.75F);
+            this.btnFinalizar.Location = new System.Drawing.Point(369, 591);
+            this.btnFinalizar.Name = "btnFinalizar";
+            this.btnFinalizar.Size = new System.Drawing.Size(108, 29);
+            this.btnFinalizar.TabIndex = 152;
+            this.btnFinalizar.Text = "Finalizar Venda";
+            this.btnFinalizar.UseVisualStyleBackColor = true;
+            this.btnFinalizar.Click += new System.EventHandler(this.btnFinalizar_Click);
             // 
-            // button2
+            // btnCancelar
             // 
-            this.button2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.button2.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button2.Font = new System.Drawing.Font("Segoe UI", 9.75F);
-            this.button2.Location = new System.Drawing.Point(483, 591);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(108, 29);
-            this.button2.TabIndex = 153;
-            this.button2.Text = "Cancelar";
-            this.button2.UseVisualStyleBackColor = true;
+            this.btnCancelar.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnCancelar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnCancelar.Font = new System.Drawing.Font("Segoe UI", 9.75F);
+            this.btnCancelar.Location = new System.Drawing.Point(483, 591);
+            this.btnCancelar.Name = "btnCancelar";
+            this.btnCancelar.Size = new System.Drawing.Size(108, 29);
+            this.btnCancelar.TabIndex = 153;
+            this.btnCancelar.Text = "Cancelar";
+            this.btnCancelar.UseVisualStyleBackColor = true;
+            this.btnCancelar.Click += new System.EventHandler(this.btnCancelar_Click);
             // 
             // groupBox6
             // 
@@ -400,7 +405,7 @@ namespace SistemaPDV___Lanchonete
             this.gbPagamento.Controls.Add(this.textBox2);
             this.gbPagamento.Controls.Add(this.cbPagamento);
             this.gbPagamento.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.gbPagamento.Location = new System.Drawing.Point(15, 320);
+            this.gbPagamento.Location = new System.Drawing.Point(12, 360);
             this.gbPagamento.Name = "gbPagamento";
             this.gbPagamento.Size = new System.Drawing.Size(617, 70);
             this.gbPagamento.TabIndex = 2;
@@ -456,7 +461,7 @@ namespace SistemaPDV___Lanchonete
             this.gbEntrega.Controls.Add(this.label4);
             this.gbEntrega.Controls.Add(this.txtEnd);
             this.gbEntrega.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.gbEntrega.Location = new System.Drawing.Point(12, 244);
+            this.gbEntrega.Location = new System.Drawing.Point(12, 286);
             this.gbEntrega.Name = "gbEntrega";
             this.gbEntrega.Size = new System.Drawing.Size(617, 70);
             this.gbEntrega.TabIndex = 1;
@@ -576,6 +581,9 @@ namespace SistemaPDV___Lanchonete
             // 
             this.groupBox1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.groupBox1.Controls.Add(this.btnLimpar);
+            this.groupBox1.Controls.Add(this.label40);
+            this.groupBox1.Controls.Add(this.txtId);
             this.groupBox1.Controls.Add(this.panel4);
             this.groupBox1.Controls.Add(this.groupBox2);
             this.groupBox1.Controls.Add(this.txtTelefone);
@@ -585,7 +593,7 @@ namespace SistemaPDV___Lanchonete
             this.groupBox1.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.groupBox1.Location = new System.Drawing.Point(12, 12);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(617, 226);
+            this.groupBox1.Size = new System.Drawing.Size(617, 268);
             this.groupBox1.TabIndex = 0;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Informações do Cliente";
@@ -682,7 +690,7 @@ namespace SistemaPDV___Lanchonete
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(6, 175);
+            this.label1.Location = new System.Drawing.Point(72, 176);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(44, 17);
             this.label1.TabIndex = 1;
@@ -692,10 +700,39 @@ namespace SistemaPDV___Lanchonete
             // 
             this.txtNome.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtNome.Location = new System.Drawing.Point(6, 195);
+            this.txtNome.Location = new System.Drawing.Point(75, 195);
             this.txtNome.Name = "txtNome";
-            this.txtNome.Size = new System.Drawing.Size(437, 25);
+            this.txtNome.Size = new System.Drawing.Size(368, 25);
             this.txtNome.TabIndex = 0;
+            // 
+            // label40
+            // 
+            this.label40.AutoSize = true;
+            this.label40.Location = new System.Drawing.Point(2, 178);
+            this.label40.Name = "label40";
+            this.label40.Size = new System.Drawing.Size(20, 17);
+            this.label40.TabIndex = 147;
+            this.label40.Text = "ID";
+            // 
+            // txtId
+            // 
+            this.txtId.Enabled = false;
+            this.txtId.Location = new System.Drawing.Point(3, 195);
+            this.txtId.Name = "txtId";
+            this.txtId.Size = new System.Drawing.Size(66, 25);
+            this.txtId.TabIndex = 146;
+            // 
+            // btnLimpar
+            // 
+            this.btnLimpar.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnLimpar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnLimpar.Location = new System.Drawing.Point(503, 226);
+            this.btnLimpar.Name = "btnLimpar";
+            this.btnLimpar.Size = new System.Drawing.Size(108, 29);
+            this.btnLimpar.TabIndex = 151;
+            this.btnLimpar.Text = "Limpar";
+            this.btnLimpar.UseVisualStyleBackColor = true;
+            this.btnLimpar.Click += new System.EventHandler(this.btnLimpar_Click);
             // 
             // Vendas
             // 
@@ -785,7 +822,10 @@ namespace SistemaPDV___Lanchonete
         private System.Windows.Forms.Label label11;
         private System.Windows.Forms.TextBox txtValorTaxa;
         private System.Windows.Forms.ComboBox cbTaxa;
-        private System.Windows.Forms.Button button1;
-        private System.Windows.Forms.Button button2;
+        private System.Windows.Forms.Button btnFinalizar;
+        private System.Windows.Forms.Button btnCancelar;
+        public System.Windows.Forms.Label label40;
+        public System.Windows.Forms.TextBox txtId;
+        private System.Windows.Forms.Button btnLimpar;
     }
 }

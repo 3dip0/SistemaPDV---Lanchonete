@@ -79,6 +79,10 @@ namespace SistemaPDV___Lanchonete
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.txtNome = new System.Windows.Forms.TextBox();
+            this.groupBox6 = new System.Windows.Forms.GroupBox();
+            this.comboBox1 = new System.Windows.Forms.ComboBox();
+            this.label11 = new System.Windows.Forms.Label();
+            this.textBox1 = new System.Windows.Forms.TextBox();
             this.panel1.SuspendLayout();
             this.panel3.SuspendLayout();
             this.groupBox5.SuspendLayout();
@@ -94,6 +98,7 @@ namespace SistemaPDV___Lanchonete
             this.panel4.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvClientes)).BeginInit();
             this.groupBox2.SuspendLayout();
+            this.groupBox6.SuspendLayout();
             this.SuspendLayout();
             // 
             // panel1
@@ -103,18 +108,19 @@ namespace SistemaPDV___Lanchonete
             this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel1.Location = new System.Drawing.Point(0, 0);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(1253, 498);
+            this.panel1.Size = new System.Drawing.Size(1253, 623);
             this.panel1.TabIndex = 0;
             // 
             // panel3
             // 
             this.panel3.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.panel3.Controls.Add(this.groupBox6);
             this.panel3.Controls.Add(this.groupBox5);
             this.panel3.Controls.Add(this.groupBox3);
             this.panel3.Location = new System.Drawing.Point(647, 0);
             this.panel3.Name = "panel3";
-            this.panel3.Size = new System.Drawing.Size(606, 498);
+            this.panel3.Size = new System.Drawing.Size(606, 623);
             this.panel3.TabIndex = 1;
             // 
             // groupBox5
@@ -127,7 +133,7 @@ namespace SistemaPDV___Lanchonete
             this.groupBox5.Font = new System.Drawing.Font("Segoe UI", 9.75F);
             this.groupBox5.Location = new System.Drawing.Point(6, 255);
             this.groupBox5.Name = "groupBox5";
-            this.groupBox5.Size = new System.Drawing.Size(588, 231);
+            this.groupBox5.Size = new System.Drawing.Size(588, 159);
             this.groupBox5.TabIndex = 2;
             this.groupBox5.TabStop = false;
             this.groupBox5.Text = "Carrinho";
@@ -167,7 +173,7 @@ namespace SistemaPDV___Lanchonete
             // 
             this.btnEditIngred.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.btnEditIngred.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnEditIngred.Location = new System.Drawing.Point(363, 137);
+            this.btnEditIngred.Location = new System.Drawing.Point(363, 124);
             this.btnEditIngred.Name = "btnEditIngred";
             this.btnEditIngred.Size = new System.Drawing.Size(108, 29);
             this.btnEditIngred.TabIndex = 150;
@@ -178,7 +184,7 @@ namespace SistemaPDV___Lanchonete
             // 
             this.btnExcIngred.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.btnExcIngred.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnExcIngred.Location = new System.Drawing.Point(477, 137);
+            this.btnExcIngred.Location = new System.Drawing.Point(477, 124);
             this.btnExcIngred.Name = "btnExcIngred";
             this.btnExcIngred.Size = new System.Drawing.Size(108, 29);
             this.btnExcIngred.TabIndex = 151;
@@ -312,7 +318,7 @@ namespace SistemaPDV___Lanchonete
             this.panel2.Dock = System.Windows.Forms.DockStyle.Left;
             this.panel2.Location = new System.Drawing.Point(0, 0);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(641, 498);
+            this.panel2.Size = new System.Drawing.Size(641, 623);
             this.panel2.TabIndex = 0;
             // 
             // gbPagamento
@@ -620,12 +626,54 @@ namespace SistemaPDV___Lanchonete
             this.txtNome.Size = new System.Drawing.Size(437, 25);
             this.txtNome.TabIndex = 0;
             // 
+            // groupBox6
+            // 
+            this.groupBox6.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.groupBox6.Controls.Add(this.label11);
+            this.groupBox6.Controls.Add(this.textBox1);
+            this.groupBox6.Controls.Add(this.comboBox1);
+            this.groupBox6.Font = new System.Drawing.Font("Segoe UI", 9.75F);
+            this.groupBox6.Location = new System.Drawing.Point(6, 420);
+            this.groupBox6.Name = "groupBox6";
+            this.groupBox6.Size = new System.Drawing.Size(588, 92);
+            this.groupBox6.TabIndex = 3;
+            this.groupBox6.TabStop = false;
+            this.groupBox6.Text = "Taxas";
+            // 
+            // comboBox1
+            // 
+            this.comboBox1.FormattingEnabled = true;
+            this.comboBox1.Location = new System.Drawing.Point(6, 40);
+            this.comboBox1.Name = "comboBox1";
+            this.comboBox1.Size = new System.Drawing.Size(162, 25);
+            this.comboBox1.TabIndex = 5;
+            this.comboBox1.Text = "Selecione uma taxa";
+            // 
+            // label11
+            // 
+            this.label11.AutoSize = true;
+            this.label11.Location = new System.Drawing.Point(174, 20);
+            this.label11.Name = "label11";
+            this.label11.Size = new System.Drawing.Size(38, 17);
+            this.label11.TabIndex = 7;
+            this.label11.Text = "Valor";
+            // 
+            // textBox1
+            // 
+            this.textBox1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.textBox1.Location = new System.Drawing.Point(174, 40);
+            this.textBox1.Name = "textBox1";
+            this.textBox1.Size = new System.Drawing.Size(76, 25);
+            this.textBox1.TabIndex = 6;
+            // 
             // Vendas
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Window;
-            this.ClientSize = new System.Drawing.Size(1253, 498);
+            this.ClientSize = new System.Drawing.Size(1253, 623);
             this.Controls.Add(this.panel1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
             this.Name = "Vendas";
@@ -652,6 +700,8 @@ namespace SistemaPDV___Lanchonete
             ((System.ComponentModel.ISupportInitialize)(this.dgvClientes)).EndInit();
             this.groupBox2.ResumeLayout(false);
             this.groupBox2.PerformLayout();
+            this.groupBox6.ResumeLayout(false);
+            this.groupBox6.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -702,5 +752,9 @@ namespace SistemaPDV___Lanchonete
         private System.Windows.Forms.TextBox txtNumero;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.MaskedTextBox txtCEP;
+        private System.Windows.Forms.GroupBox groupBox6;
+        private System.Windows.Forms.Label label11;
+        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.ComboBox comboBox1;
     }
 }

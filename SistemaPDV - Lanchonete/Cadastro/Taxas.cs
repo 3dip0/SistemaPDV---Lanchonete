@@ -3,26 +3,25 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
-using System.Data.SQLite;
 using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace SistemaPDV___Lanchonete
+namespace SistemaPDV___Lanchonete.Cadastro
 {
-    public partial class Estoque : Form
+    public partial class Taxas : Form
     {
+
         MySQL instanciaMySql = new MySQL();
         string sql;
-        public Estoque()
+        public Taxas()
         {
             InitializeComponent();
             CarregarDados();
             PreencherComboBoxPesquisa();
         }
-
 
         private void InserirDados()
         {
@@ -33,15 +32,13 @@ namespace SistemaPDV___Lanchonete
                 if (conn.State == ConnectionState.Closed)
                     conn.Open();
 
-                sql = "INSERT INTO Estoque VALUES " +
-                      "(null,?,?,?,?);";
+                sql = "INSERT INTO Taxa VALUES " +
+                      "(default,?,?);";
 
                 MySqlCommand cmd = new MySqlCommand(sql, conn);
                 cmd.Parameters.AddWithValue("descricao", txtDescricao.Text);
-                cmd.Parameters.AddWithValue("quantidade", txtQtd.Text);
-                cmd.Parameters.AddWithValue("valorUnitario", txtValorUnitario.Text.Replace(',', '.'));
-                cmd.Parameters.AddWithValue("valorTotal", txtValorTotal.Text.Replace(',', '.'));
-                
+                cmd.Parameters.AddWithValue("valor", txtValor.Text.Replace(',', '.'));
+
 
 
                 cmd.ExecuteNonQuery();
@@ -68,20 +65,16 @@ namespace SistemaPDV___Lanchonete
                 if (conn.State == ConnectionState.Closed)
                     conn.Open();
 
-                sql = "UPDATE Estoque " +
+                sql = "UPDATE Taxa " +
                     " SET descricao=@descricao," +
-                    " quantidade=@quantidade," +
-                    " valorUnitario=@valorUnitario," +
-                    " valorTotal=@valorTotal" +
+                    " valor=@valor" +
                     " WHERE id=@id";
 
 
 
                 MySqlCommand cmd = new MySqlCommand(sql, conn);
                 cmd.Parameters.AddWithValue("descricao", txtDescricao.Text);
-                cmd.Parameters.AddWithValue("quantidade", txtQtd.Text);
-                cmd.Parameters.AddWithValue("valorUnitario", txtValorUnitario.Text.Replace(',', '.'));
-                cmd.Parameters.AddWithValue("valorTotal", txtValorTotal.Text.Replace(',', '.'));
+                cmd.Parameters.AddWithValue("valor", txtValor.Text.Replace(',', '.'));
                 cmd.Parameters.AddWithValue("id", txtId.Text);
 
                 cmd.ExecuteNonQuery();
@@ -109,17 +102,15 @@ namespace SistemaPDV___Lanchonete
 
                 sql = "SELECT id AS ID," +
                     " descricao AS \"Descricao\"," +
-                    " quantidade AS \"Quantidade\"," +
-                    " valorUnitario AS \"Valor Unitario\"," +
-                    " valorTotal AS \"Valor Total\" " +
-                    " FROM Estoque";
+                    " valor AS \"Valor\" " +
+                    " FROM Taxa";
                 MySqlCommand cmd = new MySqlCommand(sql, conn);
                 MySqlDataAdapter da = new MySqlDataAdapter(cmd);
                 DataTable ds = new DataTable();
                 da.Fill(ds);
-                dgvClientes.DataSource = ds;
+                dgvTaxas.DataSource = ds;
 
-                
+
 
             }
             catch (Exception ex)
@@ -136,7 +127,7 @@ namespace SistemaPDV___Lanchonete
 
         private void PreencherComboBoxPesquisa()
         {
-            foreach (DataGridViewColumn coluna in dgvClientes.Columns)
+            foreach (DataGridViewColumn coluna in dgvTaxas.Columns)
             {
                 cbPesquisar.Items.Add(coluna.HeaderText);
             }
@@ -151,11 +142,11 @@ namespace SistemaPDV___Lanchonete
                 if (conn.State == ConnectionState.Closed)
                     conn.Open();
 
-                sql = "DELETE FROM Estoque WHERE id=@id;";
+                sql = "DELETE FROM Taxa WHERE id=@id;";
                 MySqlCommand cmd = new MySqlCommand(sql, conn);
                 cmd.Parameters.AddWithValue("id", id);
                 cmd.ExecuteNonQuery();
-                MessageBox.Show("Item excluído com sucesso.", "Atenção", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show("Taxa excluída com sucesso.", "Atenção", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
             catch (Exception ex)
             {
@@ -170,12 +161,10 @@ namespace SistemaPDV___Lanchonete
 
         private void btnEditar_Click(object sender, EventArgs e)
         {
-            txtId.Text = dgvClientes.SelectedCells[0].Value.ToString();
-            txtDescricao.Text = dgvClientes.SelectedCells[1].Value.ToString();
-            txtQtd.Text = dgvClientes.SelectedCells[2].Value.ToString();
-            txtValorUnitario.Text = dgvClientes.SelectedCells[3].Value.ToString();
-            txtValorTotal.Text = dgvClientes.SelectedCells[4].Value.ToString();
-          
+            txtId.Text = dgvTaxas.SelectedCells[0].Value.ToString();
+            txtDescricao.Text = dgvTaxas.SelectedCells[1].Value.ToString();
+            txtValor.Text = dgvTaxas.SelectedCells[2].Value.ToString();
+
             btnSalv.Visible = true;
             btnCancel.Visible = true;
             panelAdd.Enabled = true;
@@ -184,11 +173,9 @@ namespace SistemaPDV___Lanchonete
 
         private void dgvClientes_DoubleClick(object sender, EventArgs e)
         {
-            txtId.Text = dgvClientes.SelectedCells[0].Value.ToString();
-            txtDescricao.Text = dgvClientes.SelectedCells[1].Value.ToString();
-            txtQtd.Text = dgvClientes.SelectedCells[2].Value.ToString();
-            txtValorUnitario.Text = dgvClientes.SelectedCells[3].Value.ToString();
-            txtValorTotal.Text = dgvClientes.SelectedCells[4].Value.ToString();
+            txtId.Text = dgvTaxas.SelectedCells[0].Value.ToString();
+            txtDescricao.Text = dgvTaxas.SelectedCells[1].Value.ToString();
+            txtValor.Text = dgvTaxas.SelectedCells[2].Value.ToString();
 
             btnSalv.Visible = true;
             btnCancel.Visible = true;
@@ -216,10 +203,8 @@ namespace SistemaPDV___Lanchonete
 
                     txtId.Text = "";
                     txtDescricao.Text = "";
-                    txtQtd.Text = "";
-                    txtValorUnitario.Text = "";
-                    txtValorTotal.Text = "";
-                    
+                   txtValor.Text = "";
+
                     CarregarDados();
                 }
             }
@@ -233,10 +218,7 @@ namespace SistemaPDV___Lanchonete
 
 
                 txtId.Text = "";
-                txtDescricao.Text = "";
-                txtQtd.Text = "";
-                txtValorUnitario.Text = "";
-                txtValorTotal.Text = "";
+               txtValor.Text = "";
                 CarregarDados();
             }
         }
@@ -250,9 +232,7 @@ namespace SistemaPDV___Lanchonete
 
             txtId.Text = "";
             txtDescricao.Text = "";
-            txtQtd.Text = "";
-            txtValorUnitario.Text = "";
-            txtValorTotal.Text = "";
+            txtValor.Text = "";
         }
 
         private void btnNov_Click(object sender, EventArgs e)
@@ -261,18 +241,18 @@ namespace SistemaPDV___Lanchonete
             btnSalv.Visible = true;
             btnCancel.Visible = true;
             btnNov.Visible = false;
-           
+
         }
 
         private void btnExc_Click(object sender, EventArgs e)
         {
-            if (dgvClientes.SelectedRows.Count > 0)
+            if (dgvTaxas.SelectedRows.Count > 0)
             {
 
-                int id = Convert.ToInt32(dgvClientes.SelectedCells[0].Value.ToString());
-                string cliente = dgvClientes.SelectedCells[1].Value.ToString();
+                int id = Convert.ToInt32(dgvTaxas.SelectedCells[0].Value.ToString());
+                string cliente = dgvTaxas.SelectedCells[1].Value.ToString();
 
-                if (MessageBox.Show($"Confirma a exclusão do Item: {id} - {cliente}?",
+                if (MessageBox.Show($"Confirma a exclusão da Taxa: {id} - {cliente}?",
                     "Atenção", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2) == DialogResult.Yes)
                 {
                     ExcluirDados(id);
@@ -287,68 +267,13 @@ namespace SistemaPDV___Lanchonete
         {
             if (!string.IsNullOrEmpty(cbPesquisar.Text))
             {
-                (dgvClientes.DataSource as DataTable).DefaultView.RowFilter = string.Format("Convert({0}, 'System.String') LIKE '%{1}%'", cbPesquisar.Text, txtPesquisar.Text);
+                (dgvTaxas.DataSource as DataTable).DefaultView.RowFilter = string.Format("Convert({0}, 'System.String') LIKE '%{1}%'", cbPesquisar.Text, txtPesquisar.Text);
             }
-        }
-
-        private void txtValorTotal_KeyPress(object sender, KeyPressEventArgs e)
-        {
-
-        }
-
-        private void txtValorUnitario_Enter(object sender, EventArgs e)
-        {
-           
-        }
-
-        private void txtValorUnitario_KeyPress(object sender, KeyPressEventArgs e)
-        {
-            if (e.KeyChar == 13)
-            {
-                if (!string.IsNullOrEmpty(txtValorUnitario.Text) && !string.IsNullOrEmpty(txtQtd.Text))
-                {
-                    decimal valorTotal = Convert.ToDecimal(txtValorUnitario.Text) * Convert.ToInt32(txtQtd.Text);
-
-                    txtValorTotal.Text = valorTotal.ToString();
-                }
-                else
-                {
-                    txtValorTotal.Text = "";
-                }
-            }
-        }
-
-        private void txtValorTotal_KeyPress_1(object sender, KeyPressEventArgs e)
-        {
-            if (e.KeyChar == 13)
-            {
-                if (!string.IsNullOrEmpty(txtValorTotal.Text) && !string.IsNullOrEmpty(txtQtd.Text))
-                {
-                    decimal valorUnitario = Convert.ToDecimal(txtValorTotal.Text) / Convert.ToInt32(txtQtd.Text);
-
-                    txtValorUnitario.Text = valorUnitario.ToString();
-                }
-                else
-                {
-                    txtValorTotal.Text = "";
-                }
-            }
-
         }
 
         private void dgvClientes_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
         {
-            
-            dgvClientes.Columns["Valor Total"].DefaultCellStyle.Format = "C2";
-            dgvClientes.Columns["Valor Unitario"].DefaultCellStyle.Format = "C2";
+            dgvTaxas.Columns["Valor"].DefaultCellStyle.Format = "C2";
         }
-
-        private void Estoque_Load(object sender, EventArgs e)
-        {
-            
-
-        }
-
- 
     }
 }

@@ -88,5 +88,10 @@ namespace SistemaPDV___Lanchonete
         {
             AbrirFormNoPanel(new Relatorio_Vendas());
         }
+
+        private void taxasToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            AbrirFormNoPanel(new Taxas());
+        }
     }
 }

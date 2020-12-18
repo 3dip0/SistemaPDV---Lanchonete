@@ -642,7 +642,7 @@ namespace SistemaPDV___Lanchonete
                 int id = Convert.ToInt32(dgvProdutos.SelectedCells[0].Value.ToString());
                 string cliente = dgvProdutos.SelectedCells[1].Value.ToString();
 
-                if (MessageBox.Show($"Confirma a exclusão do Cliente: {id} - {cliente}?",
+                if (MessageBox.Show($"Confirma a exclusão do Produto: {id} - {cliente}?",
                     "Atenção", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2) == DialogResult.Yes)
                 {
                     ExcluirDados(id);

@@ -55,6 +55,7 @@ namespace SistemaPDV___Lanchonete
             CarregarDados();
             CarregarDadosProdutos();
             PreencherComboBoxPesquisa();
+            CarregarDadosTaxas();
         }
 
         private void CarregarDados()
@@ -86,6 +87,71 @@ namespace SistemaPDV___Lanchonete
                 dgvClientes.Columns["nº"].Width = 40;
                 dgvClientes.Columns["Cidade"].Visible = false;
                 dgvClientes.Columns["Estado"].Visible = false;
+
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Erro: " + ex.Message, "Atenção", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            finally
+            {
+                if (conn.State == ConnectionState.Open)
+                    conn.Close();
+            }
+
+        }
+
+        private void CarregarDadosTaxas()
+        {
+            MySqlConnection conn = instanciaMySql.GetConnection();
+            try
+            {
+                if (conn.State == ConnectionState.Closed)
+                    conn.Open();
+
+                sql = "SELECT descricao from Taxa";
+                MySqlCommand cmd = new MySqlCommand(sql, conn);
+                MySqlDataAdapter da = new MySqlDataAdapter(cmd);
+
+
+                DataTable dt = new DataTable();
+                da.Fill(dt);
+                cbTaxa.DataSource = dt;
+                cbTaxa.DisplayMember = "descricao";
+
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Erro: " + ex.Message, "Atenção", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            finally
+            {
+                if (conn.State == ConnectionState.Open)
+                    conn.Close();
+            }
+
+        }
+
+        private void CarregarValorTaxa()
+        {
+            MySqlConnection conn = instanciaMySql.GetConnection();
+            try
+            {
+                if (conn.State == ConnectionState.Closed)
+                    conn.Open();
+
+                sql = $"SELECT valor from Taxa where descricao like '{cbTaxa.Text}%'";
+                MySqlCommand cmd = new MySqlCommand(sql, conn);
+                MySqlDataReader leitor = cmd.ExecuteReader();
+                if (leitor.HasRows)
+                {
+                    leitor.Read();
+                    
+                    txtValorTaxa.Text = leitor["valor"].ToString();
+                    if (leitor != null)
+                        leitor.Close();
+
+                }
 
             }
             catch (Exception ex)
@@ -207,6 +273,11 @@ namespace SistemaPDV___Lanchonete
         {
             dgvCarrinho.Columns["Valor_Unitario"].DefaultCellStyle.Format = "C2";
             dgvCarrinho.Columns["Valor_Total"].DefaultCellStyle.Format = "C2";
+        }
+
+        private void cbTaxa_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            CarregarValorTaxa();
         }
     }
 }

@@ -31,10 +31,10 @@ namespace SistemaPDV___Lanchonete
         {
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.cadastrosToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.menuUsuario = new System.Windows.Forms.ToolStripMenuItem();
+            this.clientesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.produtosToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.estoqueToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.clientesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.menuUsuario = new System.Windows.Forms.ToolStripMenuItem();
             this.financeiroToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.caixaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.despesasToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -46,6 +46,7 @@ namespace SistemaPDV___Lanchonete
             this.produtosToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.vendasToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.panelPrincipal = new System.Windows.Forms.Panel();
+            this.taxasToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -68,17 +69,18 @@ namespace SistemaPDV___Lanchonete
             this.clientesToolStripMenuItem,
             this.produtosToolStripMenuItem,
             this.estoqueToolStripMenuItem,
+            this.taxasToolStripMenuItem,
             this.menuUsuario});
             this.cadastrosToolStripMenuItem.Name = "cadastrosToolStripMenuItem";
             this.cadastrosToolStripMenuItem.Size = new System.Drawing.Size(71, 20);
             this.cadastrosToolStripMenuItem.Text = "Cadastros";
             // 
-            // menuUsuario
+            // clientesToolStripMenuItem
             // 
-            this.menuUsuario.Name = "menuUsuario";
-            this.menuUsuario.Size = new System.Drawing.Size(180, 22);
-            this.menuUsuario.Text = "Usuários";
-            this.menuUsuario.Click += new System.EventHandler(this.usuáriosToolStripMenuItem_Click);
+            this.clientesToolStripMenuItem.Name = "clientesToolStripMenuItem";
+            this.clientesToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.clientesToolStripMenuItem.Text = "Clientes";
+            this.clientesToolStripMenuItem.Click += new System.EventHandler(this.clientesToolStripMenuItem_Click);
             // 
             // produtosToolStripMenuItem
             // 
@@ -94,12 +96,12 @@ namespace SistemaPDV___Lanchonete
             this.estoqueToolStripMenuItem.Text = "Estoque";
             this.estoqueToolStripMenuItem.Click += new System.EventHandler(this.estoqueToolStripMenuItem_Click);
             // 
-            // clientesToolStripMenuItem
+            // menuUsuario
             // 
-            this.clientesToolStripMenuItem.Name = "clientesToolStripMenuItem";
-            this.clientesToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-            this.clientesToolStripMenuItem.Text = "Clientes";
-            this.clientesToolStripMenuItem.Click += new System.EventHandler(this.clientesToolStripMenuItem_Click);
+            this.menuUsuario.Name = "menuUsuario";
+            this.menuUsuario.Size = new System.Drawing.Size(180, 22);
+            this.menuUsuario.Text = "Usuários";
+            this.menuUsuario.Click += new System.EventHandler(this.usuáriosToolStripMenuItem_Click);
             // 
             // financeiroToolStripMenuItem
             // 
@@ -186,6 +188,13 @@ namespace SistemaPDV___Lanchonete
             this.panelPrincipal.Size = new System.Drawing.Size(999, 460);
             this.panelPrincipal.TabIndex = 1;
             // 
+            // taxasToolStripMenuItem
+            // 
+            this.taxasToolStripMenuItem.Name = "taxasToolStripMenuItem";
+            this.taxasToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.taxasToolStripMenuItem.Text = "Taxas";
+            this.taxasToolStripMenuItem.Click += new System.EventHandler(this.taxasToolStripMenuItem_Click);
+            // 
             // Principal
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -223,6 +232,7 @@ namespace SistemaPDV___Lanchonete
         private System.Windows.Forms.Panel panelPrincipal;
         private System.Windows.Forms.ToolStripMenuItem clientesToolStripMenuItem;
         public System.Windows.Forms.ToolStripMenuItem menuUsuario;
+        private System.Windows.Forms.ToolStripMenuItem taxasToolStripMenuItem;
     }
 }
 

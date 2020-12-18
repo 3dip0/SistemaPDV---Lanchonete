@@ -125,6 +125,12 @@
     <Compile Include="Cadastro\Estoque.Designer.cs">
       <DependentUpon>Estoque.cs</DependentUpon>
     </Compile>
+    <Compile Include="Cadastro\Taxas.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Cadastro\Taxas.Designer.cs">
+      <DependentUpon>Taxas.cs</DependentUpon>
+    </Compile>
     <Compile Include="Classes\UsuarioLogado.cs" />
     <Compile Include="Financeiro\Caixa.cs">
       <SubType>Form</SubType>
@@ -204,6 +210,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Cadastro\Produtos.resx">
       <DependentUpon>Produtos.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Cadastro\Taxas.resx">
+      <DependentUpon>Taxas.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Cadastro\Usuarios.resx">
       <DependentUpon>Usuarios.cs</DependentUpon>

@@ -67,7 +67,7 @@ namespace SistemaPDV___Lanchonete
                     " telefone AS \"Telefone\", " +
                     " cep AS \"CEP\", " +
                     " endereco AS \"Endereco\", " +
-                    " numero AS \"Numero\", " +
+                    " numero AS \"Nº\", " +
                     " bairro AS \"Bairro\", " +
                     " cidade AS \"Cidade\", " +
                     " estado AS \"Estado\" " +
@@ -77,6 +77,13 @@ namespace SistemaPDV___Lanchonete
                 DataTable ds = new DataTable();
                 da.Fill(ds);
                 dgvClientes.DataSource = ds;
+                dgvClientes.Columns["Nome"].Width = 130;
+                dgvClientes.Columns["Telefone"].Width = 100;
+                dgvClientes.Columns["Endereco"].Width = 130;
+                dgvClientes.Columns["CEP"].Visible = false;
+                dgvClientes.Columns["nº"].Width = 40;
+                dgvClientes.Columns["Cidade"].Visible = false;
+                dgvClientes.Columns["Estado"].Visible = false;
 
             }
             catch (Exception ex)
@@ -156,9 +163,9 @@ namespace SistemaPDV___Lanchonete
 
         private void txtPesquisarProdutos_TextChanged(object sender, EventArgs e)
         {
-            if (!string.IsNullOrEmpty(cbPesquisar.Text))
+            if (!string.IsNullOrEmpty(cbProduto.Text))
             {
-                (dgvProdutos.DataSource as DataTable).DefaultView.RowFilter = string.Format("Convert({0}, 'System.String') LIKE '%{1}%'", cbPesquisar.Text, txtPesquisar.Text);
+                (dgvProdutos.DataSource as DataTable).DefaultView.RowFilter = string.Format("Convert({0}, 'System.String') LIKE '%{1}%'", cbProduto.Text, txtPesquisarProdutos.Text);
             }
         }
 
@@ -182,6 +189,22 @@ namespace SistemaPDV___Lanchonete
                 Valor_Total = Convert.ToDecimal(dgvProdutos.SelectedCells[1].Value.ToString()) * Convert.ToInt32(txtQuantidade.Text) });
             dgvCarrinho.DataSource = t;
             dgvCarrinho.Refresh();
+        }
+
+        private void dgvClientes_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
+        {
+            
+        }
+
+        private void dgvProdutos_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
+        {
+            dgvProdutos.Columns["Valor"].DefaultCellStyle.Format = "C2";
+        }
+
+        private void dgvCarrinho_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
+        {
+            dgvCarrinho.Columns["Valor_Unitario"].DefaultCellStyle.Format = "C2";
+            dgvCarrinho.Columns["Valor_Total"].DefaultCellStyle.Format = "C2";
         }
     }
 }

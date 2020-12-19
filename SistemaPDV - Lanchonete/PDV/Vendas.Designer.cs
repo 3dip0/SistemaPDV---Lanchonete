@@ -29,12 +29,12 @@ namespace SistemaPDV___Lanchonete
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle7 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle8 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle9 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle10 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle11 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle12 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle79 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle80 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle81 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle82 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle83 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle84 = new System.Windows.Forms.DataGridViewCellStyle();
             this.panel1 = new System.Windows.Forms.Panel();
             this.panel3 = new System.Windows.Forms.Panel();
             this.btnFinalizar = new System.Windows.Forms.Button();
@@ -59,7 +59,7 @@ namespace SistemaPDV___Lanchonete
             this.panel2 = new System.Windows.Forms.Panel();
             this.gbPagamento = new System.Windows.Forms.GroupBox();
             this.label5 = new System.Windows.Forms.Label();
-            this.textBox2 = new System.Windows.Forms.TextBox();
+            this.txtTroco = new System.Windows.Forms.TextBox();
             this.cbPagamento = new System.Windows.Forms.ComboBox();
             this.gbEntrega = new System.Windows.Forms.GroupBox();
             this.label10 = new System.Windows.Forms.Label();
@@ -76,6 +76,9 @@ namespace SistemaPDV___Lanchonete
             this.label4 = new System.Windows.Forms.Label();
             this.txtEnd = new System.Windows.Forms.TextBox();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.btnLimpar = new System.Windows.Forms.Button();
+            this.label40 = new System.Windows.Forms.Label();
+            this.txtId = new System.Windows.Forms.TextBox();
             this.panel4 = new System.Windows.Forms.Panel();
             this.dgvClientes = new System.Windows.Forms.DataGridView();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
@@ -85,9 +88,6 @@ namespace SistemaPDV___Lanchonete
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.txtNome = new System.Windows.Forms.TextBox();
-            this.label40 = new System.Windows.Forms.Label();
-            this.txtId = new System.Windows.Forms.TextBox();
-            this.btnLimpar = new System.Windows.Forms.Button();
             this.panel1.SuspendLayout();
             this.panel3.SuspendLayout();
             this.groupBox6.SuspendLayout();
@@ -193,6 +193,8 @@ namespace SistemaPDV___Lanchonete
             // cbTaxa
             // 
             this.cbTaxa.FormattingEnabled = true;
+            this.cbTaxa.Items.AddRange(new object[] {
+            "Selecionar Item"});
             this.cbTaxa.Location = new System.Drawing.Point(6, 40);
             this.cbTaxa.Name = "cbTaxa";
             this.cbTaxa.Size = new System.Drawing.Size(162, 25);
@@ -220,29 +222,31 @@ namespace SistemaPDV___Lanchonete
             this.dgvCarrinho.AllowUserToDeleteRows = false;
             this.dgvCarrinho.AllowUserToResizeColumns = false;
             this.dgvCarrinho.AllowUserToResizeRows = false;
-            dataGridViewCellStyle7.BackColor = System.Drawing.Color.Gainsboro;
-            this.dgvCarrinho.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle7;
+            dataGridViewCellStyle79.BackColor = System.Drawing.Color.Gainsboro;
+            this.dgvCarrinho.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle79;
             this.dgvCarrinho.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.dgvCarrinho.BackgroundColor = System.Drawing.Color.White;
             this.dgvCarrinho.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridViewCellStyle8.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle8.BackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle8.Font = new System.Drawing.Font("Segoe UI", 9.75F);
-            dataGridViewCellStyle8.ForeColor = System.Drawing.SystemColors.ControlText;
-            dataGridViewCellStyle8.SelectionBackColor = System.Drawing.Color.DimGray;
-            dataGridViewCellStyle8.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle8.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.dgvCarrinho.DefaultCellStyle = dataGridViewCellStyle8;
+            dataGridViewCellStyle80.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle80.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle80.Font = new System.Drawing.Font("Segoe UI", 9.75F);
+            dataGridViewCellStyle80.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle80.SelectionBackColor = System.Drawing.Color.DimGray;
+            dataGridViewCellStyle80.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle80.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dgvCarrinho.DefaultCellStyle = dataGridViewCellStyle80;
             this.dgvCarrinho.Dock = System.Windows.Forms.DockStyle.Top;
             this.dgvCarrinho.Location = new System.Drawing.Point(3, 21);
             this.dgvCarrinho.MultiSelect = false;
             this.dgvCarrinho.Name = "dgvCarrinho";
-            this.dgvCarrinho.ReadOnly = true;
             this.dgvCarrinho.RowHeadersVisible = false;
             this.dgvCarrinho.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dgvCarrinho.Size = new System.Drawing.Size(582, 100);
             this.dgvCarrinho.TabIndex = 152;
             this.dgvCarrinho.TabStop = false;
+            this.dgvCarrinho.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvCarrinho_CellClick);
+            this.dgvCarrinho.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvCarrinho_CellContentClick);
+            this.dgvCarrinho.CellEndEdit += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvCarrinho_CellEndEdit);
             this.dgvCarrinho.CellFormatting += new System.Windows.Forms.DataGridViewCellFormattingEventHandler(this.dgvCarrinho_CellFormatting);
             // 
             // btnEditIngred
@@ -255,6 +259,7 @@ namespace SistemaPDV___Lanchonete
             this.btnEditIngred.TabIndex = 150;
             this.btnEditIngred.Text = "Editar";
             this.btnEditIngred.UseVisualStyleBackColor = true;
+            this.btnEditIngred.Click += new System.EventHandler(this.btnEditIngred_Click);
             // 
             // btnExcIngred
             // 
@@ -311,19 +316,19 @@ namespace SistemaPDV___Lanchonete
             this.dgvProdutos.AllowUserToDeleteRows = false;
             this.dgvProdutos.AllowUserToResizeColumns = false;
             this.dgvProdutos.AllowUserToResizeRows = false;
-            dataGridViewCellStyle9.BackColor = System.Drawing.Color.Gainsboro;
-            this.dgvProdutos.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle9;
+            dataGridViewCellStyle81.BackColor = System.Drawing.Color.Gainsboro;
+            this.dgvProdutos.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle81;
             this.dgvProdutos.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.dgvProdutos.BackgroundColor = System.Drawing.Color.White;
             this.dgvProdutos.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridViewCellStyle10.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle10.BackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle10.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle10.ForeColor = System.Drawing.SystemColors.ControlText;
-            dataGridViewCellStyle10.SelectionBackColor = System.Drawing.Color.DimGray;
-            dataGridViewCellStyle10.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle10.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.dgvProdutos.DefaultCellStyle = dataGridViewCellStyle10;
+            dataGridViewCellStyle82.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle82.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle82.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle82.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle82.SelectionBackColor = System.Drawing.Color.DimGray;
+            dataGridViewCellStyle82.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle82.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dgvProdutos.DefaultCellStyle = dataGridViewCellStyle82;
             this.dgvProdutos.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dgvProdutos.Location = new System.Drawing.Point(0, 0);
             this.dgvProdutos.MultiSelect = false;
@@ -385,6 +390,7 @@ namespace SistemaPDV___Lanchonete
             this.txtQuantidade.Name = "txtQuantidade";
             this.txtQuantidade.Size = new System.Drawing.Size(76, 25);
             this.txtQuantidade.TabIndex = 0;
+            this.txtQuantidade.Click += new System.EventHandler(this.txtQuantidade_Click);
             // 
             // panel2
             // 
@@ -402,7 +408,7 @@ namespace SistemaPDV___Lanchonete
             this.gbPagamento.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.gbPagamento.Controls.Add(this.label5);
-            this.gbPagamento.Controls.Add(this.textBox2);
+            this.gbPagamento.Controls.Add(this.txtTroco);
             this.gbPagamento.Controls.Add(this.cbPagamento);
             this.gbPagamento.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.gbPagamento.Location = new System.Drawing.Point(12, 360);
@@ -421,14 +427,16 @@ namespace SistemaPDV___Lanchonete
             this.label5.TabIndex = 7;
             this.label5.Text = "Troco para:";
             // 
-            // textBox2
+            // txtTroco
             // 
-            this.textBox2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            this.txtTroco.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.textBox2.Location = new System.Drawing.Point(6, 96);
-            this.textBox2.Name = "textBox2";
-            this.textBox2.Size = new System.Drawing.Size(121, 25);
-            this.textBox2.TabIndex = 6;
+            this.txtTroco.Location = new System.Drawing.Point(6, 96);
+            this.txtTroco.Name = "txtTroco";
+            this.txtTroco.Size = new System.Drawing.Size(121, 25);
+            this.txtTroco.TabIndex = 6;
+            this.txtTroco.Click += new System.EventHandler(this.txtTroco_Click);
+            this.txtTroco.Leave += new System.EventHandler(this.txtTroco_Leave);
             // 
             // cbPagamento
             // 
@@ -483,6 +491,7 @@ namespace SistemaPDV___Lanchonete
             this.txtUf.Name = "txtUf";
             this.txtUf.Size = new System.Drawing.Size(95, 25);
             this.txtUf.TabIndex = 11;
+            this.txtUf.Click += new System.EventHandler(this.txtUf_Click);
             // 
             // label9
             // 
@@ -499,6 +508,7 @@ namespace SistemaPDV___Lanchonete
             this.txtCidade.Name = "txtCidade";
             this.txtCidade.Size = new System.Drawing.Size(220, 25);
             this.txtCidade.TabIndex = 9;
+            this.txtCidade.Click += new System.EventHandler(this.txtCidade_Click);
             // 
             // label8
             // 
@@ -515,6 +525,7 @@ namespace SistemaPDV___Lanchonete
             this.txtNumero.Name = "txtNumero";
             this.txtNumero.Size = new System.Drawing.Size(95, 25);
             this.txtNumero.TabIndex = 7;
+            this.txtNumero.Click += new System.EventHandler(this.txtNumero_Click);
             // 
             // label6
             // 
@@ -528,9 +539,11 @@ namespace SistemaPDV___Lanchonete
             // txtCEP
             // 
             this.txtCEP.Location = new System.Drawing.Point(6, 91);
+            this.txtCEP.Mask = "00000-999";
             this.txtCEP.Name = "txtCEP";
             this.txtCEP.Size = new System.Drawing.Size(114, 25);
             this.txtCEP.TabIndex = 5;
+            this.txtCEP.Click += new System.EventHandler(this.txtCEP_Click);
             // 
             // cbFormaEntrega
             // 
@@ -560,6 +573,7 @@ namespace SistemaPDV___Lanchonete
             this.txtBairro.Name = "txtBairro";
             this.txtBairro.Size = new System.Drawing.Size(274, 25);
             this.txtBairro.TabIndex = 2;
+            this.txtBairro.Click += new System.EventHandler(this.txtBairro_Click);
             // 
             // label4
             // 
@@ -576,6 +590,7 @@ namespace SistemaPDV___Lanchonete
             this.txtEnd.Name = "txtEnd";
             this.txtEnd.Size = new System.Drawing.Size(380, 25);
             this.txtEnd.TabIndex = 0;
+            this.txtEnd.Click += new System.EventHandler(this.txtEnd_Click);
             // 
             // groupBox1
             // 
@@ -598,6 +613,35 @@ namespace SistemaPDV___Lanchonete
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Informações do Cliente";
             // 
+            // btnLimpar
+            // 
+            this.btnLimpar.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnLimpar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnLimpar.Location = new System.Drawing.Point(503, 226);
+            this.btnLimpar.Name = "btnLimpar";
+            this.btnLimpar.Size = new System.Drawing.Size(108, 29);
+            this.btnLimpar.TabIndex = 151;
+            this.btnLimpar.Text = "Limpar";
+            this.btnLimpar.UseVisualStyleBackColor = true;
+            this.btnLimpar.Click += new System.EventHandler(this.btnLimpar_Click);
+            // 
+            // label40
+            // 
+            this.label40.AutoSize = true;
+            this.label40.Location = new System.Drawing.Point(2, 178);
+            this.label40.Name = "label40";
+            this.label40.Size = new System.Drawing.Size(20, 17);
+            this.label40.TabIndex = 147;
+            this.label40.Text = "ID";
+            // 
+            // txtId
+            // 
+            this.txtId.Enabled = false;
+            this.txtId.Location = new System.Drawing.Point(3, 195);
+            this.txtId.Name = "txtId";
+            this.txtId.Size = new System.Drawing.Size(66, 25);
+            this.txtId.TabIndex = 146;
+            // 
             // panel4
             // 
             this.panel4.Controls.Add(this.dgvClientes);
@@ -613,19 +657,19 @@ namespace SistemaPDV___Lanchonete
             this.dgvClientes.AllowUserToDeleteRows = false;
             this.dgvClientes.AllowUserToResizeColumns = false;
             this.dgvClientes.AllowUserToResizeRows = false;
-            dataGridViewCellStyle11.BackColor = System.Drawing.Color.Gainsboro;
-            this.dgvClientes.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle11;
+            dataGridViewCellStyle83.BackColor = System.Drawing.Color.Gainsboro;
+            this.dgvClientes.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle83;
             this.dgvClientes.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.dgvClientes.BackgroundColor = System.Drawing.Color.White;
             this.dgvClientes.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridViewCellStyle12.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle12.BackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle12.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle12.ForeColor = System.Drawing.SystemColors.ControlText;
-            dataGridViewCellStyle12.SelectionBackColor = System.Drawing.Color.DimGray;
-            dataGridViewCellStyle12.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle12.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.dgvClientes.DefaultCellStyle = dataGridViewCellStyle12;
+            dataGridViewCellStyle84.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle84.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle84.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle84.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle84.SelectionBackColor = System.Drawing.Color.DimGray;
+            dataGridViewCellStyle84.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle84.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dgvClientes.DefaultCellStyle = dataGridViewCellStyle84;
             this.dgvClientes.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dgvClientes.Location = new System.Drawing.Point(0, 0);
             this.dgvClientes.MultiSelect = false;
@@ -669,14 +713,17 @@ namespace SistemaPDV___Lanchonete
             this.txtPesquisar.Name = "txtPesquisar";
             this.txtPesquisar.Size = new System.Drawing.Size(413, 25);
             this.txtPesquisar.TabIndex = 11;
+            this.txtPesquisar.Click += new System.EventHandler(this.txtPesquisar_Click);
             this.txtPesquisar.TextChanged += new System.EventHandler(this.txtPesquisar_TextChanged);
             // 
             // txtTelefone
             // 
             this.txtTelefone.Location = new System.Drawing.Point(449, 195);
+            this.txtTelefone.Mask = "(99) 00000-0000";
             this.txtTelefone.Name = "txtTelefone";
             this.txtTelefone.Size = new System.Drawing.Size(162, 25);
             this.txtTelefone.TabIndex = 4;
+            this.txtTelefone.Click += new System.EventHandler(this.txtTelefone_Click);
             // 
             // label2
             // 
@@ -704,35 +751,7 @@ namespace SistemaPDV___Lanchonete
             this.txtNome.Name = "txtNome";
             this.txtNome.Size = new System.Drawing.Size(368, 25);
             this.txtNome.TabIndex = 0;
-            // 
-            // label40
-            // 
-            this.label40.AutoSize = true;
-            this.label40.Location = new System.Drawing.Point(2, 178);
-            this.label40.Name = "label40";
-            this.label40.Size = new System.Drawing.Size(20, 17);
-            this.label40.TabIndex = 147;
-            this.label40.Text = "ID";
-            // 
-            // txtId
-            // 
-            this.txtId.Enabled = false;
-            this.txtId.Location = new System.Drawing.Point(3, 195);
-            this.txtId.Name = "txtId";
-            this.txtId.Size = new System.Drawing.Size(66, 25);
-            this.txtId.TabIndex = 146;
-            // 
-            // btnLimpar
-            // 
-            this.btnLimpar.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnLimpar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnLimpar.Location = new System.Drawing.Point(503, 226);
-            this.btnLimpar.Name = "btnLimpar";
-            this.btnLimpar.Size = new System.Drawing.Size(108, 29);
-            this.btnLimpar.TabIndex = 151;
-            this.btnLimpar.Text = "Limpar";
-            this.btnLimpar.UseVisualStyleBackColor = true;
-            this.btnLimpar.Click += new System.EventHandler(this.btnLimpar_Click);
+            this.txtNome.Click += new System.EventHandler(this.txtNome_Click);
             // 
             // Vendas
             // 
@@ -789,7 +808,7 @@ namespace SistemaPDV___Lanchonete
         private System.Windows.Forms.TextBox txtNome;
         private System.Windows.Forms.GroupBox gbPagamento;
         private System.Windows.Forms.Label label5;
-        private System.Windows.Forms.TextBox textBox2;
+        private System.Windows.Forms.TextBox txtTroco;
         private System.Windows.Forms.ComboBox cbPagamento;
         private System.Windows.Forms.MaskedTextBox txtTelefone;
         private System.Windows.Forms.Panel panel4;
@@ -799,14 +818,12 @@ namespace SistemaPDV___Lanchonete
         private System.Windows.Forms.TextBox txtPesquisar;
         private System.Windows.Forms.GroupBox groupBox3;
         private System.Windows.Forms.Panel panel5;
-        private System.Windows.Forms.DataGridView dgvProdutos;
         private System.Windows.Forms.GroupBox groupBox4;
         private System.Windows.Forms.ComboBox cbProduto;
         private System.Windows.Forms.TextBox txtPesquisarProdutos;
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.TextBox txtQuantidade;
         private System.Windows.Forms.GroupBox groupBox5;
-        private System.Windows.Forms.DataGridView dgvCarrinho;
         private System.Windows.Forms.Button btnEditIngred;
         private System.Windows.Forms.Button btnExcIngred;
         private System.Windows.Forms.Button btnAddProduto;
@@ -827,5 +844,7 @@ namespace SistemaPDV___Lanchonete
         public System.Windows.Forms.Label label40;
         public System.Windows.Forms.TextBox txtId;
         private System.Windows.Forms.Button btnLimpar;
+        private System.Windows.Forms.DataGridView dgvProdutos;
+        private System.Windows.Forms.DataGridView dgvCarrinho;
     }
 }

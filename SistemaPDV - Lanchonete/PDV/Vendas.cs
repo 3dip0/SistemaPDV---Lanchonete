@@ -17,10 +17,12 @@ namespace SistemaPDV___Lanchonete
 
         List<Carrinho> t { get; set; }
         MySQL instanciaMySql = new MySQL();
+        
         string sql;
         public Vendas()
         {
             InitializeComponent();
+            System.Threading.Thread.CurrentThread.CurrentCulture = new System.Globalization.CultureInfo("pt-BR");
             
         }
 
@@ -36,6 +38,7 @@ namespace SistemaPDV___Lanchonete
                 gbEntrega.Height = 70;
                 gbPagamento.Location = new Point(12, 360);
             }
+            CarregarDadosTaxas();
         }
 
         private void comboBox1_SelectedIndexChanged_1(object sender, EventArgs e)
@@ -52,10 +55,19 @@ namespace SistemaPDV___Lanchonete
 
         private void Vendas_Load(object sender, EventArgs e)
         {
+            t = new List<Carrinho>();
             CarregarDados();
             CarregarDadosProdutos();
             PreencherComboBoxPesquisa();
             CarregarDadosTaxas();
+
+            dgvCarrinho.ColumnCount = 4;
+            //Informo os nomes das colunas do dataGridView
+            dgvCarrinho.Columns[0].Name = "Produto";
+            dgvCarrinho.Columns[1].Name = "Quantidade";
+            dgvCarrinho.Columns[2].Name = "Valor_Unitario";
+            dgvCarrinho.Columns[3].Name = "Valor_Total";
+
         }
 
         private void CarregarDados()
@@ -105,32 +117,40 @@ namespace SistemaPDV___Lanchonete
 
         private void CarregarDadosTaxas()
         {
-            MySqlConnection conn = instanciaMySql.GetConnection();
-            try
+            if(cbFormaEntrega.Text=="Retirada no Local")
             {
-                if (conn.State == ConnectionState.Closed)
-                    conn.Open();
-
-                sql = "SELECT descricao from Taxa";
-                MySqlCommand cmd = new MySqlCommand(sql, conn);
-                MySqlDataAdapter da = new MySqlDataAdapter(cmd);
-
-
-                DataTable dt = new DataTable();
-                da.Fill(dt);
-                cbTaxa.DataSource = dt;
-                cbTaxa.DisplayMember = "descricao";
-
+                cbTaxa.Items.Add("Nenhuma");
             }
-            catch (Exception ex)
+            else
             {
-                MessageBox.Show("Erro: " + ex.Message, "Atenção", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MySqlConnection conn = instanciaMySql.GetConnection();
+                try
+                {
+                    if (conn.State == ConnectionState.Closed)
+                        conn.Open();
+
+                    sql = "SELECT descricao from Taxa";
+                    MySqlCommand cmd = new MySqlCommand(sql, conn);
+                    MySqlDataAdapter da = new MySqlDataAdapter(cmd);
+
+
+                    DataTable dt = new DataTable();
+                    da.Fill(dt);
+                    cbTaxa.DataSource = dt;
+                    cbTaxa.DisplayMember = "descricao";
+
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Erro: " + ex.Message, "Atenção", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+                finally
+                {
+                    if (conn.State == ConnectionState.Open)
+                        conn.Close();
+                }
             }
-            finally
-            {
-                if (conn.State == ConnectionState.Open)
-                    conn.Close();
-            }
+            
 
         }
 
@@ -148,8 +168,8 @@ namespace SistemaPDV___Lanchonete
                 if (leitor.HasRows)
                 {
                     leitor.Read();
+                    txtValorTaxa.Text = string.Format("{0:C}", Convert.ToDouble(leitor["valor"].ToString()));
                     
-                    txtValorTaxa.Text = leitor["valor"].ToString();
                     if (leitor != null)
                         leitor.Close();
 
@@ -176,8 +196,7 @@ namespace SistemaPDV___Lanchonete
                 if (conn.State == ConnectionState.Closed)
                     conn.Open();
 
-                sql = "SELECT id as \"ID\", " +
-                    " descricao AS \"Descricao\"," +
+                sql = "SELECT descricao AS \"Descricao\"," +
                     " valor AS \"Valor\" " +
                     " FROM Produto";
                 MySqlCommand cmd = new MySqlCommand(sql, conn);
@@ -369,35 +388,48 @@ namespace SistemaPDV___Lanchonete
             public decimal Valor_Total { get; set; }
 
         }
+
+        private void CarregarGrid()
+        {
+            dgvCarrinho.DataSource = t;
+            dgvCarrinho.Refresh();
+        }
         private void btnAddProduto_Click(object sender, EventArgs e)
         {
-            if (string.IsNullOrEmpty(txtId.Text))
+
+            Boolean naoExiste = true;
+            foreach (DataGridViewRow row in dgvCarrinho.Rows)
             {
-                if (txtNome.Text == "")
+
+                if (row.Cells["Produto"].Value.ToString().Equals(dgvProdutos.SelectedCells[0].Value.ToString()))
                 {
-                    MessageBox.Show("Verifique os dados!");
+                    
+                        MessageBox.Show("Produto já está adicionado!");
+                        naoExiste = false;
+
+                        break;
+                    
 
                 }
                 else
                 {
-                    InserirDadosCliente();
-                    CarregarDados();
-                    InserirDadosCarrinho();
-                    CarregarDadosCarrinho();
+                    naoExiste = true;
+                   
+                    
                 }
+
             }
-            else
+            if (naoExiste == true)
             {
-                AlterarDados();
-                InserirDadosCarrinho();
-                CarregarDadosCarrinho();
-
-
-
-                CarregarDados();
+                dgvCarrinho.Rows.Add(
+                dgvProdutos.SelectedCells[0].Value.ToString(),
+                txtQuantidade.Text,
+                Convert.ToDecimal(dgvProdutos.SelectedCells[1].Value.ToString()),
+                Convert.ToDecimal(dgvProdutos.SelectedCells[1].Value.ToString()) * Convert.ToInt32(txtQuantidade.Text));
             }
-
             
+
+
         }
 
         private void dgvClientes_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
@@ -412,8 +444,12 @@ namespace SistemaPDV___Lanchonete
 
         private void dgvCarrinho_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
         {
-            dgvCarrinho.Columns["Valor Unitario"].DefaultCellStyle.Format = "C2";
-            dgvCarrinho.Columns["Valor Total"].DefaultCellStyle.Format = "C2";
+            dgvCarrinho.Columns["Valor_Unitario"].DefaultCellStyle.Format = "C2";
+            dgvCarrinho.Columns["Valor_Total"].DefaultCellStyle.Format = "C2";
+            dgvCarrinho.Columns["Produto"].ReadOnly = true;
+            dgvCarrinho.Columns["Valor_Unitario"].ReadOnly = true;
+            dgvCarrinho.Columns["Valor_Total"].ReadOnly = true;
+
         }
 
         private void cbTaxa_SelectedIndexChanged(object sender, EventArgs e)
@@ -511,6 +547,108 @@ namespace SistemaPDV___Lanchonete
             txtBairro.Text = "";
             txtCidade.Text = "";
             txtUf.Text = "";
+        }
+
+        private void dgvCarrinho_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+            
+        }
+
+        private void dgvCarrinho_CellEndEdit(object sender, DataGridViewCellEventArgs e)
+        {
+            dgvCarrinho.CurrentRow.Cells[3].Value = Convert.ToDecimal(dgvCarrinho.CurrentRow.Cells[2].Value) * Convert.ToInt32(dgvCarrinho.CurrentRow.Cells[1].Value);
+        }
+
+        private void dgvCarrinho_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            dgvCarrinho.BeginEdit(true);
+        }
+
+        private void btnEditIngred_Click(object sender, EventArgs e)
+        {
+           
+            dgvCarrinho.BeginEdit(true);
+        }
+        decimal troco;
+        private void txtTroco_TextChanged(object sender, EventArgs e)
+        {
+            
+        }
+
+        private void txtTroco_Leave(object sender, EventArgs e)
+        {
+            if (char.IsDigit(txtTroco.Text[0]))
+            {
+                troco = Convert.ToDecimal(txtTroco.Text.Replace("R", "").Replace("$", ""));
+
+
+                txtTroco.Text = string.Format("{0:C}", Convert.ToDouble(troco.ToString()));
+            }
+
+           
+                       
+        }
+
+        private void txtTroco_Click(object sender, EventArgs e)
+        {
+            txtTroco.SelectAll();
+        }
+
+        private void txtQuantidade_Click(object sender, EventArgs e)
+        {
+            txtQuantidade.SelectAll();
+        }
+
+        private void txtPesquisar_Click(object sender, EventArgs e)
+        {
+            txtPesquisar.SelectAll();
+        }
+
+        private void txtNome_Click(object sender, EventArgs e)
+        {
+            txtNome.SelectAll();
+        }
+
+        private void txtTelefone_Click(object sender, EventArgs e)
+        {
+            
+                txtTelefone.Select();
+            
+                txtTelefone.SelectAll();
+
+        }
+
+        private void txtCEP_Click(object sender, EventArgs e)
+        {
+
+            txtCEP.Select();
+
+            txtCEP.SelectAll();
+        }
+
+        private void txtEnd_Click(object sender, EventArgs e)
+        {
+            txtEnd.SelectAll();
+        }
+
+        private void txtNumero_Click(object sender, EventArgs e)
+        {
+            txtNumero.SelectAll();
+        }
+
+        private void txtBairro_Click(object sender, EventArgs e)
+        {
+            txtBairro.SelectAll();
+        }
+
+        private void txtCidade_Click(object sender, EventArgs e)
+        {
+            txtCidade.SelectAll();
+        }
+
+        private void txtUf_Click(object sender, EventArgs e)
+        {
+            txtUf.SelectAll();
         }
     }
 }

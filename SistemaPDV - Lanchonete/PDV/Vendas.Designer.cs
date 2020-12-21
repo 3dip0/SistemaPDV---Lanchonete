@@ -29,17 +29,21 @@ namespace SistemaPDV___Lanchonete
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle79 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle80 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle81 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle82 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle83 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle84 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
             this.panel1 = new System.Windows.Forms.Panel();
             this.panel3 = new System.Windows.Forms.Panel();
             this.btnFinalizar = new System.Windows.Forms.Button();
             this.btnCancelar = new System.Windows.Forms.Button();
             this.groupBox6 = new System.Windows.Forms.GroupBox();
+            this.label14 = new System.Windows.Forms.Label();
+            this.txtValorTotal = new System.Windows.Forms.TextBox();
+            this.label13 = new System.Windows.Forms.Label();
+            this.txtSubTotal = new System.Windows.Forms.TextBox();
             this.label11 = new System.Windows.Forms.Label();
             this.txtValorTaxa = new System.Windows.Forms.TextBox();
             this.cbTaxa = new System.Windows.Forms.ComboBox();
@@ -57,6 +61,8 @@ namespace SistemaPDV___Lanchonete
             this.label7 = new System.Windows.Forms.Label();
             this.txtQuantidade = new System.Windows.Forms.TextBox();
             this.panel2 = new System.Windows.Forms.Panel();
+            this.lblNVenda = new System.Windows.Forms.Label();
+            this.label12 = new System.Windows.Forms.Label();
             this.gbPagamento = new System.Windows.Forms.GroupBox();
             this.label5 = new System.Windows.Forms.Label();
             this.txtTroco = new System.Windows.Forms.TextBox();
@@ -160,16 +166,58 @@ namespace SistemaPDV___Lanchonete
             // 
             this.groupBox6.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.groupBox6.Controls.Add(this.label14);
+            this.groupBox6.Controls.Add(this.txtValorTotal);
+            this.groupBox6.Controls.Add(this.label13);
+            this.groupBox6.Controls.Add(this.txtSubTotal);
             this.groupBox6.Controls.Add(this.label11);
             this.groupBox6.Controls.Add(this.txtValorTaxa);
             this.groupBox6.Controls.Add(this.cbTaxa);
             this.groupBox6.Font = new System.Drawing.Font("Segoe UI", 9.75F);
             this.groupBox6.Location = new System.Drawing.Point(6, 420);
             this.groupBox6.Name = "groupBox6";
-            this.groupBox6.Size = new System.Drawing.Size(588, 92);
+            this.groupBox6.Size = new System.Drawing.Size(588, 118);
             this.groupBox6.TabIndex = 3;
             this.groupBox6.TabStop = false;
             this.groupBox6.Text = "Taxas";
+            // 
+            // label14
+            // 
+            this.label14.AutoSize = true;
+            this.label14.Location = new System.Drawing.Point(477, 67);
+            this.label14.Name = "label14";
+            this.label14.Size = new System.Drawing.Size(70, 17);
+            this.label14.TabIndex = 11;
+            this.label14.Text = "Valor Total";
+            // 
+            // txtValorTotal
+            // 
+            this.txtValorTotal.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.txtValorTotal.Enabled = false;
+            this.txtValorTotal.Location = new System.Drawing.Point(477, 87);
+            this.txtValorTotal.Name = "txtValorTotal";
+            this.txtValorTotal.Size = new System.Drawing.Size(92, 25);
+            this.txtValorTotal.TabIndex = 10;
+            // 
+            // label13
+            // 
+            this.label13.AutoSize = true;
+            this.label13.Location = new System.Drawing.Point(477, 16);
+            this.label13.Name = "label13";
+            this.label13.Size = new System.Drawing.Size(62, 17);
+            this.label13.TabIndex = 9;
+            this.label13.Text = "Sub Total";
+            // 
+            // txtSubTotal
+            // 
+            this.txtSubTotal.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.txtSubTotal.Enabled = false;
+            this.txtSubTotal.Location = new System.Drawing.Point(477, 36);
+            this.txtSubTotal.Name = "txtSubTotal";
+            this.txtSubTotal.Size = new System.Drawing.Size(92, 25);
+            this.txtSubTotal.TabIndex = 8;
             // 
             // label11
             // 
@@ -189,6 +237,7 @@ namespace SistemaPDV___Lanchonete
             this.txtValorTaxa.Name = "txtValorTaxa";
             this.txtValorTaxa.Size = new System.Drawing.Size(76, 25);
             this.txtValorTaxa.TabIndex = 6;
+            this.txtValorTaxa.Text = "R$0,00";
             // 
             // cbTaxa
             // 
@@ -222,19 +271,19 @@ namespace SistemaPDV___Lanchonete
             this.dgvCarrinho.AllowUserToDeleteRows = false;
             this.dgvCarrinho.AllowUserToResizeColumns = false;
             this.dgvCarrinho.AllowUserToResizeRows = false;
-            dataGridViewCellStyle79.BackColor = System.Drawing.Color.Gainsboro;
-            this.dgvCarrinho.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle79;
+            dataGridViewCellStyle1.BackColor = System.Drawing.Color.Gainsboro;
+            this.dgvCarrinho.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
             this.dgvCarrinho.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.dgvCarrinho.BackgroundColor = System.Drawing.Color.White;
             this.dgvCarrinho.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridViewCellStyle80.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle80.BackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle80.Font = new System.Drawing.Font("Segoe UI", 9.75F);
-            dataGridViewCellStyle80.ForeColor = System.Drawing.SystemColors.ControlText;
-            dataGridViewCellStyle80.SelectionBackColor = System.Drawing.Color.DimGray;
-            dataGridViewCellStyle80.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle80.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.dgvCarrinho.DefaultCellStyle = dataGridViewCellStyle80;
+            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle2.Font = new System.Drawing.Font("Segoe UI", 9.75F);
+            dataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.Color.DimGray;
+            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dgvCarrinho.DefaultCellStyle = dataGridViewCellStyle2;
             this.dgvCarrinho.Dock = System.Windows.Forms.DockStyle.Top;
             this.dgvCarrinho.Location = new System.Drawing.Point(3, 21);
             this.dgvCarrinho.MultiSelect = false;
@@ -282,9 +331,9 @@ namespace SistemaPDV___Lanchonete
             this.groupBox3.Controls.Add(this.label7);
             this.groupBox3.Controls.Add(this.txtQuantidade);
             this.groupBox3.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.groupBox3.Location = new System.Drawing.Point(3, 12);
+            this.groupBox3.Location = new System.Drawing.Point(3, 21);
             this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Size = new System.Drawing.Size(591, 237);
+            this.groupBox3.Size = new System.Drawing.Size(591, 228);
             this.groupBox3.TabIndex = 1;
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "Informações do Pedido";
@@ -316,19 +365,19 @@ namespace SistemaPDV___Lanchonete
             this.dgvProdutos.AllowUserToDeleteRows = false;
             this.dgvProdutos.AllowUserToResizeColumns = false;
             this.dgvProdutos.AllowUserToResizeRows = false;
-            dataGridViewCellStyle81.BackColor = System.Drawing.Color.Gainsboro;
-            this.dgvProdutos.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle81;
+            dataGridViewCellStyle3.BackColor = System.Drawing.Color.Gainsboro;
+            this.dgvProdutos.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle3;
             this.dgvProdutos.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.dgvProdutos.BackgroundColor = System.Drawing.Color.White;
             this.dgvProdutos.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridViewCellStyle82.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle82.BackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle82.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle82.ForeColor = System.Drawing.SystemColors.ControlText;
-            dataGridViewCellStyle82.SelectionBackColor = System.Drawing.Color.DimGray;
-            dataGridViewCellStyle82.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle82.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.dgvProdutos.DefaultCellStyle = dataGridViewCellStyle82;
+            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle4.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle4.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle4.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle4.SelectionBackColor = System.Drawing.Color.DimGray;
+            dataGridViewCellStyle4.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dgvProdutos.DefaultCellStyle = dataGridViewCellStyle4;
             this.dgvProdutos.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dgvProdutos.Location = new System.Drawing.Point(0, 0);
             this.dgvProdutos.MultiSelect = false;
@@ -394,6 +443,8 @@ namespace SistemaPDV___Lanchonete
             // 
             // panel2
             // 
+            this.panel2.Controls.Add(this.lblNVenda);
+            this.panel2.Controls.Add(this.label12);
             this.panel2.Controls.Add(this.gbPagamento);
             this.panel2.Controls.Add(this.gbEntrega);
             this.panel2.Controls.Add(this.groupBox1);
@@ -402,6 +453,24 @@ namespace SistemaPDV___Lanchonete
             this.panel2.Name = "panel2";
             this.panel2.Size = new System.Drawing.Size(641, 623);
             this.panel2.TabIndex = 0;
+            this.panel2.Paint += new System.Windows.Forms.PaintEventHandler(this.panel2_Paint);
+            // 
+            // lblNVenda
+            // 
+            this.lblNVenda.AutoSize = true;
+            this.lblNVenda.Location = new System.Drawing.Point(83, 5);
+            this.lblNVenda.Name = "lblNVenda";
+            this.lblNVenda.Size = new System.Drawing.Size(0, 13);
+            this.lblNVenda.TabIndex = 4;
+            // 
+            // label12
+            // 
+            this.label12.AutoSize = true;
+            this.label12.Location = new System.Drawing.Point(3, 5);
+            this.label12.Name = "label12";
+            this.label12.Size = new System.Drawing.Size(73, 13);
+            this.label12.TabIndex = 3;
+            this.label12.Text = "ID da Venda: ";
             // 
             // gbPagamento
             // 
@@ -606,9 +675,9 @@ namespace SistemaPDV___Lanchonete
             this.groupBox1.Controls.Add(this.label1);
             this.groupBox1.Controls.Add(this.txtNome);
             this.groupBox1.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.groupBox1.Location = new System.Drawing.Point(12, 12);
+            this.groupBox1.Location = new System.Drawing.Point(12, 21);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(617, 268);
+            this.groupBox1.Size = new System.Drawing.Size(617, 259);
             this.groupBox1.TabIndex = 0;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Informações do Cliente";
@@ -657,19 +726,19 @@ namespace SistemaPDV___Lanchonete
             this.dgvClientes.AllowUserToDeleteRows = false;
             this.dgvClientes.AllowUserToResizeColumns = false;
             this.dgvClientes.AllowUserToResizeRows = false;
-            dataGridViewCellStyle83.BackColor = System.Drawing.Color.Gainsboro;
-            this.dgvClientes.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle83;
+            dataGridViewCellStyle5.BackColor = System.Drawing.Color.Gainsboro;
+            this.dgvClientes.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle5;
             this.dgvClientes.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.dgvClientes.BackgroundColor = System.Drawing.Color.White;
             this.dgvClientes.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridViewCellStyle84.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle84.BackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle84.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle84.ForeColor = System.Drawing.SystemColors.ControlText;
-            dataGridViewCellStyle84.SelectionBackColor = System.Drawing.Color.DimGray;
-            dataGridViewCellStyle84.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle84.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.dgvClientes.DefaultCellStyle = dataGridViewCellStyle84;
+            dataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle6.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle6.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle6.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle6.SelectionBackColor = System.Drawing.Color.DimGray;
+            dataGridViewCellStyle6.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle6.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dgvClientes.DefaultCellStyle = dataGridViewCellStyle6;
             this.dgvClientes.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dgvClientes.Location = new System.Drawing.Point(0, 0);
             this.dgvClientes.MultiSelect = false;
@@ -777,6 +846,7 @@ namespace SistemaPDV___Lanchonete
             this.groupBox4.ResumeLayout(false);
             this.groupBox4.PerformLayout();
             this.panel2.ResumeLayout(false);
+            this.panel2.PerformLayout();
             this.gbPagamento.ResumeLayout(false);
             this.gbPagamento.PerformLayout();
             this.gbEntrega.ResumeLayout(false);
@@ -837,7 +907,6 @@ namespace SistemaPDV___Lanchonete
         private System.Windows.Forms.MaskedTextBox txtCEP;
         private System.Windows.Forms.GroupBox groupBox6;
         private System.Windows.Forms.Label label11;
-        private System.Windows.Forms.TextBox txtValorTaxa;
         private System.Windows.Forms.ComboBox cbTaxa;
         private System.Windows.Forms.Button btnFinalizar;
         private System.Windows.Forms.Button btnCancelar;
@@ -846,5 +915,12 @@ namespace SistemaPDV___Lanchonete
         private System.Windows.Forms.Button btnLimpar;
         private System.Windows.Forms.DataGridView dgvProdutos;
         private System.Windows.Forms.DataGridView dgvCarrinho;
+        private System.Windows.Forms.Label label12;
+        private System.Windows.Forms.Label lblNVenda;
+        private System.Windows.Forms.Label label14;
+        private System.Windows.Forms.TextBox txtValorTotal;
+        private System.Windows.Forms.Label label13;
+        private System.Windows.Forms.TextBox txtSubTotal;
+        public System.Windows.Forms.TextBox txtValorTaxa;
     }
 }

@@ -1,4 +1,5 @@
 ﻿using MySql.Data.MySqlClient;
+using SistemaPDV___Lanchonete.Cadastro;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -6,6 +7,7 @@ using System.Data;
 using System.Data.SQLite;
 using System.Drawing;
 using System.Linq;
+using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -18,6 +20,7 @@ namespace SistemaPDV___Lanchonete
         List<Carrinho> t { get; set; }
         MySQL instanciaMySql = new MySQL();
         
+        int idCarrinho;
         string sql;
         public Vendas()
         {
@@ -60,13 +63,8 @@ namespace SistemaPDV___Lanchonete
             CarregarDadosProdutos();
             PreencherComboBoxPesquisa();
             CarregarDadosTaxas();
-
-            dgvCarrinho.ColumnCount = 4;
-            //Informo os nomes das colunas do dataGridView
-            dgvCarrinho.Columns[0].Name = "Produto";
-            dgvCarrinho.Columns[1].Name = "Quantidade";
-            dgvCarrinho.Columns[2].Name = "Valor_Unitario";
-            dgvCarrinho.Columns[3].Name = "Valor_Total";
+            InserirDadosIncompletosVendas();
+            CarregarIDUltimaVenda();
 
         }
 
@@ -119,7 +117,9 @@ namespace SistemaPDV___Lanchonete
         {
             if(cbFormaEntrega.Text=="Retirada no Local")
             {
+                cbTaxa.DataSource = null;
                 cbTaxa.Items.Add("Nenhuma");
+                txtValorTaxa.Text = "";
             }
             else
             {
@@ -196,7 +196,8 @@ namespace SistemaPDV___Lanchonete
                 if (conn.State == ConnectionState.Closed)
                     conn.Open();
 
-                sql = "SELECT descricao AS \"Descricao\"," +
+                sql = "SELECT id AS \"ID\"," +
+                    " descricao AS \"Descricao\"," +
                     " valor AS \"Valor\" " +
                     " FROM Produto";
                 MySqlCommand cmd = new MySqlCommand(sql, conn);
@@ -233,12 +234,82 @@ namespace SistemaPDV___Lanchonete
                    "carrinho.valor_total as \"Valor Total\" " +
                    "from Carrinho as carrinho " +
                    "inner join Produto as p " +
-                   $"on carrinho.id_produto = p.id where carrinho.id_cliente = '{dgvClientes.SelectedCells[0].Value}%'";
+                   $"on carrinho.id_produto = p.id where carrinho.id_venda = '{lblNVenda.Text}%'";
                 MySqlCommand cmd = new MySqlCommand(sql, conn);
+               
                 MySqlDataAdapter da = new MySqlDataAdapter(cmd);
                 DataTable ds = new DataTable();
                 da.Fill(ds);
                 dgvCarrinho.DataSource = ds;
+
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Erro: " + ex.Message, "Atenção", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            finally
+            {
+                if (conn.State == ConnectionState.Open)
+                    conn.Close();
+            }
+
+        }
+        
+
+private void CarregarIDUltimaVenda()
+        {
+            MySqlConnection conn = instanciaMySql.GetConnection();
+            try
+            {
+                if (conn.State == ConnectionState.Closed)
+                    conn.Open();
+
+                sql = $"select* from Venda where id = (select max(id) from Venda)";
+                MySqlCommand cmd = new MySqlCommand(sql, conn);
+                MySqlDataReader leitor = cmd.ExecuteReader();
+                if (leitor.HasRows)
+                {
+                    leitor.Read();
+                    lblNVenda.Text = leitor["id"].ToString();
+
+                    if (leitor != null)
+                        leitor.Close();
+
+                }
+
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Erro: " + ex.Message, "Atenção", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            finally
+            {
+                if (conn.State == ConnectionState.Open)
+                    conn.Close();
+            }
+
+        }
+
+        private void PuxarVendas()
+        {
+            MySqlConnection conn = instanciaMySql.GetConnection();
+            try
+            {
+                if (conn.State == ConnectionState.Closed)
+                    conn.Open();
+
+                sql = "select * from Venda order by numero_venda desc limit 1";
+                MySqlCommand cmd = new MySqlCommand(sql, conn);
+                MySqlDataReader leitor = cmd.ExecuteReader();
+                if (leitor.HasRows)
+                {
+                    leitor.Read();
+                    ultimavenda =  Convert.ToInt32(leitor["numero_venda"].ToString());
+
+                    if (leitor != null)
+                        leitor.Close();
+
+                }
 
             }
             catch (Exception ex)
@@ -301,6 +372,70 @@ namespace SistemaPDV___Lanchonete
             }
         }
 
+        private void InserirDadosIncompletosVendas()
+        {
+            MySqlConnection conn = instanciaMySql.GetConnection();
+
+            try
+            {
+                if (conn.State == ConnectionState.Closed)
+                    conn.Open();
+
+                sql = "INSERT INTO Venda VALUES " +
+                      "(default,null,null,null,null,null,null,null,null);";
+
+                MySqlCommand cmd = new MySqlCommand(sql, conn);
+                
+                
+                
+                cmd.ExecuteNonQuery();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Erro: " + ex.Message, "Atenção", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            finally
+            {
+                if (conn.State == ConnectionState.Open)
+                    conn.Close();
+            }
+        }
+        int ultimavenda=0;
+
+        private void FinalizarVenda()
+        {
+            MySqlConnection conn = instanciaMySql.GetConnection();
+            
+            try
+            {
+                if (conn.State == ConnectionState.Closed)
+                    conn.Open();
+
+                sql = "INSERT INTO Venda VALUES " +
+                      "(default,?,?,?,?,?,?,?,?);";
+
+                MySqlCommand cmd = new MySqlCommand(sql, conn);
+                cmd.Parameters.AddWithValue("id_cliente", txtId.Text);
+                cmd.Parameters.AddWithValue("taxa", txtValorTaxa.Text.Replace("R", "").Replace("$",""));
+                cmd.Parameters.AddWithValue("numero_venda", ultimavenda=ultimavenda+1);
+                cmd.Parameters.AddWithValue("formaEntrega", cbFormaEntrega.Text);
+                cmd.Parameters.AddWithValue("formaPagamento", cbPagamento.Text);
+                cmd.Parameters.AddWithValue("troco", txtTroco.Text.Replace("R", "").Replace("$", ""));
+                cmd.Parameters.AddWithValue("sub_total", txtSubTotal.Text.Replace("R", "").Replace("$", ""));
+                cmd.Parameters.AddWithValue("valor_total", txtValorTotal.Text.Replace("R", "").Replace("$", ""));
+
+                cmd.ExecuteNonQuery();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Erro: " + ex.Message, "Atenção", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            finally
+            {
+                if (conn.State == ConnectionState.Open)
+                    conn.Close();
+            }
+        }
 
         private void AlterarDados()
         {
@@ -333,6 +468,49 @@ namespace SistemaPDV___Lanchonete
                 cmd.Parameters.AddWithValue("bairro", txtBairro.Text);
                 cmd.Parameters.AddWithValue("cidade", txtCidade.Text);
                 cmd.Parameters.AddWithValue("estado", txtUf.Text);
+
+                cmd.ExecuteNonQuery();
+                MessageBox.Show("Cadastro alterado com sucesso.", "Atenção", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Erro: " + ex.Message, "Atenção", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            finally
+            {
+                if (conn.State == ConnectionState.Open)
+                    conn.Close();
+            }
+        }
+
+        private void AlterarDadosVendas()
+        {
+            MySqlConnection conn = instanciaMySql.GetConnection();
+
+            try
+            {
+                if (conn.State == ConnectionState.Closed)
+                    conn.Open();
+
+                sql = "UPDATE Venda " +
+                    " SET id_cliente=@id_carinho," +
+                    " id_carrinho=@id_carrinho," +
+                    " valor=@valor," +
+                    " taxa_entrega=@taxa_entrega," +
+                    " valor_total=@valor_total," +
+                    " numero_venda=@numero_venda," +
+                    " WHERE id=@id";
+
+
+
+                MySqlCommand cmd = new MySqlCommand(sql, conn);
+                cmd.Parameters.AddWithValue("id_cliente", txtId.Text);
+                cmd.Parameters.AddWithValue("id_carrinho", txtTelefone.Text);
+                cmd.Parameters.AddWithValue("valor", txtCEP.Text);
+                cmd.Parameters.AddWithValue("taxa_entrega", txtEnd.Text);
+                cmd.Parameters.AddWithValue("valor_total", txtNumero.Text);
+                cmd.Parameters.AddWithValue("numero_venda", txtBairro.Text);
+                cmd.Parameters.AddWithValue("id", lblNVenda.Text);
 
                 cmd.ExecuteNonQuery();
                 MessageBox.Show("Cadastro alterado com sucesso.", "Atenção", MessageBoxButtons.OK, MessageBoxIcon.Information);
@@ -396,12 +574,14 @@ namespace SistemaPDV___Lanchonete
         }
         private void btnAddProduto_Click(object sender, EventArgs e)
         {
-
+            InserirDadosIncompletosVendas();
+            //CarregarValorVendas();
+            
             Boolean naoExiste = true;
             foreach (DataGridViewRow row in dgvCarrinho.Rows)
             {
 
-                if (row.Cells["Produto"].Value.ToString().Equals(dgvProdutos.SelectedCells[0].Value.ToString()))
+                if (row.Cells["ID Produto"].Value.ToString().Equals(dgvProdutos.SelectedCells[0].Value.ToString()))
                 {
                     
                         MessageBox.Show("Produto já está adicionado!");
@@ -421,16 +601,59 @@ namespace SistemaPDV___Lanchonete
             }
             if (naoExiste == true)
             {
-                dgvCarrinho.Rows.Add(
-                dgvProdutos.SelectedCells[0].Value.ToString(),
-                txtQuantidade.Text,
-                Convert.ToDecimal(dgvProdutos.SelectedCells[1].Value.ToString()),
-                Convert.ToDecimal(dgvProdutos.SelectedCells[1].Value.ToString()) * Convert.ToInt32(txtQuantidade.Text));
+                InserirDadosCarrinho();
+                CarregarDadosCarrinho();
             }
-            
 
+            calculaValorTotalGrid();
 
         }
+
+        private decimal ValorTotal()
+        {
+            decimal total = 0;
+            int i = 0;
+            decimal taxa = 0;
+            for (i = 0; i < dgvCarrinho.Rows.Count; i++)
+            {
+                total = total + Convert.ToDecimal(dgvCarrinho.Rows[i].Cells["Valor Total"].Value);
+            }
+            if (string.IsNullOrEmpty(txtValorTaxa.Text))
+            {
+                
+                taxa = 0;
+            }
+            else
+            {
+                taxa = Convert.ToDecimal(txtValorTaxa.Text.Replace("R", "").Replace("$", ""));
+            }
+
+            return total + taxa;
+        }
+        private decimal ValorSubTotal()
+        {
+            decimal Subtotal = 0;
+            int i = 0;
+       
+            for (i = 0; i < dgvCarrinho.Rows.Count; i++)
+            {
+                Subtotal = Subtotal + Convert.ToDecimal(dgvCarrinho.Rows[i].Cells["Valor Total"].Value);
+            }
+         
+
+            return Subtotal;
+        }
+
+       
+        private void calculaValorTotalGrid()
+        {
+            if (dgvCarrinho.Rows.Count > 0)
+                txtSubTotal.Text = ValorSubTotal().ToString("c");
+            txtValorTotal.Text = ValorTotal().ToString("c");
+
+        }
+
+
 
         private void dgvClientes_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
         {
@@ -444,17 +667,18 @@ namespace SistemaPDV___Lanchonete
 
         private void dgvCarrinho_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
         {
-            dgvCarrinho.Columns["Valor_Unitario"].DefaultCellStyle.Format = "C2";
-            dgvCarrinho.Columns["Valor_Total"].DefaultCellStyle.Format = "C2";
-            dgvCarrinho.Columns["Produto"].ReadOnly = true;
-            dgvCarrinho.Columns["Valor_Unitario"].ReadOnly = true;
-            dgvCarrinho.Columns["Valor_Total"].ReadOnly = true;
+            dgvCarrinho.Columns["Valor Unitario"].DefaultCellStyle.Format = "C2";
+            dgvCarrinho.Columns["Valor Total"].DefaultCellStyle.Format = "C2";
+            dgvCarrinho.Columns["Descricao"].ReadOnly = true;
+            dgvCarrinho.Columns["Valor Unitario"].ReadOnly = true;
+            dgvCarrinho.Columns["Valor Total"].ReadOnly = true;
 
         }
 
         private void cbTaxa_SelectedIndexChanged(object sender, EventArgs e)
         {
             CarregarValorTaxa();
+            calculaValorTotalGrid();
         }
 
         private void InserirDadosCarrinho()
@@ -467,17 +691,15 @@ namespace SistemaPDV___Lanchonete
                     conn.Open();
 
                 sql = "INSERT INTO Carrinho VALUES " +
-                      "(default,?,?,null,?,?);";
+                      "(default,?,?,?,?,?);";
 
                 MySqlCommand cmd = new MySqlCommand(sql, conn);
                 cmd.Parameters.AddWithValue("id_cliente", dgvClientes.SelectedCells[0].Value.ToString());
                 cmd.Parameters.AddWithValue("id_produto", dgvProdutos.SelectedCells[0].Value.ToString());
+                cmd.Parameters.AddWithValue("id_venda", lblNVenda.Text);
                 cmd.Parameters.AddWithValue("quantidade", txtQuantidade.Text);
                 cmd.Parameters.AddWithValue("valor_total", Convert.ToDecimal(dgvProdutos.SelectedCells[2].Value.ToString()) * Convert.ToInt32(txtQuantidade.Text));
                 cmd.ExecuteNonQuery();
-
-                MessageBox.Show("Cadastro realizado com sucesso.", "Atenção", MessageBoxButtons.OK, MessageBoxIcon.Information);
-
 
             }
             catch (Exception ex)
@@ -528,9 +750,29 @@ namespace SistemaPDV___Lanchonete
         //}
         private void btnFinalizar_Click(object sender, EventArgs e)
         {
+            PuxarVendas();
+            FinalizarVenda();
 
+            ImpressaoPedido impressaoPedido = new ImpressaoPedido();
+            impressaoPedido.lblCliente.Text = txtNome.Text;
+            impressaoPedido.lblEnd.Text = txtEnd.Text;
+            impressaoPedido.lblNumero.Text = txtNumero.Text;
+            impressaoPedido.lblBairro.Text = txtBairro.Text;
+            impressaoPedido.lblTaxa.Text = txtValorTaxa.Text;
+            impressaoPedido.lblSub.Text = txtSubTotal.Text;
+            impressaoPedido.lblTotal.Text = txtValorTotal.Text;
+            impressaoPedido.lblPedido.Text = ultimavenda.ToString();
+
+            impressaoPedido.dgvItens.DataSource = dgvCarrinho.DataSource;
+            impressaoPedido.dgvItens.Columns["ID Produto"].Visible = false;
+            impressaoPedido.dgvItens.Columns["Valor Unitario"].Visible = false;
+            impressaoPedido.dgvItens.Columns["Valor Total"].DefaultCellStyle.Format = "C2";
+            impressaoPedido.ShowDialog();
+
+            
         }
 
+       
         private void btnCancelar_Click(object sender, EventArgs e)
         {
 
@@ -556,7 +798,8 @@ namespace SistemaPDV___Lanchonete
 
         private void dgvCarrinho_CellEndEdit(object sender, DataGridViewCellEventArgs e)
         {
-            dgvCarrinho.CurrentRow.Cells[3].Value = Convert.ToDecimal(dgvCarrinho.CurrentRow.Cells[2].Value) * Convert.ToInt32(dgvCarrinho.CurrentRow.Cells[1].Value);
+            dgvCarrinho.CurrentRow.Cells[4].Value = Convert.ToDecimal(dgvCarrinho.CurrentRow.Cells[3].Value) * Convert.ToInt32(dgvCarrinho.CurrentRow.Cells[2].Value);
+            calculaValorTotalGrid();
         }
 
         private void dgvCarrinho_CellClick(object sender, DataGridViewCellEventArgs e)
@@ -649,6 +892,11 @@ namespace SistemaPDV___Lanchonete
         private void txtUf_Click(object sender, EventArgs e)
         {
             txtUf.SelectAll();
+        }
+
+        private void panel2_Paint(object sender, PaintEventArgs e)
+        {
+
         }
     }
 }

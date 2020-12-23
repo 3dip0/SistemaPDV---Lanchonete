@@ -1,137 +1,160 @@
-﻿using Microsoft.Reporting.WebForms;
+﻿using DGVPrinterHelper;
+using Microsoft.Reporting.WinForms;
 using MySql.Data.MySqlClient;
+
 using System;
-using System.Collections.Generic;
-using System.ComponentModel;
+
 using System.Data;
 using System.Drawing;
-using System.Drawing.Imaging;
+
 using System.Drawing.Printing;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Web;
 using System.Windows.Forms;
 
 namespace SistemaPDV___Lanchonete.Cadastro
 {
     public partial class ImpressaoPedido : Form
     {
-
+        MySQL instanciaMySql = new MySQL();
+        string sql;
         public static ListBox Bobina { get; set; }
         public string nome, end, numero, bairro, taxaEntrega, subTotal, valorTotal, nPedido;
-
-        public ImpressaoPedido()
+        
+        public ImpressaoPedido(string comandoVenda, string comandoCliente, string comandoCarrinho, string tipoPagamento, string taxa, int rowsCarrinho, Boolean semEndereco)
         {
+
+
+
             InitializeComponent();
-            CarregarImpressoras();
 
 
-            bobina.Items.Add("CUPOM NÃO FISCAL");
-            bobina.Items.Add("");
-            bobina.Items.Add("PRODUTO          QUANTIDADE      VALOR");
+            bdlanche lanche = new bdlanche();
+            MySqlConnection conn = instanciaMySql.GetConnection();
 
-
-        }
-
-        private void CarregarImpressoras()
-        {
-            impressoraComboBox.Items.Clear();
-
-            foreach (var impressora in System.Drawing.Printing.PrinterSettings.InstalledPrinters)
+            try
             {
-                impressoraComboBox.Items.Add(impressora);
-            }
-        }
+                if (conn.State == ConnectionState.Closed)
+                    conn.Open();
+              
+                MySqlCommand cmdVenda;
+                MySqlCommand cmdCliente;
+                MySqlCommand cmdCarrinho;
 
-        private void imprimirButton_Click(object sender, EventArgs e)
-        {
-            using (var pd = new System.Drawing.Printing.PrintDocument())
-            {
-                pd.PrinterSettings.PrinterName = impressoraComboBox.SelectedItem.ToString();
-                pd.PrintPage += Pd_PrintPage;
-                pd.Print();
-            }
-        }
-        int margem = 0;
-        public decimal valorDecimal;
-        private void Pd_PrintPage(object sender, System.Drawing.Printing.PrintPageEventArgs e)
-        {
-            using (var font = new Font("Courier New", 12))
-            using (var brush = new SolidBrush(Color.Black))
+                MySqlDataAdapter daVenda;
+                MySqlDataAdapter daCliente;
+                MySqlDataAdapter daCarrinho;
 
-            {
+                string SelecionarVenda = $"SELECT * FROM Venda where id={comandoVenda}";
+                string selecionarCliente = $"SELECT * FROM Cliente where id={comandoCliente}";
+                string selecionarProdutos = $"SELECT * FROM Carrinho where id_venda={comandoCarrinho}";
 
 
+                cmdVenda = new MySqlCommand(SelecionarVenda, conn);
+                daVenda = new MySqlDataAdapter(cmdVenda);
+                daVenda.Fill(lanche, lanche.Tables[7].TableName);
 
-                e.Graphics.DrawString("-----------------------------------", font, brush, 0, 0);
+                cmdCliente = new MySqlCommand(selecionarCliente, conn);
+                daCliente = new MySqlDataAdapter(cmdCliente);
+                daCliente.Fill(lanche, lanche.Tables[1].TableName);
 
-                e.Graphics.DrawString("CUPOM NÃO FISCAL", font, brush, 0, margem = margem + 50);
-                e.Graphics.DrawString("", font, brush, 0, margem = margem + 50);
-                e.Graphics.DrawString("PRODUTO          QUANTIDADE   VALOR", font, brush, 0, margem);
-                e.Graphics.DrawString("-----------------------------------", font, brush, 0, margem = margem + 10);
-                int cont;
-               
-                foreach (DataGridViewRow item in dgvItens.Rows)
+                cmdCarrinho = new MySqlCommand(selecionarProdutos, conn);
+                daCarrinho = new MySqlDataAdapter(cmdCarrinho);
+                daCarrinho.Fill(lanche, lanche.Tables[0].TableName);
+
+                ReportDataSource rds = new ReportDataSource("Vendas", lanche.Tables[7]);
+                ReportDataSource rdsClientes = new ReportDataSource("Clientes", lanche.Tables[1]);
+                ReportDataSource rdsCarrinho = new ReportDataSource("Carrinho", lanche.Tables[0]);
+
+
+                reportViewer1.LocalReport.DataSources.Clear();
+                reportViewer1.LocalReport.DataSources.Add(rds);
+                reportViewer1.LocalReport.DataSources.Add(rdsClientes);
+                reportViewer1.LocalReport.DataSources.Add(rdsCarrinho);
+
+                if (semEndereco == true)
                 {
-                    decimal.TryParse(item.Cells["Valor Total"].Value.ToString(), out valorDecimal);
-                    e.Graphics.DrawString(
-                String.Format("{0,10}  {1,10} {2, 10}",
-                item.Cells["Descricao"].Value.ToString(),
-                item.Cells["Quantidade"].Value.ToString(),
-                valorDecimal), font, brush, 0, margem = margem + 20);
+                    this.reportViewer1.LocalReport.SetParameters(new Microsoft.Reporting.WinForms.ReportParameter("virgula", " "));
+                    this.reportViewer1.LocalReport.SetParameters(new Microsoft.Reporting.WinForms.ReportParameter("traco", " "));
 
                 }
-                
-                            e.Graphics.DrawString("-----------------------------------", font, brush, 0, margem = margem + 10);
-                            e.Graphics.DrawString($"SubTotal..................{lblSub.Text}", font, brush, 0, margem = margem + 20);
-                            e.Graphics.DrawString($"Taxa......................{lblTaxa.Text}", font, brush, 0, margem = margem + 20);
-                            e.Graphics.DrawString($"Total.....................{lblTotal.Text}", font, brush, 0, margem = margem + 20);
+                else
+                {
+                    this.reportViewer1.LocalReport.SetParameters(new Microsoft.Reporting.WinForms.ReportParameter("virgula", ","));
+                    this.reportViewer1.LocalReport.SetParameters(new Microsoft.Reporting.WinForms.ReportParameter("traco", "-"));
 
-                        
+                }
+
+
+
+
+                if (taxa == "ENTREGA:")
+                {
+                    this.reportViewer1.LocalReport.SetParameters(new Microsoft.Reporting.WinForms.ReportParameter("tipoTaxa", "ENTREGA:"));
+                }
+                else
+                {
+                    this.reportViewer1.LocalReport.SetParameters(new Microsoft.Reporting.WinForms.ReportParameter("tipoTaxa", "   "));
+                }
+
+
+
+
+                if (tipoPagamento != "CARTAO")
+                {
+                    this.reportViewer1.LocalReport.SetParameters(new Microsoft.Reporting.WinForms.ReportParameter("trocoPara", "TROCO PARA:"));
+                    this.reportViewer1.LocalReport.SetParameters(new Microsoft.Reporting.WinForms.ReportParameter("trocoCliente", "TROCO:"));
+                }
+                else
+                {
+                    this.reportViewer1.LocalReport.SetParameters(new Microsoft.Reporting.WinForms.ReportParameter("trocoPara", "   "));
+                    this.reportViewer1.LocalReport.SetParameters(new Microsoft.Reporting.WinForms.ReportParameter("trocoCliente", "   "));
+                }
+               
+                reportViewer1.LocalReport.Refresh();
+                reportViewer1.SetDisplayMode(DisplayMode.PrintLayout);
+                var setup = reportViewer1.GetPageSettings();
+                setup.PaperSize.Height = 500;
+                setup.PaperSize.Width = 370;
+                for(int i=0; i <= rowsCarrinho; i++)
+                {
                     
+                    setup.PaperSize.Height = setup.PaperSize.Height+150;
+                }
                 
+                setup.Margins = new System.Drawing.Printing.Margins(0, 0, 0, 0);
+                reportViewer1.SetPageSettings(setup);
+
+
             }
+            catch (Exception erro)
+            {
+                MessageBox.Show(erro.Message);
+            }
+            finally
+            {
+                conn.Close();
+            }
+            this.reportViewer1.RefreshReport();
+
         }
-
-        private void dgvItens_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
-        {
-
-        }
-
-        private void bobina_SelectedIndexChanged(object sender, EventArgs e)
-        {
-
-        }
-        private PrintDocument printDocument1 = new PrintDocument();
-        Bitmap memoryImage;
-
-        
-        private void Button1_click(object sender, EventArgs e)
-        {
-           
-        }
-
-      
-
-        
 
        
+        public decimal valorDecimal;
+       
 
-     
+
+        private PrintDocument printDocument1 = new PrintDocument();
+        
+
         public DataTable itens;
 
 
         private void ImpressãoPedido_Load(object sender, EventArgs e)
         {
-
-        }
-
-       
-        public static void ImprimeCabecalhoBobina()
-        {
             
+           
+           
         }
+
     }
 }

@@ -1,4 +1,5 @@
-﻿using MySql.Data.MySqlClient;
+﻿using DGVPrinterHelper;
+using MySql.Data.MySqlClient;
 using SistemaPDV___Lanchonete.Cadastro;
 using System;
 using System.Collections.Generic;
@@ -31,26 +32,34 @@ namespace SistemaPDV___Lanchonete
 
         private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (cbFormaEntrega.Text == "Entrega")
+            if (cbFormaEntrega.Text == "ENTREGA:")
             {
                 gbEntrega.Height = 169;
                 gbPagamento.Location = new Point(12, 460);
+                CarregarDadosTaxas();
             }
-            if (cbFormaEntrega.Text == "Retirada no Local")
+            if (cbFormaEntrega.Text == "RETIRADA NO LOCAL")
             {
                 gbEntrega.Height = 70;
                 gbPagamento.Location = new Point(12, 360);
+                decimal valorTaxa = Convert.ToDecimal(txtValorTaxa.Text.Replace("R", "").Replace("$",""));
+                decimal total = Convert.ToDecimal(txtValorTotal.Text.Replace("R", "").Replace("$", "")) - valorTaxa;
+                txtValorTotal.Text = "R$"+Convert.ToString(total);
+                List<String> lista = new List<String>();
+                cbTaxa.DataSource = lista;
+                txtValorTaxa.Text = "";
+
             }
-            CarregarDadosTaxas();
+            
         }
 
         private void comboBox1_SelectedIndexChanged_1(object sender, EventArgs e)
         {
-            if (cbPagamento.Text == "Dinheiro")
+            if (cbPagamento.Text == "DINHEIRO")
             {
                 gbPagamento.Height = 169;
             }
-            if (cbPagamento.Text == "Cartão")
+            if (cbPagamento.Text == "CARTAO")
             {
                 gbPagamento.Height = 70;
             }
@@ -62,7 +71,7 @@ namespace SistemaPDV___Lanchonete
             CarregarDados();
             CarregarDadosProdutos();
             PreencherComboBoxPesquisa();
-            CarregarDadosTaxas();
+            
             InserirDadosIncompletosVendas();
             CarregarIDUltimaVenda();
 
@@ -99,6 +108,7 @@ namespace SistemaPDV___Lanchonete
                 dgvClientes.Columns["nº"].Width = 40;
                 dgvClientes.Columns["Cidade"].Visible = false;
                 dgvClientes.Columns["Estado"].Visible = false;
+               
 
             }
             catch (Exception ex)
@@ -113,6 +123,42 @@ namespace SistemaPDV___Lanchonete
 
         }
 
+        private void CarregarDadosClienteID()
+        {
+            MySqlConnection conn = instanciaMySql.GetConnection();
+            try
+            {
+                if (conn.State == ConnectionState.Closed)
+                    conn.Open();
+
+                sql = $"SELECT *FROM Cliente where nome='{txtNome.Text}'";
+                MySqlCommand cmd = new MySqlCommand(sql, conn);
+                
+               
+                MySqlDataReader leitor = cmd.ExecuteReader();
+                if (leitor.HasRows)
+                {
+                    leitor.Read();
+                    txtId.Text = leitor["id"].ToString();
+
+
+                    if (leitor != null)
+                        leitor.Close();
+
+                }
+
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Erro: " + ex.Message, "Atenção", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            finally
+            {
+                if (conn.State == ConnectionState.Open)
+                    conn.Close();
+            }
+
+        }
         private void CarregarDadosTaxas()
         {
             if(cbFormaEntrega.Text=="Retirada no Local")
@@ -228,8 +274,8 @@ namespace SistemaPDV___Lanchonete
                     conn.Open();
 
                 sql = "SELECT carrinho.id_Produto as \"ID Produto\", " +
-                   "p.descricao as \"Descricao\", " +
                    "carrinho.quantidade as \"Quantidade\", " +
+                   "p.descricao as \"Descricao\", " +
                    "p.valor as \"Valor Unitario\", " +
                    "carrinho.valor_total as \"Valor Total\" " +
                    "from Carrinho as carrinho " +
@@ -359,7 +405,6 @@ private void CarregarIDUltimaVenda()
                 cmd.Parameters.AddWithValue("estado", txtUf.Text);
 
                 cmd.ExecuteNonQuery();
-                MessageBox.Show("Cadastro realizado com sucesso.", "Atenção", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
             catch (Exception ex)
             {
@@ -382,7 +427,7 @@ private void CarregarIDUltimaVenda()
                     conn.Open();
 
                 sql = "INSERT INTO Venda VALUES " +
-                      "(default,null,null,null,null,null,null,null,null);";
+                      "(default,null,null,null,null,null,null,null,null,null);";
 
                 MySqlCommand cmd = new MySqlCommand(sql, conn);
                 
@@ -411,20 +456,61 @@ private void CarregarIDUltimaVenda()
                 if (conn.State == ConnectionState.Closed)
                     conn.Open();
 
-                sql = "INSERT INTO Venda VALUES " +
-                      "(default,?,?,?,?,?,?,?,?);";
+                
+
+                sql = "UPDATE Venda " +
+                    " SET id_cliente=@id_cliente," +
+                    " taxa_entrega=@taxa_entrega," +
+                    " numero_venda=@numero_venda," +
+                    " formaEntrega=@formaEntrega," +
+                    " formaPagamento=@formaPagamento," +
+                    " troco=@troco," +
+                    " sub_total=@sub_total," +
+                    " valor_total=@valor_total, " +
+                    " valorTroco=@valorTroco " +
+                    $" WHERE id='{lblNVenda.Text}'";
 
                 MySqlCommand cmd = new MySqlCommand(sql, conn);
                 cmd.Parameters.AddWithValue("id_cliente", txtId.Text);
-                cmd.Parameters.AddWithValue("taxa", txtValorTaxa.Text.Replace("R", "").Replace("$",""));
                 cmd.Parameters.AddWithValue("numero_venda", ultimavenda=ultimavenda+1);
-                cmd.Parameters.AddWithValue("formaEntrega", cbFormaEntrega.Text);
+
+                if(cbFormaEntrega.Text=="RETIRADA NO LOCAL")
+                {
+                    cmd.Parameters.AddWithValue("formaEntrega", null);
+                    cmd.Parameters.AddWithValue("taxa_entrega", null);
+
+                }
+                else
+                {
+                    cmd.Parameters.AddWithValue("formaEntrega", cbFormaEntrega.Text);
+                    cmd.Parameters.AddWithValue("taxa_entrega", txtValorTaxa.Text.Replace("R", "").Replace("$", ""));
+
+                }
                 cmd.Parameters.AddWithValue("formaPagamento", cbPagamento.Text);
-                cmd.Parameters.AddWithValue("troco", txtTroco.Text.Replace("R", "").Replace("$", ""));
                 cmd.Parameters.AddWithValue("sub_total", txtSubTotal.Text.Replace("R", "").Replace("$", ""));
                 cmd.Parameters.AddWithValue("valor_total", txtValorTotal.Text.Replace("R", "").Replace("$", ""));
+                
+                if(cbPagamento.Text=="CARTAO")
+                {
+                    cmd.Parameters.AddWithValue("valorTroco", "");
+                    cmd.Parameters.AddWithValue("troco", null);
+                }
+                else
+                {
+                    cmd.Parameters.AddWithValue("troco",txtTroco.Text.Replace("R", "").Replace("$", ""));
+                    cmd.Parameters.AddWithValue("valorTroco", "R$"+Convert.ToString(Convert.ToDecimal(txtTroco.Text.Replace("R", "").Replace("$", "")) - Convert.ToDecimal(txtValorTotal.Text.Replace("R", "").Replace("$", ""))));
+
+                }
+
+
+
+
+
+
 
                 cmd.ExecuteNonQuery();
+
+                MessageBox.Show("Venda Finalizada com Sucesso!");
             }
             catch (Exception ex)
             {
@@ -468,9 +554,9 @@ private void CarregarIDUltimaVenda()
                 cmd.Parameters.AddWithValue("bairro", txtBairro.Text);
                 cmd.Parameters.AddWithValue("cidade", txtCidade.Text);
                 cmd.Parameters.AddWithValue("estado", txtUf.Text);
+                cmd.Parameters.AddWithValue("id", txtId.Text);
 
                 cmd.ExecuteNonQuery();
-                MessageBox.Show("Cadastro alterado com sucesso.", "Atenção", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
             catch (Exception ex)
             {
@@ -691,7 +777,7 @@ private void CarregarIDUltimaVenda()
                     conn.Open();
 
                 sql = "INSERT INTO Carrinho VALUES " +
-                      "(default,?,?,?,?,?);";
+                      "(default,?,?,?,?,?,?);";
 
                 MySqlCommand cmd = new MySqlCommand(sql, conn);
                 cmd.Parameters.AddWithValue("id_cliente", dgvClientes.SelectedCells[0].Value.ToString());
@@ -699,8 +785,11 @@ private void CarregarIDUltimaVenda()
                 cmd.Parameters.AddWithValue("id_venda", lblNVenda.Text);
                 cmd.Parameters.AddWithValue("quantidade", txtQuantidade.Text);
                 cmd.Parameters.AddWithValue("valor_total", Convert.ToDecimal(dgvProdutos.SelectedCells[2].Value.ToString()) * Convert.ToInt32(txtQuantidade.Text));
-                cmd.ExecuteNonQuery();
+                cmd.Parameters.AddWithValue("descricao", dgvProdutos.SelectedCells[1].Value.ToString());
 
+                cmd.ExecuteNonQuery();
+                
+                    
             }
             catch (Exception ex)
             {
@@ -713,63 +802,104 @@ private void CarregarIDUltimaVenda()
             }
         }
 
-        //private void CarregarDadosVendas()
-        //{
-        //    MySqlConnection conn = instanciaMySql.GetConnection();
-        //    try
-        //    {
-        //        if (conn.State == ConnectionState.Closed)
-        //            conn.Open();
+        
+        private void InserirDados()
+        {
+            MySqlConnection conn = instanciaMySql.GetConnection();
 
-        //        sql = "SELECT dp.id_materiaPrima as \"ID Estoque\", " +
-        //            "dp.descricao as \"Descricao\", " +
-        //            "dp.quantidade as \"Quantidade\", " +
-        //            "dp.valor as \"Valor Total\" " +
-        //            "from detalheProduto as dp " +
-        //            "inner join Produto as p " +
-        //            $"on dp.id_produto = p.id where dp.id_produto = {txtId.Text}";
-        //        MySqlCommand cmd = new MySqlCommand(sql, conn);
-        //        MySqlDataAdapter da = new MySqlDataAdapter(cmd);
-        //        DataTable ds = new DataTable();
-        //        da.Fill(ds);
-        //        dgvIngredientes.DataSource = ds;
+            try
+            {
+                if (conn.State == ConnectionState.Closed)
+                    conn.Open();
+
+                sql = "INSERT INTO Cliente VALUES " +
+                      "(default,?,?,?,?,?,?,?,?);";
+
+                MySqlCommand cmd = new MySqlCommand(sql, conn);
+                cmd.Parameters.AddWithValue("nome", txtNome.Text);
+                cmd.Parameters.AddWithValue("telefone", txtTelefone.Text);
+                cmd.Parameters.AddWithValue("cep", txtCEP.Text);
+                cmd.Parameters.AddWithValue("endereco", txtEnd.Text);
+                cmd.Parameters.AddWithValue("numero", txtNumero.Text);
+                cmd.Parameters.AddWithValue("bairro", txtBairro.Text);
+                cmd.Parameters.AddWithValue("cidade", txtCidade.Text);
+                cmd.Parameters.AddWithValue("estado", txtUf.Text);
+
+                cmd.ExecuteNonQuery();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Erro: " + ex.Message, "Atenção", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            finally
+            {
+                if (conn.State == ConnectionState.Open)
+                    conn.Close();
+            }
+        }
 
 
 
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        MessageBox.Show("Erro: " + ex.Message, "Atenção", MessageBoxButtons.OK, MessageBoxIcon.Error);
-        //    }
-        //    finally
-        //    {
-        //        if (conn.State == ConnectionState.Open)
-        //            conn.Close();
-        //    }
-
-        //}
+        Boolean semEnd = false;
         private void btnFinalizar_Click(object sender, EventArgs e)
         {
-            PuxarVendas();
-            FinalizarVenda();
-
-            ImpressaoPedido impressaoPedido = new ImpressaoPedido();
-            impressaoPedido.lblCliente.Text = txtNome.Text;
-            impressaoPedido.lblEnd.Text = txtEnd.Text;
-            impressaoPedido.lblNumero.Text = txtNumero.Text;
-            impressaoPedido.lblBairro.Text = txtBairro.Text;
-            impressaoPedido.lblTaxa.Text = txtValorTaxa.Text;
-            impressaoPedido.lblSub.Text = txtSubTotal.Text;
-            impressaoPedido.lblTotal.Text = txtValorTotal.Text;
-            impressaoPedido.lblPedido.Text = ultimavenda.ToString();
-
-            impressaoPedido.dgvItens.DataSource = dgvCarrinho.DataSource;
-            impressaoPedido.dgvItens.Columns["ID Produto"].Visible = false;
-            impressaoPedido.dgvItens.Columns["Valor Unitario"].Visible = false;
-            impressaoPedido.dgvItens.Columns["Valor Total"].DefaultCellStyle.Format = "C2";
-            impressaoPedido.ShowDialog();
-
             
+            if (string.IsNullOrEmpty(txtEnd.Text))
+            {
+                semEnd = true;
+            }
+            else
+            {
+                semEnd = false;
+            }
+            if (string.IsNullOrEmpty(txtId.Text))
+            {
+                if (txtNome.Text == "")
+                {
+                    MessageBox.Show("Verifique os dados!");
+
+                }
+                else
+                {
+                    InserirDados();
+                    CarregarDadosClienteID();
+                    CarregarDados();
+
+                    if (dgvCarrinho.Rows.Count == 0)
+                    {
+                        MessageBox.Show("Favor incluir algum produto no carrinho!");
+                    }
+                    else
+                    {
+                        PuxarVendas();
+                        FinalizarVenda();
+                        
+                        ImpressaoPedido impressaoPedido = new ImpressaoPedido(lblNVenda.Text, txtId.Text, lblNVenda.Text, cbPagamento.Text, cbTaxa.Text, dgvCarrinho.Rows.Count, semEnd);
+
+                        impressaoPedido.ShowDialog();
+                    }
+                }
+            }
+            else
+            {
+                AlterarDados();
+                CarregarDadosClienteID();
+                CarregarDados();
+                if (dgvCarrinho.Rows.Count == 0)
+                {
+                    MessageBox.Show("Favor incluir algum produto no carrinho!");
+                }
+                else
+                {
+                    PuxarVendas();
+                    FinalizarVenda();
+                    ImpressaoPedido impressaoPedido = new ImpressaoPedido(lblNVenda.Text, txtId.Text, lblNVenda.Text, cbPagamento.Text, cbTaxa.Text, dgvCarrinho.Rows.Count, semEnd);
+
+                    impressaoPedido.ShowDialog();
+                }
+                
+            }
+
         }
 
        

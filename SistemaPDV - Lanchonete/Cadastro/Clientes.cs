@@ -94,6 +94,7 @@ namespace SistemaPDV___Lanchonete.Cadastro
                 cmd.Parameters.AddWithValue("bairro", txtBairro.Text);
                 cmd.Parameters.AddWithValue("cidade", txtCidade.Text);
                 cmd.Parameters.AddWithValue("estado", txtUf.Text);
+                cmd.Parameters.AddWithValue("id", txtId.Text);
 
                 cmd.ExecuteNonQuery();
                 MessageBox.Show("Cadastro alterado com sucesso.", "Atenção", MessageBoxButtons.OK, MessageBoxIcon.Information);

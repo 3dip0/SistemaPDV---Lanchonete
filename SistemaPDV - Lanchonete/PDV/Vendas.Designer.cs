@@ -237,7 +237,6 @@ namespace SistemaPDV___Lanchonete
             this.txtValorTaxa.Name = "txtValorTaxa";
             this.txtValorTaxa.Size = new System.Drawing.Size(76, 25);
             this.txtValorTaxa.TabIndex = 6;
-            this.txtValorTaxa.Text = "R$0,00";
             // 
             // cbTaxa
             // 
@@ -482,7 +481,7 @@ namespace SistemaPDV___Lanchonete
             this.gbPagamento.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.gbPagamento.Location = new System.Drawing.Point(12, 360);
             this.gbPagamento.Name = "gbPagamento";
-            this.gbPagamento.Size = new System.Drawing.Size(617, 70);
+            this.gbPagamento.Size = new System.Drawing.Size(617, 74);
             this.gbPagamento.TabIndex = 2;
             this.gbPagamento.TabStop = false;
             this.gbPagamento.Text = "Forma de Pagamento";
@@ -504,6 +503,7 @@ namespace SistemaPDV___Lanchonete
             this.txtTroco.Name = "txtTroco";
             this.txtTroco.Size = new System.Drawing.Size(121, 25);
             this.txtTroco.TabIndex = 6;
+            this.txtTroco.Text = "R$0,00";
             this.txtTroco.Click += new System.EventHandler(this.txtTroco_Click);
             this.txtTroco.Leave += new System.EventHandler(this.txtTroco_Leave);
             // 
@@ -511,13 +511,13 @@ namespace SistemaPDV___Lanchonete
             // 
             this.cbPagamento.FormattingEnabled = true;
             this.cbPagamento.Items.AddRange(new object[] {
-            "Cartão",
-            "Dinheiro"});
+            "CARTAO",
+            "DINHEIRO"});
             this.cbPagamento.Location = new System.Drawing.Point(6, 27);
             this.cbPagamento.Name = "cbPagamento";
             this.cbPagamento.Size = new System.Drawing.Size(162, 25);
             this.cbPagamento.TabIndex = 5;
-            this.cbPagamento.Text = "Cartão";
+            this.cbPagamento.Text = "CARTAO";
             this.cbPagamento.SelectedIndexChanged += new System.EventHandler(this.comboBox1_SelectedIndexChanged_1);
             // 
             // gbEntrega
@@ -618,13 +618,13 @@ namespace SistemaPDV___Lanchonete
             // 
             this.cbFormaEntrega.FormattingEnabled = true;
             this.cbFormaEntrega.Items.AddRange(new object[] {
-            "Retirada no Local",
-            "Entrega"});
+            "RETIRADA NO LOCAL",
+            "ENTREGA:"});
             this.cbFormaEntrega.Location = new System.Drawing.Point(6, 31);
             this.cbFormaEntrega.Name = "cbFormaEntrega";
             this.cbFormaEntrega.Size = new System.Drawing.Size(162, 25);
             this.cbFormaEntrega.TabIndex = 4;
-            this.cbFormaEntrega.Text = "Retirada no Local";
+            this.cbFormaEntrega.Text = "RETIRADA NO LOCAL";
             this.cbFormaEntrega.SelectedIndexChanged += new System.EventHandler(this.comboBox1_SelectedIndexChanged);
             // 
             // label3

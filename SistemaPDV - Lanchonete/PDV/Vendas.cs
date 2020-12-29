@@ -74,7 +74,7 @@ namespace SistemaPDV___Lanchonete
             
             InserirDadosIncompletosVendas();
             CarregarIDUltimaVenda();
-
+           
         }
 
         private void CarregarDados()
@@ -335,7 +335,34 @@ private void CarregarIDUltimaVenda()
             }
 
         }
+        private void InserirDadosIncompletosCarrinho()
+        {
+            MySqlConnection conn = instanciaMySql.GetConnection();
 
+            try
+            {
+                if (conn.State == ConnectionState.Closed)
+                    conn.Open();
+                sql = "INSERT INTO Carrinho VALUES " +
+                     "(default,null,null,?,null,null,null);";
+
+
+                MySqlCommand cmd = new MySqlCommand(sql, conn);
+                cmd.Parameters.AddWithValue("id_venda", lblNVenda.Text);
+
+
+                cmd.ExecuteNonQuery();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Erro: " + ex.Message, "Atenção", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            finally
+            {
+                if (conn.State == ConnectionState.Open)
+                    conn.Close();
+            }
+        }
         private void PuxarVendas()
         {
             MySqlConnection conn = instanciaMySql.GetConnection();
@@ -347,15 +374,24 @@ private void CarregarIDUltimaVenda()
                 sql = "select * from Venda order by numero_venda desc limit 1";
                 MySqlCommand cmd = new MySqlCommand(sql, conn);
                 MySqlDataReader leitor = cmd.ExecuteReader();
-                if (leitor.HasRows)
+                if (leitor.Read() == false)
                 {
-                    leitor.Read();
-                    ultimavenda =  Convert.ToInt32(leitor["numero_venda"].ToString());
-
-                    if (leitor != null)
-                        leitor.Close();
-
+                    ultimavenda = 0;
                 }
+                else
+                {
+                    if (leitor.HasRows)
+                    {
+                        leitor.Read();
+
+                        ultimavenda = Convert.ToInt32(leitor["numero_venda"].ToString());
+
+                        if (leitor != null)
+                            leitor.Close();
+
+                    }
+                }
+               
 
             }
             catch (Exception ex)
@@ -427,12 +463,12 @@ private void CarregarIDUltimaVenda()
                     conn.Open();
 
                 sql = "INSERT INTO Venda VALUES " +
-                      "(default,null,null,null,null,null,null,null,null,null);";
-
+                      "(default,null,null,null,null,null,null,null,null,null,null,null);";
+                
                 MySqlCommand cmd = new MySqlCommand(sql, conn);
                 
-                
-                
+
+
                 cmd.ExecuteNonQuery();
             }
             catch (Exception ex)
@@ -660,8 +696,7 @@ private void CarregarIDUltimaVenda()
         }
         private void btnAddProduto_Click(object sender, EventArgs e)
         {
-            InserirDadosIncompletosVendas();
-            //CarregarValorVendas();
+            
             
             Boolean naoExiste = true;
             foreach (DataGridViewRow row in dgvCarrinho.Rows)
@@ -928,7 +963,7 @@ private void CarregarIDUltimaVenda()
 
         private void dgvCarrinho_CellEndEdit(object sender, DataGridViewCellEventArgs e)
         {
-            dgvCarrinho.CurrentRow.Cells[4].Value = Convert.ToDecimal(dgvCarrinho.CurrentRow.Cells[3].Value) * Convert.ToInt32(dgvCarrinho.CurrentRow.Cells[2].Value);
+            dgvCarrinho.CurrentRow.Cells[4].Value = Convert.ToDecimal(dgvCarrinho.CurrentRow.Cells[3].Value) * Convert.ToInt32(dgvCarrinho.CurrentRow.Cells[1].Value);
             calculaValorTotalGrid();
         }
 

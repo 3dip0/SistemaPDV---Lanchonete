@@ -22,6 +22,7 @@ namespace SistemaPDV___Lanchonete
             InitializeComponent();
             CarregarDados();
             PreencherComboBoxPesquisa();
+            PreencherComboBoxCategoria();
         }
 
         private void InserirDados()
@@ -38,7 +39,7 @@ namespace SistemaPDV___Lanchonete
 
                 MySqlCommand cmd = new MySqlCommand(sql, conn);
                 cmd.Parameters.AddWithValue("descricao", txtDescricao.Text);
-                cmd.Parameters.AddWithValue("quantidade", txtQtd.Text);
+                cmd.Parameters.AddWithValue("categoria", cbCategoria.Text);
                 cmd.Parameters.AddWithValue("valor", txtValorTotal.Text.Replace(',', '.'));
 
 
@@ -72,7 +73,7 @@ namespace SistemaPDV___Lanchonete
 
                 sql = "UPDATE Produto " +
                     " SET descricao=@descricao," +
-                    " quantidade=@quantidade," +
+                    " categoria=@categoria," +
                     " valor=@valor" +
                     " WHERE id=@id";
 
@@ -80,7 +81,7 @@ namespace SistemaPDV___Lanchonete
 
                 MySqlCommand cmd = new MySqlCommand(sql, conn);
                 cmd.Parameters.AddWithValue("descricao", txtDescricao.Text);
-                cmd.Parameters.AddWithValue("quantidade", txtQtd.Text);
+                cmd.Parameters.AddWithValue("categoria", cbCategoria.Text);
                 cmd.Parameters.AddWithValue("valor", txtValorTotal.Text.Replace(',', '.'));
                 cmd.Parameters.AddWithValue("id", txtId.Text);
 
@@ -109,7 +110,7 @@ namespace SistemaPDV___Lanchonete
 
                 sql = "SELECT id AS ID," +
                     " descricao AS \"Descricao\"," +
-                    " quantidade AS \"Quantidade\"," +
+                    " categoria AS \"Categoria\"," +
                     " valor AS \"Valor Venda\" " +
                     " FROM Produto";
                 MySqlCommand cmd = new MySqlCommand(sql, conn);
@@ -142,14 +143,14 @@ namespace SistemaPDV___Lanchonete
                 if (conn.State == ConnectionState.Closed)
                     conn.Open();
 
-                sql = "INSERT INTO detalheProduto (id, id_produto, id_materiaPrima, descricao, quantidade, valor) VALUES " +
+                sql = "INSERT INTO detalheProduto (id, id_produto, id_materiaPrima, descricao, categoria, valor) VALUES " +
                       "(null,?,?,?,?,?);";
 
                 MySqlCommand cmd = new MySqlCommand(sql, conn);
                 cmd.Parameters.AddWithValue("id_produto", txtId.Text);
                 cmd.Parameters.AddWithValue("id_materiaPrima", txtIDIngredientes.Text);
                 cmd.Parameters.AddWithValue("descricao", cbIngredientes.Text);
-                cmd.Parameters.AddWithValue("quantidade", txtIngQtd.Text);
+                cmd.Parameters.AddWithValue("categoria", txtIngQtd.Text);
                 cmd.Parameters.AddWithValue("valor", txtIngTotal.Text.Replace(',', '.'));
 
 
@@ -181,7 +182,7 @@ namespace SistemaPDV___Lanchonete
 
                 sql = "UPDATE detalheProduto " +
                     " SET descricao=@descricao," +
-                    " quantidade=@quantidade," +
+                    " categoria=@categoria," +
                     " valor=@valor" +
                     " WHERE id_materiaPrima=@id_materiaPrima";
 
@@ -189,7 +190,7 @@ namespace SistemaPDV___Lanchonete
 
                 MySqlCommand cmd = new MySqlCommand(sql, conn);
                 cmd.Parameters.AddWithValue("descricao", cbIngredientes.Text);
-                cmd.Parameters.AddWithValue("quantidade", txtIngQtd.Text);
+                cmd.Parameters.AddWithValue("categoria", txtIngQtd.Text);
                 cmd.Parameters.AddWithValue("valor", txtIngTotal.Text.Replace(',', '.'));
                 cmd.Parameters.AddWithValue("id_materiaPrima", txtIDIngredientes.Text);
 
@@ -287,6 +288,42 @@ namespace SistemaPDV___Lanchonete
 
    
         }
+        private void PreencherComboBoxCategoria()
+        {
+            MySqlConnection conn = instanciaMySql.GetConnection();
+            try
+            {
+                if (conn.State == ConnectionState.Closed)
+                    conn.Open();
+
+                sql = "SELECT id, descricao FROM Categoria";
+
+
+                MySqlCommand cmd = new MySqlCommand(sql, conn);
+                MySqlDataAdapter da = new MySqlDataAdapter(cmd);
+
+                DataTable ds = new DataTable();
+                da.Fill(ds);
+                cbCategoria.ValueMember = "id";
+                cbCategoria.DisplayMember = "descricao";
+                cbCategoria.DataSource = ds;
+              
+
+
+
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Erro: " + ex.Message, "Atenção", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            finally
+            {
+                if (conn.State == ConnectionState.Open)
+                    conn.Close();
+            }
+
+
+        }
 
         private void PreencherComboBoxIngredientesEdit()
         {
@@ -296,7 +333,7 @@ namespace SistemaPDV___Lanchonete
                 if (conn.State == ConnectionState.Closed)
                     conn.Open();
 
-                sql = $"SELECT id_materiaPrima, descricao, quantidade, valor FROM detalheProduto where id_materiaPrima LIKE '{dgvIngredientes.SelectedCells[0].Value}%'";
+                sql = $"SELECT id_materiaPrima, descricao, categoria, valor FROM detalheProduto where id_materiaPrima LIKE '{dgvIngredientes.SelectedCells[0].Value}%'";
 
 
                 MySqlCommand cmd = new MySqlCommand(sql, conn);
@@ -450,7 +487,7 @@ namespace SistemaPDV___Lanchonete
                     if (conn.State == ConnectionState.Closed)
                         conn.Open();
 
-                    sql = $"SELECT id_materiaPrima, descricao, quantidade, valor FROM detalheProduto where id_materiaPrima LIKE '{dgvIngredientes.SelectedCells[0].Value}%'";
+                    sql = $"SELECT id_materiaPrima, descricao, categoria, valor FROM detalheProduto where id_materiaPrima LIKE '{dgvIngredientes.SelectedCells[0].Value}%'";
 
 
                 MySqlCommand cmd = new MySqlCommand(sql, conn);
@@ -459,7 +496,7 @@ namespace SistemaPDV___Lanchonete
                     {
                         leitor.Read();
                         txtIDIngredientes.Text = leitor["id_materiaPrima"].ToString();
-                    txtIngQtd.Text = leitor["quantidade"].ToString();
+                    txtIngQtd.Text = leitor["categoria"].ToString();
                         txtIngTotal.Text = leitor["valor"].ToString();
                         
                         if (leitor != null)
@@ -537,7 +574,7 @@ namespace SistemaPDV___Lanchonete
         {
             txtId.Text = dgvProdutos.SelectedCells[0].Value.ToString();
             txtDescricao.Text = dgvProdutos.SelectedCells[1].Value.ToString();
-            txtQtd.Text = dgvProdutos.SelectedCells[2].Value.ToString();
+            cbCategoria.Text = dgvProdutos.SelectedCells[2].Value.ToString();
             txtValorTotal.Text = dgvProdutos.SelectedCells[3].Value.ToString();
             CarregarDadosIngredientes();
 
@@ -551,7 +588,7 @@ namespace SistemaPDV___Lanchonete
         {
             txtId.Text = dgvProdutos.SelectedCells[0].Value.ToString();
             txtDescricao.Text = dgvProdutos.SelectedCells[1].Value.ToString();
-            txtQtd.Text = dgvProdutos.SelectedCells[2].Value.ToString();
+            cbCategoria.Text = dgvProdutos.SelectedCells[2].Value.ToString();
             txtValorTotal.Text = dgvProdutos.SelectedCells[3].Value.ToString();
             CarregarDadosIngredientes();
 
@@ -581,7 +618,7 @@ namespace SistemaPDV___Lanchonete
 
                     txtId.Text = "";
                     txtDescricao.Text = "";
-                    txtQtd.Text = "";
+                    cbCategoria.Text = "";
                     txtValorTotal.Text = "";
 
                     CarregarDados();
@@ -598,7 +635,7 @@ namespace SistemaPDV___Lanchonete
 
                 txtId.Text = "";
                 txtDescricao.Text = "";
-                txtQtd.Text = "";
+                cbCategoria.Text = "";
                 txtValorTotal.Text = "";
                 CarregarDados();
             }
@@ -621,7 +658,7 @@ namespace SistemaPDV___Lanchonete
 
             txtId.Text = "";
             txtDescricao.Text = "";
-            txtQtd.Text = "";
+            cbCategoria.Text = "";
             txtValorTotal.Text = "";
         }
 

@@ -29,10 +29,10 @@ namespace SistemaPDV___Lanchonete
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle7 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle8 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
             this.btnNov = new System.Windows.Forms.Button();
             this.btnSalv = new System.Windows.Forms.Button();
             this.btnCancel = new System.Windows.Forms.Button();
@@ -43,8 +43,11 @@ namespace SistemaPDV___Lanchonete
             this.cbPesquisar = new System.Windows.Forms.ComboBox();
             this.txtPesquisar = new System.Windows.Forms.TextBox();
             this.panelAdd = new System.Windows.Forms.Panel();
+            this.cbCategoria = new System.Windows.Forms.ComboBox();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.panelIngredientes = new System.Windows.Forms.Panel();
+            this.label6 = new System.Windows.Forms.Label();
+            this.txtIDIngredientes = new System.Windows.Forms.TextBox();
             this.cbIngredientes = new System.Windows.Forms.ComboBox();
             this.label5 = new System.Windows.Forms.Label();
             this.txtIngTotal = new System.Windows.Forms.TextBox();
@@ -61,14 +64,11 @@ namespace SistemaPDV___Lanchonete
             this.dgvIngredientes = new System.Windows.Forms.DataGridView();
             this.label1 = new System.Windows.Forms.Label();
             this.txtValorTotal = new System.Windows.Forms.TextBox();
-            this.txtQtd = new System.Windows.Forms.TextBox();
             this.lblQuantidade = new System.Windows.Forms.Label();
             this.label40 = new System.Windows.Forms.Label();
             this.txtId = new System.Windows.Forms.TextBox();
             this.lbl_Descricao = new System.Windows.Forms.Label();
             this.txtDescricao = new System.Windows.Forms.TextBox();
-            this.label6 = new System.Windows.Forms.Label();
-            this.txtIDIngredientes = new System.Windows.Forms.TextBox();
             ((System.ComponentModel.ISupportInitialize)(this.dgvProdutos)).BeginInit();
             this.groupBox1.SuspendLayout();
             this.panelAdd.SuspendLayout();
@@ -145,19 +145,19 @@ namespace SistemaPDV___Lanchonete
             this.dgvProdutos.AllowUserToDeleteRows = false;
             this.dgvProdutos.AllowUserToResizeColumns = false;
             this.dgvProdutos.AllowUserToResizeRows = false;
-            dataGridViewCellStyle5.BackColor = System.Drawing.Color.Gainsboro;
-            this.dgvProdutos.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle5;
+            dataGridViewCellStyle1.BackColor = System.Drawing.Color.Gainsboro;
+            this.dgvProdutos.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
             this.dgvProdutos.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.dgvProdutos.BackgroundColor = System.Drawing.Color.White;
             this.dgvProdutos.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle6.BackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle6.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle6.ForeColor = System.Drawing.SystemColors.ControlText;
-            dataGridViewCellStyle6.SelectionBackColor = System.Drawing.Color.DimGray;
-            dataGridViewCellStyle6.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle6.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.dgvProdutos.DefaultCellStyle = dataGridViewCellStyle6;
+            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle2.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.Color.DimGray;
+            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dgvProdutos.DefaultCellStyle = dataGridViewCellStyle2;
             this.dgvProdutos.Dock = System.Windows.Forms.DockStyle.Top;
             this.dgvProdutos.Location = new System.Drawing.Point(0, 309);
             this.dgvProdutos.MultiSelect = false;
@@ -205,10 +205,10 @@ namespace SistemaPDV___Lanchonete
             // 
             // panelAdd
             // 
+            this.panelAdd.Controls.Add(this.cbCategoria);
             this.panelAdd.Controls.Add(this.groupBox2);
             this.panelAdd.Controls.Add(this.label1);
             this.panelAdd.Controls.Add(this.txtValorTotal);
-            this.panelAdd.Controls.Add(this.txtQtd);
             this.panelAdd.Controls.Add(this.lblQuantidade);
             this.panelAdd.Controls.Add(this.label40);
             this.panelAdd.Controls.Add(this.txtId);
@@ -220,6 +220,15 @@ namespace SistemaPDV___Lanchonete
             this.panelAdd.Name = "panelAdd";
             this.panelAdd.Size = new System.Drawing.Size(1022, 246);
             this.panelAdd.TabIndex = 34;
+            // 
+            // cbCategoria
+            // 
+            this.cbCategoria.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.cbCategoria.FormattingEnabled = true;
+            this.cbCategoria.Location = new System.Drawing.Point(735, 25);
+            this.cbCategoria.Name = "cbCategoria";
+            this.cbCategoria.Size = new System.Drawing.Size(158, 21);
+            this.cbCategoria.TabIndex = 126;
             // 
             // groupBox2
             // 
@@ -256,6 +265,23 @@ namespace SistemaPDV___Lanchonete
             this.panelIngredientes.Name = "panelIngredientes";
             this.panelIngredientes.Size = new System.Drawing.Size(1016, 41);
             this.panelIngredientes.TabIndex = 148;
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Location = new System.Drawing.Point(5, 2);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(18, 13);
+            this.label6.TabIndex = 151;
+            this.label6.Text = "ID";
+            // 
+            // txtIDIngredientes
+            // 
+            this.txtIDIngredientes.Enabled = false;
+            this.txtIDIngredientes.Location = new System.Drawing.Point(6, 18);
+            this.txtIDIngredientes.Name = "txtIDIngredientes";
+            this.txtIDIngredientes.Size = new System.Drawing.Size(102, 20);
+            this.txtIDIngredientes.TabIndex = 150;
             // 
             // cbIngredientes
             // 
@@ -406,19 +432,19 @@ namespace SistemaPDV___Lanchonete
             this.dgvIngredientes.AllowUserToDeleteRows = false;
             this.dgvIngredientes.AllowUserToResizeColumns = false;
             this.dgvIngredientes.AllowUserToResizeRows = false;
-            dataGridViewCellStyle7.BackColor = System.Drawing.Color.Gainsboro;
-            this.dgvIngredientes.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle7;
+            dataGridViewCellStyle3.BackColor = System.Drawing.Color.Gainsboro;
+            this.dgvIngredientes.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle3;
             this.dgvIngredientes.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.dgvIngredientes.BackgroundColor = System.Drawing.Color.White;
             this.dgvIngredientes.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridViewCellStyle8.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle8.BackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle8.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle8.ForeColor = System.Drawing.SystemColors.ControlText;
-            dataGridViewCellStyle8.SelectionBackColor = System.Drawing.Color.DimGray;
-            dataGridViewCellStyle8.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle8.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.dgvIngredientes.DefaultCellStyle = dataGridViewCellStyle8;
+            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle4.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle4.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle4.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle4.SelectionBackColor = System.Drawing.Color.DimGray;
+            dataGridViewCellStyle4.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dgvIngredientes.DefaultCellStyle = dataGridViewCellStyle4;
             this.dgvIngredientes.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.dgvIngredientes.Location = new System.Drawing.Point(3, 98);
             this.dgvIngredientes.MultiSelect = false;
@@ -448,23 +474,15 @@ namespace SistemaPDV___Lanchonete
             this.txtValorTotal.Size = new System.Drawing.Size(113, 20);
             this.txtValorTotal.TabIndex = 123;
             // 
-            // txtQtd
-            // 
-            this.txtQtd.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtQtd.Location = new System.Drawing.Point(832, 26);
-            this.txtQtd.Name = "txtQtd";
-            this.txtQtd.Size = new System.Drawing.Size(61, 20);
-            this.txtQtd.TabIndex = 122;
-            // 
             // lblQuantidade
             // 
             this.lblQuantidade.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.lblQuantidade.AutoSize = true;
-            this.lblQuantidade.Location = new System.Drawing.Point(831, 10);
+            this.lblQuantidade.Location = new System.Drawing.Point(732, 9);
             this.lblQuantidade.Name = "lblQuantidade";
-            this.lblQuantidade.Size = new System.Drawing.Size(62, 13);
+            this.lblQuantidade.Size = new System.Drawing.Size(52, 13);
             this.lblQuantidade.TabIndex = 116;
-            this.lblQuantidade.Text = "Quantidade";
+            this.lblQuantidade.Text = "Categoria";
             // 
             // label40
             // 
@@ -500,25 +518,8 @@ namespace SistemaPDV___Lanchonete
             | System.Windows.Forms.AnchorStyles.Right)));
             this.txtDescricao.Location = new System.Drawing.Point(114, 26);
             this.txtDescricao.Name = "txtDescricao";
-            this.txtDescricao.Size = new System.Drawing.Size(712, 20);
+            this.txtDescricao.Size = new System.Drawing.Size(615, 20);
             this.txtDescricao.TabIndex = 2;
-            // 
-            // label6
-            // 
-            this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(5, 2);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(18, 13);
-            this.label6.TabIndex = 151;
-            this.label6.Text = "ID";
-            // 
-            // txtIDIngredientes
-            // 
-            this.txtIDIngredientes.Enabled = false;
-            this.txtIDIngredientes.Location = new System.Drawing.Point(6, 18);
-            this.txtIDIngredientes.Name = "txtIDIngredientes";
-            this.txtIDIngredientes.Size = new System.Drawing.Size(102, 20);
-            this.txtIDIngredientes.TabIndex = 150;
             // 
             // Produtos
             // 
@@ -564,7 +565,6 @@ namespace SistemaPDV___Lanchonete
         private System.Windows.Forms.Panel panelAdd;
         public System.Windows.Forms.Label label1;
         public System.Windows.Forms.TextBox txtValorTotal;
-        public System.Windows.Forms.TextBox txtQtd;
         public System.Windows.Forms.Label lblQuantidade;
         public System.Windows.Forms.Label label40;
         public System.Windows.Forms.TextBox txtId;
@@ -588,5 +588,6 @@ namespace SistemaPDV___Lanchonete
         private System.Windows.Forms.Button btnCancelIngred;
         public System.Windows.Forms.Label label6;
         public System.Windows.Forms.TextBox txtIDIngredientes;
+        private System.Windows.Forms.ComboBox cbCategoria;
     }
 }

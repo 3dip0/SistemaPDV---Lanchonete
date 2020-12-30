@@ -93,5 +93,10 @@ namespace SistemaPDV___Lanchonete
         {
             AbrirFormNoPanel(new Taxas());
         }
+
+        private void categoriasToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            AbrirFormNoPanel(new Categorias());
+        }
     }
 }

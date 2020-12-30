@@ -146,6 +146,12 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>bdlanche.xsd</DependentUpon>
     </Compile>
+    <Compile Include="Cadastro\Categorias.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Cadastro\Categorias.Designer.cs">
+      <DependentUpon>Categorias.cs</DependentUpon>
+    </Compile>
     <Compile Include="Cadastro\Clientes.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -245,6 +251,9 @@
       <DependentUpon>Relatorio_Vendas.cs</DependentUpon>
     </Compile>
     <Compile Include="SqlServerTypes\Loader.cs" />
+    <EmbeddedResource Include="Cadastro\Categorias.resx">
+      <DependentUpon>Categorias.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Cadastro\Clientes.resx">
       <DependentUpon>Clientes.cs</DependentUpon>
     </EmbeddedResource>

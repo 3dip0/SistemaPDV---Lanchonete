@@ -29,8 +29,7 @@ namespace SistemaPDV___Lanchonete
         /// </summary>
         private void InitializeComponent()
         {
-            this.panelPrincipal = new System.Windows.Forms.Panel();
-            this.Monitoramento = new System.ComponentModel.BackgroundWorker();
+            this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.cadastrosToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.clientesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.produtosToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -44,30 +43,35 @@ namespace SistemaPDV___Lanchonete
             this.contasAReceberToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.pDVToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.vendasToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.monitoramentoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.testeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.monitoramentoSiteToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.relatóriosToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.financeiroToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.produtosToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.vendasToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.configuraçãoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.portaSerialToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.menuStrip1 = new System.Windows.Forms.MenuStrip();
+            this.panelPrincipal = new System.Windows.Forms.Panel();
+            this.Monitoramento = new System.ComponentModel.BackgroundWorker();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
-            // panelPrincipal
+            // menuStrip1
             // 
-            this.panelPrincipal.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panelPrincipal.Location = new System.Drawing.Point(0, 25);
-            this.panelPrincipal.Name = "panelPrincipal";
-            this.panelPrincipal.Size = new System.Drawing.Size(1165, 533);
-            this.panelPrincipal.TabIndex = 1;
-            // 
-            // Monitoramento
-            // 
-            this.Monitoramento.DoWork += new System.ComponentModel.DoWorkEventHandler(this.Monitoramento_DoWork);
-            this.Monitoramento.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(this.Monitoramento_RunWorkerCompleted);
+            this.menuStrip1.BackColor = System.Drawing.SystemColors.ControlLightLight;
+            this.menuStrip1.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.menuStrip1.ImeMode = System.Windows.Forms.ImeMode.Off;
+            this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.cadastrosToolStripMenuItem,
+            this.financeiroToolStripMenuItem,
+            this.pDVToolStripMenuItem,
+            this.relatóriosToolStripMenuItem,
+            this.configuraçãoToolStripMenuItem});
+            this.menuStrip1.Location = new System.Drawing.Point(0, 0);
+            this.menuStrip1.Name = "menuStrip1";
+            this.menuStrip1.Padding = new System.Windows.Forms.Padding(7, 2, 0, 2);
+            this.menuStrip1.Size = new System.Drawing.Size(1165, 25);
+            this.menuStrip1.TabIndex = 0;
+            this.menuStrip1.Text = "menuStrip1";
             // 
             // cadastrosToolStripMenuItem
             // 
@@ -159,8 +163,7 @@ namespace SistemaPDV___Lanchonete
             // 
             this.pDVToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.vendasToolStripMenuItem,
-            this.monitoramentoToolStripMenuItem,
-            this.testeToolStripMenuItem});
+            this.monitoramentoSiteToolStripMenuItem});
             this.pDVToolStripMenuItem.Name = "pDVToolStripMenuItem";
             this.pDVToolStripMenuItem.Size = new System.Drawing.Size(44, 21);
             this.pDVToolStripMenuItem.Text = "PDV";
@@ -168,22 +171,16 @@ namespace SistemaPDV___Lanchonete
             // vendasToolStripMenuItem
             // 
             this.vendasToolStripMenuItem.Name = "vendasToolStripMenuItem";
-            this.vendasToolStripMenuItem.Size = new System.Drawing.Size(167, 22);
+            this.vendasToolStripMenuItem.Size = new System.Drawing.Size(192, 22);
             this.vendasToolStripMenuItem.Text = "Vendas";
             this.vendasToolStripMenuItem.Click += new System.EventHandler(this.vendasToolStripMenuItem_Click);
             // 
-            // monitoramentoToolStripMenuItem
+            // monitoramentoSiteToolStripMenuItem
             // 
-            this.monitoramentoToolStripMenuItem.Name = "monitoramentoToolStripMenuItem";
-            this.monitoramentoToolStripMenuItem.Size = new System.Drawing.Size(167, 22);
-            this.monitoramentoToolStripMenuItem.Text = "Monitoramento";
-            this.monitoramentoToolStripMenuItem.Click += new System.EventHandler(this.monitoramentoToolStripMenuItem_Click);
-            // 
-            // testeToolStripMenuItem
-            // 
-            this.testeToolStripMenuItem.Name = "testeToolStripMenuItem";
-            this.testeToolStripMenuItem.Size = new System.Drawing.Size(167, 22);
-            this.testeToolStripMenuItem.Text = "Teste";
+            this.monitoramentoSiteToolStripMenuItem.Name = "monitoramentoSiteToolStripMenuItem";
+            this.monitoramentoSiteToolStripMenuItem.Size = new System.Drawing.Size(192, 22);
+            this.monitoramentoSiteToolStripMenuItem.Text = "Monitoramento Site";
+            this.monitoramentoSiteToolStripMenuItem.Click += new System.EventHandler(this.monitoramentoSiteToolStripMenuItem_Click);
             // 
             // relatóriosToolStripMenuItem
             // 
@@ -231,23 +228,18 @@ namespace SistemaPDV___Lanchonete
             this.portaSerialToolStripMenuItem.Text = "Porta Serial";
             this.portaSerialToolStripMenuItem.Click += new System.EventHandler(this.portaSerialToolStripMenuItem_Click);
             // 
-            // menuStrip1
+            // panelPrincipal
             // 
-            this.menuStrip1.BackColor = System.Drawing.SystemColors.ControlLightLight;
-            this.menuStrip1.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.menuStrip1.ImeMode = System.Windows.Forms.ImeMode.Off;
-            this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.cadastrosToolStripMenuItem,
-            this.financeiroToolStripMenuItem,
-            this.pDVToolStripMenuItem,
-            this.relatóriosToolStripMenuItem,
-            this.configuraçãoToolStripMenuItem});
-            this.menuStrip1.Location = new System.Drawing.Point(0, 0);
-            this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Padding = new System.Windows.Forms.Padding(7, 2, 0, 2);
-            this.menuStrip1.Size = new System.Drawing.Size(1165, 25);
-            this.menuStrip1.TabIndex = 0;
-            this.menuStrip1.Text = "menuStrip1";
+            this.panelPrincipal.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panelPrincipal.Location = new System.Drawing.Point(0, 25);
+            this.panelPrincipal.Name = "panelPrincipal";
+            this.panelPrincipal.Size = new System.Drawing.Size(1165, 533);
+            this.panelPrincipal.TabIndex = 1;
+            // 
+            // Monitoramento
+            // 
+            this.Monitoramento.DoWork += new System.ComponentModel.DoWorkEventHandler(this.Monitoramento_DoWork);
+            this.Monitoramento.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(this.Monitoramento_RunWorkerCompleted);
             // 
             // Principal
             // 
@@ -258,12 +250,11 @@ namespace SistemaPDV___Lanchonete
             this.Controls.Add(this.panelPrincipal);
             this.Controls.Add(this.menuStrip1);
             this.Font = new System.Drawing.Font("Segoe UI Semibold", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.MainMenuStrip = this.menuStrip1;
             this.Name = "Principal";
             this.Text = "Sistema PDV - Lanchonete";
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
-            this.Load += new System.EventHandler(this.Principal_Load);
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
             this.ResumeLayout(false);
@@ -272,30 +263,30 @@ namespace SistemaPDV___Lanchonete
         }
 
         #endregion
-        private System.Windows.Forms.Panel panelPrincipal;
-        private System.ComponentModel.BackgroundWorker Monitoramento;
+
+        private System.Windows.Forms.MenuStrip menuStrip1;
         private System.Windows.Forms.ToolStripMenuItem cadastrosToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem clientesToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem produtosToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem estoqueToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem taxasToolStripMenuItem;
-        public System.Windows.Forms.ToolStripMenuItem menuUsuario;
-        private System.Windows.Forms.ToolStripMenuItem categoriasToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem financeiroToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem caixaToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem despesasToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem contasAReceberToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem pDVToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem estoqueToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem contasAReceberToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem vendasToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem monitoramentoToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem testeToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem relatóriosToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem financeiroToolStripMenuItem1;
         private System.Windows.Forms.ToolStripMenuItem produtosToolStripMenuItem1;
         private System.Windows.Forms.ToolStripMenuItem vendasToolStripMenuItem1;
+        private System.Windows.Forms.Panel panelPrincipal;
+        private System.Windows.Forms.ToolStripMenuItem clientesToolStripMenuItem;
+        public System.Windows.Forms.ToolStripMenuItem menuUsuario;
+        private System.Windows.Forms.ToolStripMenuItem taxasToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem categoriasToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem monitoramentoSiteToolStripMenuItem;
+        private System.ComponentModel.BackgroundWorker Monitoramento;
         private System.Windows.Forms.ToolStripMenuItem configuraçãoToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem portaSerialToolStripMenuItem;
-        private System.Windows.Forms.MenuStrip menuStrip1;
     }
 }
 

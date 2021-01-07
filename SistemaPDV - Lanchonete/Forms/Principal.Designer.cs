@@ -43,7 +43,6 @@ namespace SistemaPDV___Lanchonete
             this.contasAReceberToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.pDVToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.vendasToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.monitoramentoSiteToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.relatóriosToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.financeiroToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.produtosToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
@@ -52,6 +51,7 @@ namespace SistemaPDV___Lanchonete
             this.portaSerialToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.panelPrincipal = new System.Windows.Forms.Panel();
             this.Monitoramento = new System.ComponentModel.BackgroundWorker();
+            this.monitoramentoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -163,7 +163,7 @@ namespace SistemaPDV___Lanchonete
             // 
             this.pDVToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.vendasToolStripMenuItem,
-            this.monitoramentoSiteToolStripMenuItem});
+            this.monitoramentoToolStripMenuItem});
             this.pDVToolStripMenuItem.Name = "pDVToolStripMenuItem";
             this.pDVToolStripMenuItem.Size = new System.Drawing.Size(44, 21);
             this.pDVToolStripMenuItem.Text = "PDV";
@@ -171,16 +171,9 @@ namespace SistemaPDV___Lanchonete
             // vendasToolStripMenuItem
             // 
             this.vendasToolStripMenuItem.Name = "vendasToolStripMenuItem";
-            this.vendasToolStripMenuItem.Size = new System.Drawing.Size(192, 22);
+            this.vendasToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.vendasToolStripMenuItem.Text = "Vendas";
             this.vendasToolStripMenuItem.Click += new System.EventHandler(this.vendasToolStripMenuItem_Click);
-            // 
-            // monitoramentoSiteToolStripMenuItem
-            // 
-            this.monitoramentoSiteToolStripMenuItem.Name = "monitoramentoSiteToolStripMenuItem";
-            this.monitoramentoSiteToolStripMenuItem.Size = new System.Drawing.Size(192, 22);
-            this.monitoramentoSiteToolStripMenuItem.Text = "Monitoramento Site";
-            this.monitoramentoSiteToolStripMenuItem.Click += new System.EventHandler(this.monitoramentoSiteToolStripMenuItem_Click);
             // 
             // relatóriosToolStripMenuItem
             // 
@@ -241,6 +234,13 @@ namespace SistemaPDV___Lanchonete
             this.Monitoramento.DoWork += new System.ComponentModel.DoWorkEventHandler(this.Monitoramento_DoWork);
             this.Monitoramento.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(this.Monitoramento_RunWorkerCompleted);
             // 
+            // monitoramentoToolStripMenuItem
+            // 
+            this.monitoramentoToolStripMenuItem.Name = "monitoramentoToolStripMenuItem";
+            this.monitoramentoToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.monitoramentoToolStripMenuItem.Text = "Monitoramento";
+            this.monitoramentoToolStripMenuItem.Click += new System.EventHandler(this.monitoramentoToolStripMenuItem_Click);
+            // 
             // Principal
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
@@ -283,10 +283,10 @@ namespace SistemaPDV___Lanchonete
         public System.Windows.Forms.ToolStripMenuItem menuUsuario;
         private System.Windows.Forms.ToolStripMenuItem taxasToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem categoriasToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem monitoramentoSiteToolStripMenuItem;
         private System.ComponentModel.BackgroundWorker Monitoramento;
         private System.Windows.Forms.ToolStripMenuItem configuraçãoToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem portaSerialToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem monitoramentoToolStripMenuItem;
     }
 }
 

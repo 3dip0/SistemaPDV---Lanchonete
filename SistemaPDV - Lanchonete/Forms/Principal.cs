@@ -123,5 +123,14 @@ namespace SistemaPDV___Lanchonete
         {
            
         }
+
+        private void monitoramentoToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+
+            Clientes confirmacao = new Clientes();
+
+            confirmacao.WindowState = FormWindowState.Maximized;
+            confirmacao.ShowDialog();
+        }
     }
 }

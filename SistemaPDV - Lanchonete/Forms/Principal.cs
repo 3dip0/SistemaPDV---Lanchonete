@@ -98,5 +98,28 @@ namespace SistemaPDV___Lanchonete
         {
             AbrirFormNoPanel(new Categorias());
         }
+
+        private void monitoramentoSiteToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Monitoramento.RunWorkerAsync();
+        }
+        
+        private void Monitoramento_DoWork(object sender, DoWorkEventArgs e)
+        {
+            Monitor monitor = new Monitor();
+            monitor.WindowState = FormWindowState.Maximized;
+            monitor.ShowDialog();
+        }
+
+        private void portaSerialToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Configuracao configuracao = new Configuracao();
+            configuracao.ShowDialog();
+        }
+
+        private void Monitoramento_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
+        {
+           
+        }
     }
 }

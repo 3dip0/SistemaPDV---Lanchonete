@@ -10,5 +10,13 @@
 &lt;/SerializableConnectionString&gt;</DesignTimeValue>
       <Value Profile="(Default)">server=sql247.main-hosting.eu;user id=u917973598_admin;password=Molina1819;persistsecurityinfo=True;database=u917973598_lanche</Value>
     </Setting>
+    <Setting Name="u443280671_lancheConnectionString" Type="(Connection string)" Scope="Application">
+      <DesignTimeValue Profile="(Default)">&lt;?xml version="1.0" encoding="utf-16"?&gt;
+&lt;SerializableConnectionString xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema"&gt;
+  &lt;ConnectionString&gt;server=sql458.main-hosting.eu;user id=u443280671_root;persistsecurityinfo=True;database=u443280671_lanche&lt;/ConnectionString&gt;
+  &lt;ProviderName&gt;MySql.Data.MySqlClient&lt;/ProviderName&gt;
+&lt;/SerializableConnectionString&gt;</DesignTimeValue>
+      <Value Profile="(Default)">server=sql458.main-hosting.eu;user id=u443280671_root;persistsecurityinfo=True;database=u443280671_lanche</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

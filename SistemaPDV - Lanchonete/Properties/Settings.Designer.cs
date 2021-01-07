@@ -33,5 +33,16 @@ namespace SistemaPDV___Lanchonete.Properties {
                 return ((string)(this["u917973598_lanche"]));
             }
         }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.SpecialSettingAttribute(global::System.Configuration.SpecialSetting.ConnectionString)]
+        [global::System.Configuration.DefaultSettingValueAttribute("server=sql458.main-hosting.eu;user id=u443280671_root;persistsecurityinfo=True;da" +
+            "tabase=u443280671_lanche")]
+        public string u443280671_lancheConnectionString {
+            get {
+                return ((string)(this["u443280671_lancheConnectionString"]));
+            }
+        }
     }
 }

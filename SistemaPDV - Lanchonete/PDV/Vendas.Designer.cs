@@ -829,7 +829,7 @@ namespace SistemaPDV___Lanchonete
             this.BackColor = System.Drawing.SystemColors.Window;
             this.ClientSize = new System.Drawing.Size(1253, 623);
             this.Controls.Add(this.panel1);
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.Name = "Vendas";
             this.Text = "Vendas";
             this.Load += new System.EventHandler(this.Vendas_Load);

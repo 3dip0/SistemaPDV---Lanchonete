@@ -48,6 +48,15 @@
     <Reference Include="Google.Protobuf, Version=3.11.4.0, Culture=neutral, PublicKeyToken=a7d26565bac4d604, processorArchitecture=MSIL">
       <HintPath>..\packages\Google.Protobuf.3.11.4\lib\net45\Google.Protobuf.dll</HintPath>
     </Reference>
+    <Reference Include="GSMCommServer, Version=1.21.0.0, Culture=neutral, PublicKeyToken=515d87df384dcc81, processorArchitecture=MSIL">
+      <HintPath>..\packages\GSMComm.1.21.1\lib\GSMCommServer.dll</HintPath>
+    </Reference>
+    <Reference Include="GSMCommShared, Version=1.21.0.0, Culture=neutral, PublicKeyToken=515d87df384dcc81, processorArchitecture=MSIL">
+      <HintPath>..\packages\GSMComm.1.21.1\lib\GSMCommShared.dll</HintPath>
+    </Reference>
+    <Reference Include="GSMCommunication, Version=1.21.0.0, Culture=neutral, PublicKeyToken=515d87df384dcc81, processorArchitecture=MSIL">
+      <HintPath>..\packages\GSMComm.1.21.1\lib\GSMCommunication.dll</HintPath>
+    </Reference>
     <Reference Include="K4os.Compression.LZ4, Version=1.1.11.0, Culture=neutral, PublicKeyToken=2186fa9121ef231d, processorArchitecture=MSIL">
       <HintPath>..\packages\K4os.Compression.LZ4.1.1.11\lib\net46\K4os.Compression.LZ4.dll</HintPath>
     </Reference>
@@ -83,6 +92,9 @@
     </Reference>
     <Reference Include="MySqlConnector, Version=1.0.0.0, Culture=neutral, PublicKeyToken=d33d3e53aa5f8c92, processorArchitecture=MSIL">
       <HintPath>..\packages\MySqlConnector.1.2.1\lib\net471\MySqlConnector.dll</HintPath>
+    </Reference>
+    <Reference Include="PDUConverter, Version=1.21.0.0, Culture=neutral, PublicKeyToken=515d87df384dcc81, processorArchitecture=MSIL">
+      <HintPath>..\packages\GSMComm.1.21.1\lib\PDUConverter.dll</HintPath>
     </Reference>
     <Reference Include="Renci.SshNet, Version=2016.1.0.0, Culture=neutral, PublicKeyToken=1cee9f8bde3db106, processorArchitecture=MSIL">
       <HintPath>..\packages\SSH.NET.2016.1.0\lib\net40\Renci.SshNet.dll</HintPath>
@@ -177,8 +189,21 @@
       <DependentUpon>Taxas.cs</DependentUpon>
     </Compile>
     <Compile Include="Classes\Clientes.cs" />
+    <Compile Include="Classes\SMS.cs" />
     <Compile Include="Classes\UsuarioLogado.cs" />
-    <Compile Include="DGVPrinter.cs" />
+    <Compile Include="Forms\Configuracao.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Configuracao.Designer.cs">
+      <DependentUpon>Configuracao.cs</DependentUpon>
+    </Compile>
+    <Compile Include="PDV\Confirmacao.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="PDV\Confirmacao.Designer.cs">
+      <DependentUpon>Confirmacao.cs</DependentUpon>
+    </Compile>
+    <Compile Include="PDV\DGVPrinter.cs" />
     <Compile Include="Financeiro\Caixa.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -197,19 +222,30 @@
     <Compile Include="Financeiro\Contas_a_Receber.Designer.cs">
       <DependentUpon>Contas_a_Receber.cs</DependentUpon>
     </Compile>
-    <Compile Include="IniFile.cs" />
-    <Compile Include="Login.cs">
+    <Compile Include="PDV\ImpressaoSite.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Login.Designer.cs">
+    <Compile Include="PDV\ImpressaoSite.Designer.cs">
+      <DependentUpon>ImpressaoSite.cs</DependentUpon>
+    </Compile>
+    <Compile Include="IniFile.cs" />
+    <Compile Include="Forms\Login.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Login.Designer.cs">
       <DependentUpon>Login.cs</DependentUpon>
     </Compile>
-    <Compile Include="MP2032.cs" />
-    <Compile Include="MySQL.cs" />
-    <Compile Include="Principal.cs">
+    <Compile Include="PDV\Monitor.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Principal.Designer.cs">
+    <Compile Include="PDV\Monitor.Designer.cs">
+      <DependentUpon>Monitor.cs</DependentUpon>
+    </Compile>
+    <Compile Include="MySQL.cs" />
+    <Compile Include="Forms\Principal.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Principal.Designer.cs">
       <DependentUpon>Principal.cs</DependentUpon>
     </Compile>
     <Compile Include="Cadastro\Produtos.cs">
@@ -251,6 +287,22 @@
       <DependentUpon>Relatorio_Vendas.cs</DependentUpon>
     </Compile>
     <Compile Include="SqlServerTypes\Loader.cs" />
+    <Compile Include="PDV\tempoEntrega.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="PDV\tempoEntrega.Designer.cs">
+      <DependentUpon>tempoEntrega.cs</DependentUpon>
+    </Compile>
+    <Compile Include="u443280671_lancheDataSet.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>u443280671_lancheDataSet.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="u917973598_lancheDataSet.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>u917973598_lancheDataSet.xsd</DependentUpon>
+    </Compile>
     <EmbeddedResource Include="Cadastro\Categorias.resx">
       <DependentUpon>Categorias.cs</DependentUpon>
     </EmbeddedResource>
@@ -272,19 +324,32 @@
     <EmbeddedResource Include="Cadastro\Usuarios.resx">
       <DependentUpon>Usuarios.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Configuracao.resx">
+      <DependentUpon>Configuracao.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PDV\Confirmacao.resx">
+      <DependentUpon>Confirmacao.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Financeiro\Contas_a_Pagar.resx">
       <DependentUpon>Contas_a_Pagar.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Financeiro\Contas_a_Receber.resx">
       <DependentUpon>Contas_a_Receber.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Login.resx">
+    <EmbeddedResource Include="Impressao\ImpressaoSite.rdlc" />
+    <EmbeddedResource Include="PDV\ImpressaoSite.resx">
+      <DependentUpon>ImpressaoSite.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Login.resx">
       <DependentUpon>Login.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PDV\Monitor.resx">
+      <DependentUpon>Monitor.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="PDV\Vendas.resx">
       <DependentUpon>Vendas.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Principal.resx">
+    <EmbeddedResource Include="Forms\Principal.resx">
       <DependentUpon>Principal.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
@@ -296,7 +361,10 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
-    <EmbeddedResource Include="Report1.rdlc" />
+    <EmbeddedResource Include="Impressao\ImpressaoLocal.rdlc" />
+    <EmbeddedResource Include="PDV\tempoEntrega.resx">
+      <DependentUpon>tempoEntrega.cs</DependentUpon>
+    </EmbeddedResource>
     <None Include="bdlanche.xsc">
       <DependentUpon>bdlanche.xsd</DependentUpon>
     </None>
@@ -318,6 +386,28 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
+    <None Include="u443280671_lancheDataSet.xsc">
+      <DependentUpon>u443280671_lancheDataSet.xsd</DependentUpon>
+    </None>
+    <None Include="u443280671_lancheDataSet.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>u443280671_lancheDataSet.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="u443280671_lancheDataSet.xss">
+      <DependentUpon>u443280671_lancheDataSet.xsd</DependentUpon>
+    </None>
+    <None Include="u917973598_lancheDataSet.xsc">
+      <DependentUpon>u917973598_lancheDataSet.xsd</DependentUpon>
+    </None>
+    <None Include="u917973598_lancheDataSet.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>u917973598_lancheDataSet.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="u917973598_lancheDataSet.xss">
+      <DependentUpon>u917973598_lancheDataSet.xsd</DependentUpon>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
@@ -337,6 +427,7 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>

@@ -10,12 +10,14 @@ using System.IO;
 using System.IO.Ports;
 using System.Linq;
 using System.Media;
+using System.Runtime.InteropServices;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using static SMS.Core.SMS;
+
 
 namespace SistemaPDV___Lanchonete
 {
@@ -30,18 +32,38 @@ namespace SistemaPDV___Lanchonete
         public Monitor()
         {
             InitializeComponent();
-
+            CarregarDadosPedidoAceito();
             if (dgvVendas.SelectedRows.Count > 0)
             {
+                
                 int index = dgvVendas.SelectedRows[0].Index;
 
                 if (index >= 0)
                     dgvVendas.Rows[index].Selected = false;
             }
         }
+        const int SC_CLOSE = 0X400;
+        [DllImport("user32")]
+        static extern int RemoveMenu(IntPtr hMenu, int nPosition, int wFlags);
+
+        [DllImport("user32")]
+        static extern IntPtr GetSystemMenu(IntPtr hWnd, bool bRevert);
+
+        [DllImport("user32")]
+        static extern int GetMenuItemCount(IntPtr hWnd);
+
+
+
+
+
+
+
         SMS.Core.SMS sms = new SMS.Core.SMS();
         private void Form1_Load(object sender, EventArgs e)
         {
+            IntPtr hMenu = GetSystemMenu(this.Handle, false);
+            int CountMenu = GetMenuItemCount(hMenu) - 1;
+            RemoveMenu(hMenu, CountMenu, SC_CLOSE);
             LimparNumerosPedido();
             CarregarDadosPedidoAceito();
             backgroundWorker1.RunWorkerAsync();
@@ -95,12 +117,19 @@ namespace SistemaPDV___Lanchonete
                 da.Fill(ds);
                 if (ds.Rows.Count != 0)
                 {
+                    try
+                    {
+                        dgvVendas.Invoke((Action)(() => dgvVendas.DataSource = ds));
+                        dgvVendas.Invoke((Action)(() => dgvVendas.ClearSelection()));
 
+                        dgvVendas.Invoke((Action)(() => i = dgvVendas.Rows.Count));
+                    }
+                    catch
+                    {
 
-                    dgvVendas.Invoke((Action)(() => dgvVendas.DataSource = ds));
-                    dgvVendas.Invoke((Action)(() => dgvVendas.ClearSelection()));
+                    }
 
-                    dgvVendas.Invoke((Action)(() => i = dgvVendas.Rows.Count));
+                  
                 }
                 MySqlDataReader leitor = cmd.ExecuteReader();
                 if (leitor.HasRows)
@@ -265,7 +294,7 @@ namespace SistemaPDV___Lanchonete
                     conn.Close();
                     try
                     {
-                        if (Convert.ToDateTime(dataAtual.ToString("yyyy-mm-dd")) < Convert.ToDateTime(theDate.ToString("yyyy-mm-dd")))
+                        if (dataAtual < theDate)
                         {
                             sql = "truncate NumeroVenda";
                             conn.Open();
@@ -274,6 +303,14 @@ namespace SistemaPDV___Lanchonete
 
 
                             cmd2.ExecuteNonQuery();
+
+                            sql = $"update Carrinho set id_venda=' ' where data<'{theDate}'";
+                            conn.Open();
+
+                            MySqlCommand cmd3 = new MySqlCommand(sql, conn);
+
+
+                            cmd3.ExecuteNonQuery();
 
                         }
                     }
@@ -331,7 +368,7 @@ namespace SistemaPDV___Lanchonete
                    "venda.pedidoAceito as \"Status Pedido\" " +
                    "from Venda as venda " +
                    "inner join Cliente as cliente " +
-                   $"on venda.id_cliente = cliente.id where venda.pedidoAceito=1 and venda.data = '{theDate.ToString("yyyy-MM-dd")}' order by venda.numero_venda_site desc";
+                   $"on venda.id_cliente = cliente.id where venda.pedidoAceito=1 and venda.data = '{theDate}' order by venda.numero_venda_site desc";
 
                 MySqlCommand cmd = new MySqlCommand(sql, conn);
                 MySqlDataAdapter da = new MySqlDataAdapter(cmd);

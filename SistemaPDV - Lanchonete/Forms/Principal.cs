@@ -106,9 +106,11 @@ namespace SistemaPDV___Lanchonete
         
         private void Monitoramento_DoWork(object sender, DoWorkEventArgs e)
         {
-            Monitor monitor = new Monitor();
-            monitor.WindowState = FormWindowState.Maximized;
-            monitor.ShowDialog();
+
+            Confirmacao confirmacao = new Confirmacao();
+
+            confirmacao.WindowState = FormWindowState.Maximized;
+            confirmacao.ShowDialog();
         }
 
         private void portaSerialToolStripMenuItem_Click(object sender, EventArgs e)
